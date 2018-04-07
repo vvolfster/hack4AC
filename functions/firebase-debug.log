@@ -1,0 +1,33 @@
+[debug] [2018-04-07T02:24:40.500Z] ----------------------------------------------------------------------
+[debug] [2018-04-07T02:24:40.500Z] Command:       C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\firebase-tools\bin\firebase functions:shell
+[debug] [2018-04-07T02:24:40.500Z] CLI Version:   3.18.2
+[debug] [2018-04-07T02:24:40.500Z] Platform:      win32
+[debug] [2018-04-07T02:24:40.500Z] Node Version:  v8.9.0
+[debug] [2018-04-07T02:24:40.500Z] Time:          Fri Apr 06 2018 19:24:40 GMT-0700 (Pacific Daylight Time)
+[debug] [2018-04-07T02:24:40.500Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-04-07T02:24:40.508Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-04-07T02:24:40.512Z] > authorizing via signed-in user
+[debug] [2018-04-07T02:24:40.512Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/warmingn-5dbc7  
+  
+ Fri Apr 06 2018 19:24:40 GMT-0700 (Pacific Daylight Time)
+[debug] [2018-04-07T02:24:41.039Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-07T02:24:41.039Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/warmingn-5dbc7/tokens  
+  
+ Fri Apr 06 2018 19:24:41 GMT-0700 (Pacific Daylight Time)
+[debug] [2018-04-07T02:24:41.469Z] <<< HTTP RESPONSE 200
+[info] i  functions: Preparing to emulate functions.
+[debug] [2018-04-07T02:24:42.054Z] Fetching environment
+[debug] [2018-04-07T02:24:42.058Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/warmingn-5dbc7  
+  
+ Fri Apr 06 2018 19:24:42 GMT-0700 (Pacific Daylight Time)
+[debug] [2018-04-07T02:24:42.531Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-07T02:24:42.535Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/435300133523:getServerAppConfig  
+  
+ Fri Apr 06 2018 19:24:42 GMT-0700 (Pacific Daylight Time)
+[debug] [2018-04-07T02:24:43.032Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-07T02:24:43.032Z] Starting @google-cloud/functions-emulator
+[debug] [2018-04-07T02:24:44.747Z] Parsing function triggers
+[debug] [2018-04-07T02:24:45.136Z] Deploying functions locally
+[info] +  functions: fooBar
+[info] +  functions: helloWorld

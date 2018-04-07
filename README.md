@@ -27,3 +27,7 @@ https://marketplace.visualstudio.com/items?itemName=mubaidr.vuejs-extension-pack
 
 To run:
 quasar dev
+
+To test firebase functions:
+cd functions
+npm run shell
