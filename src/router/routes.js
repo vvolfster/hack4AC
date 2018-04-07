@@ -1,15 +1,15 @@
-
+/* eslint-disable */
 export default [
   {
     path: '/',
-    component: () => import('layouts/default'),
+    component: () => System.import('layouts/default'),
     children: [
-      { path: '', component: () => import('pages/index') },
+      { path: '', component: () => System.import('pages/index') },
     ],
   },
 
   { // Always leave this as last one
     path: '*',
-    component: () => import('pages/404'),
+    component: () => System.import('pages/404'),
   },
 ];
