@@ -19,3 +19,6 @@ yarn-error.log*
 *.sln
 
 functions/cloud-functions-emulator.log
+
+# misc
+YVES-NOTES.md

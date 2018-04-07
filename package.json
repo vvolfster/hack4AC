@@ -8,7 +8,10 @@
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.vue src",
-    "test": "echo \"No test specified\" && exit 0"
+    "functions:test": "cd functions && npm run shell",
+    "functions:deploy": "firebase deploy --only functions",
+    "start": "quasar dev",
+    "deploy": "quasar build && firebase deploy --only hosting"
   },
   "dependencies": {
     "axios": "^0.18.0",

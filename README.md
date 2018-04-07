@@ -18,26 +18,29 @@ npm install -g firebase-tools
 git clone https://github.com/vvolfster/hack4AC.git  
 npm install
 
-
-
-
 If you are using VSCODE (Recommended)  
 https://marketplace.visualstudio.com/items?itemName=mubaidr.vuejs-extension-pack  
 
 
-To run:
-quasar dev
 
-To test firebase functions:
-cd functions
-npm run shell
+* To run:
+`quasar dev`
+or `npm start`
 
-To deploy functions
-firebase deploy --only functions
+* To test firebase functions:
+`cd functions`
+`npm run shell`
+or `npm test`
 
-To deploy hosting
-quasar build
-firebase deploy --only hosting
+* To deploy functions:
+`firebase deploy --only functions`
+or `npm run deploy`
+
+* To deploy hosting:
+`quasar build`
+`firebase deploy --only hosting`
+or `npm run deploy:hosting`
+
 
 ### shrimp-vue-components
 We are using an open source repo I have created to speed us up. 
