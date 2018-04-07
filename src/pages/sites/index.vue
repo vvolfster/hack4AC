@@ -1,7 +1,7 @@
 <template>
   <!-- main dashboard -->
   <q-page class="flex flex-center">
-
+    sites dashboard here
   </q-page>
 </template>
 
