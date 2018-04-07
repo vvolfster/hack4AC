@@ -1,7 +1,6 @@
 <template>
-  <!-- home -->
   <q-page class="flex flex-center">
-
+      in transit
   </q-page>
 </template>
 
