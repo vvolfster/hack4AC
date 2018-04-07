@@ -1,66 +1,106 @@
 <template>
-  <q-page class='flex flex-center'>
-    <q-table
-        title='Supply Dashboard'
-        :columns="columns"
-        :data="tableData"
-        :selection="selection"
-    />
+  <q-page class='flex'>
+        <div v-if="!computedData">
+            Still loading
+        </div>
+        <q-table
+            v-else
+            class="supplytable"
+            title='Supply Dashboard'
+            row-key='name'
+            :columns="computedData.columns"
+            :data="computedData.tableData"
+            :selection="computedData.selection"
+            :selected.sync="selected"
+        >
+            <template slot="top-selection" slot-scope="props">
+                <q-btn color="secondary" flat label="Fulfill" />
+                <div class="col" />
+                <q-btn color="negative" flat round delete icon="delete" @click="deleteRow" />
+            </template>
+        </q-table>
 
   </q-page>
 </template>
 
-<style>
+<style scoped>
+.supplytable {
+    width: 100%
+}
 </style>
 
 <script>
 export default {
-    name: 'SupplyDetail',
-    data: () => ({
-        columns: [
-            {
-                name: 'name',
-                required: true,
-                label: 'Item',
-                align: 'left',
-                field: 'name',
-                sortable: true
-            },
-            {
-                name: 'qty',
-                required: true,
-                label: 'Quantity',
-                align: 'left',
-                field: 'qty',
-                sortable: true
-            },
-            {
-                name: 'fulfilled',
-                required: true,
-                label: 'Fulfilled?',
-                align: 'left',
-                field: 'fulfilled',
-                sortable: true
+    name: 'SupplyDashboard',
+    props: [""], // TODO siteID should go here
+    data() {
+        const siteId = "a"
+        return {
+            siteId,
+            zsubscriptions: [`org/egan/site/${siteId}`],
+            selected: [
+
+            ]
+        }
+    },
+    computed: {
+        computedData() {
+            if(!this.currentSite)
+                return null
+
+            return {
+                siteId: this.siteId,
+                columns: [
+                    {
+                        name: 'name',
+                        required: true,
+                        label: 'Item',
+                        align: 'left',
+                        field: 'name',
+                        sortable: true
+                    },
+                    {
+                        name: 'qty',
+                        required: true,
+                        label: 'Quantity',
+                        align: 'left',
+                        field: 'qty',
+                        sortable: true
+                    },
+                    {
+                        name: 'fulfilled',
+                        required: true,
+                        label: 'Fulfilled?',
+                        align: 'left',
+                        field: 'fulfilled',
+                        sortable: true
+                    }
+                ],
+                tableData: this.currentSite.suppliesNeeded,
+                selection: 'multiple'
             }
-        ],
-        tableData: [
-            {
-                name: 'toilet paper',
-                qty: 10,
-                fulfilled: true
-            },
-            {
-                name: 'garbage bags',
-                qty: 3,
-                fulfilled: false
+        },
+        currentSite() {
+            try {
+                return this.zsubData[`org/egan/site/${this.siteId}`];
+            } catch (e) {
+                return {};
             }
-        ],
-        selection: 'multiple',
-        selected: []
-    })
+        },
+        supplyList() {
+            // const supplyList = this.currentSite.suppliesNeeded
+            // const transformedList = {}
+            // TODO transfrom list to match the data your table expects'
+            // return transformedList
+            return {}
+        }
+    },
+    methods: {
+        getSupplyData() {
+        },
+        deleteRow() {
+            console.log("womp")
+        }
+    }
 };
 </script>
-/*        return {
-            zsubscriptions: ["org/egan"]    // subscribe to this path in the database. CHANGES ARE REALTIME.
-        }
-*/
