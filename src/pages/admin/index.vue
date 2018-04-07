@@ -5,8 +5,6 @@
                 <q-btn flat dense round @click="leftDrawerOpen = !leftDrawerOpen" aria-label="Menu">
                     <q-icon name="menu" />
                 </q-btn>
-
-
         <q-toolbar-title>
           Warm and Toasty Admin
           <div slot="subtitle"></div>

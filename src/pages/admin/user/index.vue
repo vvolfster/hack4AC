@@ -7,7 +7,7 @@
     :loading="loading"
     row-key="name"
     color="secondary"
-    :class="tableClass"
+    class="adminTable"
   >
     <q-tr slot="top-row" slot-scope="props">
       <q-td colspan="100%">
@@ -51,7 +51,10 @@
   </q-table>
 </template>
 
-<style>
+<style scoped>
+.adminTable{
+  width:100%
+}
 </style>
 
 <script>
@@ -59,7 +62,7 @@ const columns = /* array of Objects */ [
     // column Object definition
     {
     // unique id (used by row-key, pagination.sortBy, ...)
-        name: 'id',
+        name: 'email',
 
         // label for header
         label: 'Users',
@@ -69,7 +72,7 @@ const columns = /* array of Objects */ [
         // OR field: row => row.some.nested.prop
 
         // (optional) if we use visible-columns, this col will always be visible
-        required: true,
+        // required: true,
 
         // (optional) alignment
         align: 'left',
@@ -110,7 +113,7 @@ export default {
     },
 
     computed: {
-        sites() {
+        users() {
             try {
                 console.log("sub data", this.zsubData.user);
                 return this.zsubData.user;
@@ -121,7 +124,7 @@ export default {
         tableData(){
             try {
                 console.log("user table data", this.zsubData.user);
-                return this.zsubData.users;
+                return this.zsubData.user;
             } catch (e) {
                 return {};
             }
