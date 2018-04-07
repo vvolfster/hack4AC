@@ -1,4 +1,4 @@
-import * as M from "./mutationTypes"
+import { PathMapEntry, mutationTypes as M } from "./common"
 
 const mutations = {
     [M.PATHMAP_ADD_REQUESTER](state, { requester, path }){
@@ -12,6 +12,9 @@ const mutations = {
             mapEntry.requesters.splice(idx, 1);
     },
     [M.PATHMAP_ADD_ENTRY](state, entry) {
+        if(!(entry instanceof PathMapEntry))
+            throw new Error("Tried to add non PathMapEntry object to pathMap")
+
         const { pathMap } = state
         pathMap[entry.path] = entry
     },
