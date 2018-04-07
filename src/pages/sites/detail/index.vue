@@ -4,11 +4,17 @@
         suppliesNeeded
         incidents
         userCard
+        <countCmp></countCmp>
   </q-page>
 </template>
 
 <script>
+import countCmp from "components/count"
+
 export default {
+    components: {
+        countCmp
+    },
     name: 'PageIndex',
 };
 </script>
