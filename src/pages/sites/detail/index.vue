@@ -7,6 +7,7 @@
         <pre>
           {{ site }}
         </pre>
+        yoyo
   </q-page>
 </template>
 
