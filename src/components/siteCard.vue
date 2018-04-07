@@ -6,8 +6,10 @@
         <q-item-main :label="site.title">
             <div>
                 <q-progress :percentage="getPercent(site)"
-                      style="height: 4px" />
-                {{moment(site.guest.lastUpdated).fromNow()}}
+                      style="height: 15px" />
+                      {{moment(site.guest.lastUpdated).fromNow()}}
+                      <q-item-tile v-if="countNeedsUpdated" icon="alarm"
+                       color="red" />
             </div>
 
         </q-item-main>
@@ -23,6 +25,8 @@
 </template>
 
 <script>
+// import moment from "moment"
+
 export default {
     name: "",
     components: {},
@@ -32,7 +36,11 @@ export default {
         };
     },
     computed: {
-
+        countNeedsUpdated(){
+            const now = +new Date()
+            const thirtyMinutes = 30 * 60 * 1000
+            return this.site.guest.lastUpdated + thirtyMinutes < now
+        }
     },
     created() {},
     mounted() {
@@ -47,7 +55,8 @@ export default {
     },
     methods: {
         getPercent(site){
-            return (site.guest.current / site.guest.max) * 100
+            const x = site.guest.current / site.guest.max
+            return x * 100
         },
     }
 }
