@@ -30,12 +30,14 @@ module.exports = (ctx) => {
             // extractCSS: false,
             // useNotifier: false,
             extendWebpack(cfg) {
+                console.log("CONFIG", cfg);
                 cfg.module.rules.push({
                     enforce: 'pre',
                     test: /\.(js|vue)$/,
                     loader: 'eslint-loader',
                     exclude: /(node_modules|quasar)/
                 })
+                cfg.resolve.alias.vue$ = 'vue/dist/vue.esm.js'
             }
         },
         devServer: {

@@ -38,3 +38,9 @@ firebase deploy --only functions
 To deploy hosting
 quasar build
 firebase deploy --only hosting
+
+### shrimp-vue-components
+We are using an open source repo I have created to speed us up. 
+It has decent docs about all its components & it has some powerful features.
+
+https://github.com/vvolfster/shrimpVueComponents
