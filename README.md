@@ -2,7 +2,8 @@
 
 requires Node 8.9.0  
 
-If you have nvm,
+It is recommended that you use nvm. If you don't have it already get it from here: https://github.com/coreybutler/nvm-windows/releases
+* Make sure you delete your C:\Users\<user>\AppData\Roaming\npm folder!! Nvm does not function properly if you have that. winKey + R. %appData% to get to that folder quickly.
 
 nvm install 8.9.0
 nvm use 8.9.0
@@ -51,3 +52,42 @@ https://github.com/vvolfster/shrimpVueComponents
 ### How do i login / logout?
 Press f7 to bring up login!
 We can allow google auth or disable it!
+
+
+#### WAAH i wanna read data from the db
+I've written a magical plugin. It gives each component an innate zsubData property innately.
+
+If you add zsubscriptions to your data, it will magically populate the zsubData property with the respective data entries in your zsubscriptions array.
+```
+<template>
+    <pre>
+        {{ JSON.stringify(zsubData, null, 2) }}
+    </pre>
+</template>
+
+<script>
+export default {
+    name: 'PageIndex',
+    data() {
+        return {
+            zsubscriptions: ["org/egan"]    // subscribe to this path in the database. CHANGES ARE REALTIME.
+        }
+    }
+}
+</script>
+```
+
+
+#### I Wanna see the whole db / make changes to it ####
+You can either:
+```
+Run the app, navigate to /fbadmin. 
+```
+
+or
+
+```
+Ask me(wolf) to add you to the firebase console
+Go to the firebase console
+```
+

@@ -1,15 +1,20 @@
 import moment from 'moment';
 import lodash from 'lodash';
 import { AddressbarColor } from "quasar";
+import genericListenerPlugin from './genericListenerPlugin';
 
 // leave the export, even if you don't use it
 // export default ({ app, router, Vue }) => {
-export default ({ Vue }) => {
+export default ({ Vue, store }) => {
     // const { data, beforeCreate, created, methods } = init;
     AddressbarColor.set('#a2e3fa');
     Vue.prototype.moment = moment;
     Vue.prototype.lodash = lodash;
     Vue.config.productionTip = false;
+    Vue.use(genericListenerPlugin, {
+        sub: (requester, subs) => store.dispatch("fbSubscriptions/subscribe", { requester, subs }),
+        unsub: (requester) => store.dispatch("fbSubscriptions/unsubscribe", { requester })
+    })
 
     // router.beforeEach((to, from, next) => {
     //     const firebaseX = fbAppAuth;

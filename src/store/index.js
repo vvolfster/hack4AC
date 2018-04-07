@@ -1,7 +1,8 @@
+/* eslint-disable global-require */
 import Vue from "vue";
 import Vuex from "vuex";
-import example from "./module-example";
 import svc from "shrimp-vue-components";
+
 
 Vue.use(svc, {
     cms: {
@@ -24,9 +25,8 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
     modules: {
-        example
+        fbSubscriptions: require("./fbSubscriptions").default
     }
 });
 
-console.log("Initializing store", Vue.fbApps)
 export default store;

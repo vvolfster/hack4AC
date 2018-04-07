@@ -2,7 +2,7 @@
   <q-page class="flex">
     <q-list highlight>
       <q-list-header>Sites</q-list-header>
-        <site-card v-for="(s, key) in sites" :site="s" :key="key" v-on:siteClicked="clickSite"></site-card>
+        <site-card-supply v-for="(s, key) in sites" :site="s" :key="key" v-on:siteClicked="clickSite"></site-card-supply>
     </q-list>
   </q-page>
 </template>
@@ -14,12 +14,12 @@
 <script>
 // import lodash from "lodash";
 // import moment from "moment";
-import siteCard from "../../components/siteCard"
+import siteCardSupply from "../../components/siteCardSupply"
 
 export default {
     name: "dispatch",
     components: {
-        siteCard
+        siteCardSupply
     },
     props: [""],
     data() {
