@@ -2,10 +2,12 @@
   <q-page class="flex">
     <q-list highlight>
       <q-list-header>Sites</q-list-header>
-      <site-card v-for="(s, key) in sites"
-                 :site="s"
-                 :key="key"
-                 @siteClicked="clickSite" />
+      <div v-for="(s, key) in sites"
+           :key="key">
+        <site-card :site="s"
+                   @siteClicked="clickSite" />
+      </div>
+
     </q-list>
   </q-page>
 </template>

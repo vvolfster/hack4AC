@@ -6,13 +6,11 @@
         <q-item-tile v-if="isAccessible"
                      icon="accessible"
                      color="green" />
-        <q-item-tile v-if="isPetFriendly"
-                     icon="fas fa-paw"
-                     color="green" />
       </q-item-side>
       <q-item-main :label="site.title">
         <div class="column">
-          <div class="row">
+          <div class="row col-12">
+            <!-- PEOPLE BAR -->
             <q-item-tile v-if="isChildFriendly"
                          class="col-3"
                          icon="fas fa-child"
@@ -22,19 +20,30 @@
                          icon="fas fa-male"
                          color="green" />
             <q-progress class="col-6"
-                        :percentage="getPercent(site)"
+                        :percentage="getPercentPeople(site)"
                         style="height: 15px" /> {{ moment(site.guest.lastUpdated).fromNow() }}
             <div class="col-3">{{ site.guest.current }}/{{ site.guest.max }}</div>
             <q-item-tile v-if="countNeedsUpdated"
                          icon="alarm"
                          color="red" />
           </div>
+          <!-- pets bar -->
+          <div v-if="isPetFriendly"
+               class="row col-12">
+            <q-item-tile v-if="isPetFriendly"
+                         class="col-3"
+                         icon="fas fa-paw"
+                         color="green" />
+            <q-progress class="col-6"
+                        :percentage="getPercentPets(site)"
+                        style="height: 15px" /> {{ moment(site.pets.lastUpdated).fromNow() }}
+            <div class="col-3">{{ site.guest.current }}/{{ site.guest.max }}</div>
+          </div>
         </div>
 
       </q-item-main>
       <q-item-side right>
-        <q-item-tile icon="directions car"
-                     color="green" /> {{ site.suppliesNeeded.length }}
+
       </q-item-side>
       <q-item-separator />
     </q-item>
@@ -82,8 +91,12 @@ export default {
     // });
     },
     methods: {
-        getPercent(site) {
+        getPercentPeople(site) {
             const x = site.guest.current / site.guest.max;
+            return x * 100;
+        },
+        getPercentPets(site) {
+            const x = site.pets.current / site.pets.max;
             return x * 100;
         },
         clickEmit() {
