@@ -1,6 +1,6 @@
 <template>
   <div>
-      <q-item>
+      <q-item @click.native="clickEmit(site)">
         <q-item-side>
         </q-item-side>
         <q-item-main :label="site.title">
