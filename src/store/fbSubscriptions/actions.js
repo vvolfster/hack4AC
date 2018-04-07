@@ -1,6 +1,5 @@
 import { PathMapEntry, mutationTypes as M } from "./common"
-
-// const common = require("./common").default.mutationTypes
+import Vue from "vue"
 
 function subToPath({ state, commit, dispatch, requester, path }) {
     const { pathMap, data } = state;
@@ -23,6 +22,11 @@ function subToPath({ state, commit, dispatch, requester, path }) {
 
 const actions = {
     subscribe({ state, commit, dispatch }, { requester, subs }) {
+        if(!(requester instanceof Vue)){
+            throw new Error(`Tried to subscribe with non Vue object! ${requester} ${JSON.stringify(requester, null, 2)}`)
+        }
+
+        // console.log(Object.getPrototypeOf(requester))
         subs.forEach(path => subToPath({ state, commit, dispatch, requester, path }))
     },
     unsubscribe({ state, commit }, { requester }) {
@@ -30,6 +34,7 @@ const actions = {
         const { instanceMap, pathMap } = state
         const instanceMapEntry = instanceMap[requester];
         if(!instanceMapEntry){
+            console.warn(`Tried to unsubscribe with a requester that wasn't subscribed!`)
             return;
         }
 
