@@ -83,7 +83,11 @@ module.exports = (ctx) => {
                 'QTabPane',
                 'QRouteTab',
                 'QCollapsible',
-                'QChatMessage'
+                'QChatMessage',
+                'QProgress',
+                'QBreadcrumbs',
+                'QBreadcrumbsEl',
+                'QItemSeparator',
             ],
             directives: [
                 'Ripple'
