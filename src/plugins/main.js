@@ -1,6 +1,6 @@
-import moment from 'moment';
-import lodash from 'lodash';
-import Vuelidate from 'vuelidate'
+import moment from "moment";
+import lodash from "lodash";
+import Vuelidate from "vuelidate";
 import { AddressbarColor } from "quasar";
 import genericListenerPlugin from './genericListenerPlugin';
 import { base } from "../storeWriter"
@@ -9,18 +9,21 @@ import { base } from "../storeWriter"
 // export default ({ app, router, Vue }) => {
 export default ({ Vue, store }) => {
     // const { data, beforeCreate, created, methods } = init;
-    AddressbarColor.set('#a2e3fa');
+    AddressbarColor.set("#a2e3fa");
     Vue.prototype.moment = moment;
     Vue.prototype.lodash = lodash;
     Vue.config.productionTip = false;
-    Vue.use(
-        Vuelidate,
-        genericListenerPlugin, {
-            sub: (requester, subs) => store.dispatch("fbSubscriptions/subscribe", { requester, subs }),
-            unsub: (requester) => store.dispatch("fbSubscriptions/unsubscribe", { requester })
-        }
-    )
-    base.store = store
+    Vue.use(Vuelidate);
+    Vue.use(genericListenerPlugin, {
+        sub: (requester, subs) => store.dispatch("fbSubscriptions/subscribe", { requester, subs }),
+        unsub: requester => store.dispatch("fbSubscriptions/unsubscribe", { requester })
+    });
+    base.store = store;
+    window.addEventListener(Vue.fbAuthenticationEventName, store.dispatch("user/setCurrentUserFromAuth"))
+
+
+    // for easy debugging
+    window.Vue = Vue;
 
     // router.beforeEach((to, from, next) => {
     //     const firebaseX = fbAppAuth;
@@ -41,4 +44,4 @@ export default ({ Vue, store }) => {
     // app.data = data
     // app.methods = methods
     // app.created = created
-}
+};

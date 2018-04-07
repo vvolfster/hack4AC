@@ -96,7 +96,8 @@ module.exports = (ctx) => {
             plugins: [
                 'Notify',
                 'Loading'
-            ]
+            ],
+            iconSet: 'fontawesome',
         },
         // animations: 'all' --- includes all animations
         animations: [

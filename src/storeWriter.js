@@ -14,6 +14,12 @@ const writer = {
             })
         }
     },
+    userAdmin: {
+        name: "user",
+        inviteUser(email) {
+            return writer.base.store.dispatch(`${this.name}/inviteUser`, email)
+        },
+    },
     site: {
 
     }

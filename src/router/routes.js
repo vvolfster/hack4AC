@@ -47,14 +47,9 @@ export default [
             ]
         },
         {
+            // TODO for Jason: nest the supply detail under this path 
             path: "supplies",
-            component: load("supplies"),
-            children: [
-                {
-                    path: "detail", 
-                    component: load("supplies/supplydetail")
-                }
-            ]
+            component: load("supplies")
         },
         {
             path: "supplydetail", 

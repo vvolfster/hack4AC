@@ -3,7 +3,6 @@ import Vue from "vue";
 import Vuex from "vuex";
 import svc from "shrimp-vue-components";
 
-window.addEventListener("fbAuthenticationInstalled", console.log)
 Vue.use(svc, {
     cms: {
         disable: true
