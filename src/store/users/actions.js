@@ -6,7 +6,7 @@ const actions = {
         commit(M.UPDATE_USER_DETAILS, { userId, details })
     },
     setCurrentUserFromAuth({ commit }){
-        commit(M.SET_CURRENT_USER, Vue.fbAuthenticatedUser)
+        commit(M.SET_CURRENT_USER, Vue.fbAuthenticationUser)
     },
     inviteUser({ commit }, email) {
         console.log("pls invite", email, typeof commit);

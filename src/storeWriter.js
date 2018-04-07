@@ -6,7 +6,7 @@ const writer = {
         store: null // dont touch . intantiated from main.js plugin
     },
     user: {
-        name: "user",
+        name: "users",
         updateDetails(userId, { firstName, lastName, phone }){
             return writer.base.store.dispatch(`${this.name}/updateUserDetails`, {
                 userId,
@@ -15,7 +15,7 @@ const writer = {
         }
     },
     userAdmin: {
-        name: "user",
+        name: "users",
         inviteUser(email) {
             return writer.base.store.dispatch(`${this.name}/inviteUser`, email)
         },

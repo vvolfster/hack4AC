@@ -52,8 +52,7 @@ export default [
             component: load("supplies")
         },
         {
-            // TODO add URL params to path -> /:id
-            path: "supplydetail", 
+            path: "supplydetail/:siteID", 
             component: load("supplies/supplydetail")
         },
         {
