@@ -5,9 +5,11 @@
             <!-- ICONS showing pet friendly etc -->
              <q-item-tile v-if="isAccessible" icon="accessible"
                        color="green" />
-            <q-item-tile v-if="isChildFriendly" icon="child friendly"
+            <q-item-tile v-if="isChildFriendly" icon="fas fa-child"
                        color="green" />
-                       <q-item-tile v-if="isAccessible" icon="fas fa-paw"
+            <q-item-tile v-if="isAdultFriendly" icon="fas fa-male"
+                       color="green" />
+            <q-item-tile v-if="isPetFriendly" icon="fas fa-paw"
                        color="green" />
         </q-item-side>
         <q-item-main :label="site.title">
