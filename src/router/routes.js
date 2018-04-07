@@ -64,9 +64,8 @@ export default [
             component: load('sites'),
         },
         {
-            path: "detail",
+            path: "detail/:siteId",
             component: load("sites/detail"),
-            // props: ["id"]
         },
         {
             path: 'welcomeUser',
