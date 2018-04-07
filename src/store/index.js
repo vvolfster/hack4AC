@@ -33,5 +33,4 @@ const store = new Vuex.Store({
     }
 });
 
-console.log("Initializing store", Vue.fbApps)
 export default store;
