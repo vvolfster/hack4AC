@@ -63,6 +63,10 @@ export default [
             path: "dispatch",
             component: load("dispatch")
         },
+        {
+            path: "driver",
+            component: load("driver")
+        },
         { 
             path: 'sites', 
             component: load('sites'),

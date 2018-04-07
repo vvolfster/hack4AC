@@ -1,32 +1,38 @@
 <template>
     <q-layout view="lHh Lpr lFf">
         <q-layout-header>
-            <q-toolbar color="primary" :glossy="$q.theme === 'mat'" :inverted="$q.theme === 'ios'">
-                    <q-btn flat dense round @click="leftDrawerOpen = !leftDrawerOpen" aria-label="Menu">
-                        <q-icon name="menu" />
-                    </q-btn>
-            <q-toolbar-title>
-             Warm and Toasty Admin
-            <div slot="subtitle"></div>
-            </q-toolbar-title>
-        </q-toolbar>
-        <q-tabs>
-            <q-route-tab slot="title"
-                        icon="fas fa-user"
-                        to="/admin/user"
-                        replace
-                        label="Users" />
-            <q-route-tab slot="title"
-                        icon="fas fa-hospital"
-                        to="/admin/site"
-                        replace
-                        label="Sites" />
-            <q-route-tab slot="title"
-                        icon="view_day"
-                        to="/admin/report"
-                        replace
-                        label="Reports" />
-        </q-tabs>
+            <q-toolbar color="primary"
+                       :glossy="$q.theme === 'mat'"
+                       :inverted="$q.theme === 'ios'">
+                <q-btn flat
+                       dense
+                       round
+                       @click="leftDrawerOpen = !leftDrawerOpen"
+                       aria-label="Menu">
+                    <q-icon name="menu" />
+                </q-btn>
+                <q-toolbar-title>
+                    Warm and Toasty Admin
+                    <div slot="subtitle"></div>
+                </q-toolbar-title>
+            </q-toolbar>
+            <q-tabs>
+                <q-route-tab slot="title"
+                             icon="fas fa-user"
+                             to="/admin/user"
+                             replace
+                             label="Users" />
+                <q-route-tab slot="title"
+                             icon="fas fa-hospital"
+                             to="/admin/site"
+                             replace
+                             label="Sites" />
+                <q-route-tab slot="title"
+                             icon="view_day"
+                             to="/admin/report"
+                             replace
+                             label="Reports" />
+            </q-tabs>
         </q-layout-header>
 
         <div v-if="!isAdmin">
@@ -62,11 +68,10 @@
                     </q-item>
                 </q-list>
             </q-layout-drawer> -->
-
-            <q-page-container>
-                <router-view :org="orgData" />
-            </q-page-container>
         </div>
+        <q-page-container v-if="isAdmin">
+            <router-view :org="orgData" />
+        </q-page-container>
     </q-layout>
 </template>
 

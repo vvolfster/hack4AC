@@ -95,7 +95,8 @@ module.exports = (ctx) => {
                 'QToggle',
                 'QSelect',
                 'QFab',
-                'QFabAction'
+                'QFabAction',
+                'QModal'
             ],
             directives: [
                 'Ripple'
