@@ -4,7 +4,13 @@
 import lodash from "lodash"
 
 const getters = {
-    currentUser: state => state.currentUser.db,
+    currentUser(state) {
+        try {
+            return state.currentUser.dbUser
+        } catch(e) {
+            return null
+        }
+    },
     currentOrg(state) {
         try {
             const orgs = state.currentUser.dbUser.orgs
