@@ -9,7 +9,7 @@ const mutations = {
 
         pathEntry.requesters.push(requester)
     },
-    [M.PATHMAP_REMOVE_REQUSTER](state, { requester, path }){
+    [M.PATHMAP_REMOVE_REQUESTER](state, { requester, path }){
         const pathEntry = state.pathMap[path];
         if(!pathEntry) {
             console.warn(`Tried to remove requester from null path: ${path}`)

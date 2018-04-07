@@ -34,13 +34,13 @@ const actions = {
         const { instanceMap, pathMap } = state
         const instanceMapEntry = instanceMap[requester];
         if(!instanceMapEntry){
-            console.warn(`Tried to unsubscribe with a requester that wasn't subscribed!`)
+            // console.warn(`Tried to unsubscribe with a requester that wasn't subscribed!`)
             return;
         }
 
         // console.log("Unsub called on", instanceMapEntry)
         instanceMapEntry.forEach((path) => {
-            commit(M.PATHMAP_REMOVE_REQUSTER, { path, requester })
+            commit(M.PATHMAP_REMOVE_REQUESTER, { path, requester })
             const mapEntry = pathMap[path];
             if(!mapEntry.requesters.length){
                 commit(M.PATHMAP_REMOVE_ENTRY, { path })
