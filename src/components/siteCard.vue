@@ -1,35 +1,43 @@
 <template>
   <div>
-      <q-item @click.native="clickEmit(site)">
-        <q-item-side>
-            <!-- ICONS showing pet friendly etc -->
-             <q-item-tile v-if="isAccessible" icon="accessible"
-                       color="green" />
-            <q-item-tile v-if="isChildFriendly" icon="fas fa-child"
-                       color="green" />
-            <q-item-tile v-if="isAdultFriendly" icon="fas fa-male"
-                       color="green" />
-            <q-item-tile v-if="isPetFriendly" icon="fas fa-paw"
-                       color="green" />
-        </q-item-side>
-        <q-item-main :label="site.title">
-            <div>
-                <q-progress :percentage="getPercent(site)"
-                      style="height: 15px" />
-                      {{moment(site.guest.lastUpdated).fromNow()}}
-                      <q-item-tile v-if="countNeedsUpdated" icon="alarm"
-                       color="red" />
-            </div>
+    <q-item @click.native="clickEmit(site)">
+      <q-item-side>
+        <!-- ICONS showing pet friendly etc -->
+        <q-item-tile v-if="isAccessible"
+                     icon="accessible"
+                     color="green" />
+        <q-item-tile v-if="isPetFriendly"
+                     icon="fas fa-paw"
+                     color="green" />
+      </q-item-side>
+      <q-item-main :label="site.title">
+        <div class="column">
+          <div class="row">
+            <q-item-tile v-if="isChildFriendly"
+                         class="col-3"
+                         icon="fas fa-child"
+                         color="green" />
+            <q-item-tile class="col-3"
+                         v-if="isAdultFriendly"
+                         icon="fas fa-male"
+                         color="green" />
+            <q-progress class="col-6"
+                        :percentage="getPercent(site)"
+                        style="height: 15px" /> {{ moment(site.guest.lastUpdated).fromNow() }}
+            <div class="col-3">{{ site.guest.current }}/{{ site.guest.max }}</div>
+            <q-item-tile v-if="countNeedsUpdated"
+                         icon="alarm"
+                         color="red" />
+          </div>
+        </div>
 
-        </q-item-main>
-        <q-item-side right>
-          <q-item-tile icon="person"
-                       color="green" /> {{site.guest.current}}/{{site.guest.max}}
-          <q-item-tile icon="directions car"
-                       color="green" /> {{site.suppliesNeeded.length}}
-        </q-item-side>
-        <q-item-separator />
-      </q-item>
+      </q-item-main>
+      <q-item-side right>
+        <q-item-tile icon="directions car"
+                     color="green" /> {{ site.suppliesNeeded.length }}
+      </q-item-side>
+      <q-item-separator />
+    </q-item>
   </div>
 </template>
 
@@ -41,31 +49,30 @@ export default {
     components: {},
     props: ["site"],
     data() {
-        return {
-        };
+        return {};
     },
     computed: {
-        countNeedsUpdated(){
-            const now = +new Date()
-            const thirtyMinutes = 30 * 60 * 1000
-            return this.site.guest.lastUpdated + thirtyMinutes < now
+        countNeedsUpdated() {
+            const now = +new Date();
+            const thirtyMinutes = 30 * 60 * 1000;
+            return this.site.guest.lastUpdated + thirtyMinutes < now;
         },
-        isAccessible(){
-            return this.site.supports.ADA
+        isAccessible() {
+            return this.site.supports.ADA;
         },
-        isPetFriendly(){
-            return this.site.supports.pets
+        isPetFriendly() {
+            return this.site.supports.pets;
         },
-        isAdultFriendly(){
-            return this.site.supports.ageGroup === "adult"
+        isAdultFriendly() {
+            return this.site.supports.ageGroup === "adult";
         },
-        isChildFriendly(){
-            return this.site.supports.ageGroup === "child"
+        isChildFriendly() {
+            return this.site.supports.ageGroup === "child";
         }
     },
     created() {},
     mounted() {
-        console.log("site", this.site)
+        console.log("site", this.site);
     // const self = this;
     // this.$nextTick(() => {
     //     try {
@@ -75,17 +82,17 @@ export default {
     // });
     },
     methods: {
-        getPercent(site){
-            const x = site.guest.current / site.guest.max
-            return x * 100
+        getPercent(site) {
+            const x = site.guest.current / site.guest.max;
+            return x * 100;
         },
-        clickEmit(){
-            this.$emit('siteClicked', this.site)
+        clickEmit() {
+            this.$emit("siteClicked", this.site);
         }
     }
-}
+};
 </script>
 
 <style scoped>
-    /* css for this here */
+/* css for this here */
 </style>
