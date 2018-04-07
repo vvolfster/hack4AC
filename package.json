@@ -18,7 +18,8 @@
     "lodash": "^4.17.5",
     "moment": "^2.22.0",
     "quasar-framework": "^0.15.10",
-    "shrimp-vue-components": "^1.2.46"
+    "shrimp-vue-components": "^1.2.46",
+    "vuelidate": "^0.6.2"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
