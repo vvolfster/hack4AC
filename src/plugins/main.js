@@ -3,6 +3,7 @@ import lodash from 'lodash';
 import Vuelidate from 'vuelidate'
 import { AddressbarColor } from "quasar";
 import genericListenerPlugin from './genericListenerPlugin';
+import { base } from "../storeWriter"
 
 // leave the export, even if you don't use it
 // export default ({ app, router, Vue }) => {
@@ -19,6 +20,7 @@ export default ({ Vue, store }) => {
             unsub: (requester) => store.dispatch("fbSubscriptions/unsubscribe", { requester })
         }
     )
+    base.store = store
 
     // router.beforeEach((to, from, next) => {
     //     const firebaseX = fbAppAuth;

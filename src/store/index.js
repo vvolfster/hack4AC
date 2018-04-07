@@ -3,7 +3,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import svc from "shrimp-vue-components";
 
-
+window.addEventListener("fbAuthenticationInstalled", console.log)
 Vue.use(svc, {
     cms: {
         disable: true
@@ -25,7 +25,9 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
     modules: {
-        fbSubscriptions: require("./fbSubscriptions").default
+        fbSubscriptions: require("./fbSubscriptions").default,
+        user: require('./user').default,
+        // site: require('./site').default
     }
 });
 
