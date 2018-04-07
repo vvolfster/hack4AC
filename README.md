@@ -2,7 +2,8 @@
 
 requires Node 8.9.0  
 
-If you have nvm,
+It is recommended that you use nvm. If you don't have it already get it from here: https://github.com/coreybutler/nvm-windows/releases
+* Make sure you delete your C:\Users\<user>\AppData\Roaming\npm folder!! Nvm does not function properly if you have that. winKey + R. %appData% to get to that folder quickly.
 
 nvm install 8.9.0
 nvm use 8.9.0

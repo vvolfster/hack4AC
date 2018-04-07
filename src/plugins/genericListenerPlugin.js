@@ -37,5 +37,6 @@ export default {
                 unsub(this)
             }
         })
+        // console.warn("installed listener plugin")
     }
 }
