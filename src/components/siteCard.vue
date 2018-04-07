@@ -2,6 +2,13 @@
   <div>
       <q-item @click.native="clickEmit(site)">
         <q-item-side>
+            <!-- ICONS showing pet friendly etc -->
+             <q-item-tile v-if="isAccessible" icon="accessible"
+                       color="green" />
+            <q-item-tile v-if="isChildFriendly" icon="child friendly"
+                       color="green" />
+                       <q-item-tile v-if="isAccessible" icon="fas fa-paw"
+                       color="green" />
         </q-item-side>
         <q-item-main :label="site.title">
             <div>
@@ -40,6 +47,18 @@ export default {
             const now = +new Date()
             const thirtyMinutes = 30 * 60 * 1000
             return this.site.guest.lastUpdated + thirtyMinutes < now
+        },
+        isAccessible(){
+            return this.site.supports.ADA
+        },
+        isPetFriendly(){
+            return this.site.supports.pets
+        },
+        isAdultFriendly(){
+            return this.site.supports.ageGroup === "adult"
+        },
+        isChildFriendly(){
+            return this.site.supports.ageGroup === "child"
         }
     },
     created() {},

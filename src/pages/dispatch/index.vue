@@ -30,6 +30,7 @@ export default {
     computed: {
         sites() {
             try{
+                console.log('sub data', this.zsubData['org/egan'])
                 return this.zsubData['org/egan'].site;
             }catch(e){
                 return {}
