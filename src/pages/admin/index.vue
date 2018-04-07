@@ -2,7 +2,6 @@
     <q-layout view="lHh Lpr lFf">
         <q-layout-header>
             <q-toolbar color="primary" :glossy="$q.theme === 'mat'" :inverted="$q.theme === 'ios'">
-
                     <q-btn flat dense round @click="leftDrawerOpen = !leftDrawerOpen" aria-label="Menu">
                         <q-icon name="menu" />
                     </q-btn>
@@ -34,7 +33,7 @@
             You are not the admin of your org!
         </div>
         <div v-else>
-            <q-layout-drawer v-model="leftDrawerOpen" :content-class="$q.theme === 'mat' ? 'bg-grey-2' : null">
+            <!-- <q-layout-drawer v-model="leftDrawerOpen" :content-class="$q.theme === 'mat' ? 'bg-grey-2' : null">
                 <q-list no-border link inset-delimiter>
                     <q-list-header>Temporary Nav, put your links here</q-list-header>
                     <q-item @click.native="openPage('/')">
@@ -62,10 +61,10 @@
                         <q-item-main label="Supply Dashboard" sublabel="" />
                     </q-item>
                 </q-list>
-            </q-layout-drawer>
+            </q-layout-drawer> -->
 
             <q-page-container>
-                <router-view />
+                <router-view :org="orgData" />
             </q-page-container>
         </div>
     </q-layout>
@@ -76,35 +75,36 @@
 </style>
 
 <script>
-import { openURL } from "quasar"
+import { openURL } from 'quasar';
 
 export default {
-    name: "admin",
+    name: 'admin',
     data() {
         return {
-            leftDrawerOpen: this.$q.platform.is.desktop
+            leftDrawerOpen: this.$q.platform.is.desktop,
         };
     },
     computed: {
         currentOrg() {
-            return this.$store.getters["user/currentOrg"]
+            return this.$store.getters['users/currentOrg'];
         },
         zsubscriptions() {
-            return this.currentOrg ? [`org/${this.currentOrg}`] : null
+            return this.currentOrg ? [`org/${this.currentOrg}`] : null;
+        },
+        orgData() {
+            if (!this.zsubData) return null;
+
+            return this.zsubData[`org/${this.currentOrg}`];
         },
         isAdmin() {
-            if(!this.zsubData)
-                return null;
-
-            const orgData = this.zsubData[`org/${this.currentOrg}`];
-            return !orgData ? false : !!orgData.adminUsers[this.authUserId]
-        }
+            return !this.orgData ? false : !!this.orgData.adminUsers[this.authUserId];
+        },
     },
     methods: {
         openURL,
         openPage(page) {
             this.$router.push(page);
-        }
-    }
+        },
+    },
 };
 </script>
