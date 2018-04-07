@@ -30,7 +30,7 @@ export default [
         },
         {
             path: "admin/",
-            component: load("admn"),
+            component: load("admin"),
             children: [
                 {
                     path: "site",
@@ -48,7 +48,17 @@ export default [
         },
         {
             path: "supplies",
-            component: load("supplies")
+            component: load("supplies"),
+            children: [
+                {
+                    path: "detail", 
+                    component: load("supplies/supplydetail")
+                }
+            ]
+        },
+        {
+            path: "supplydetail", 
+            component: load("supplies/supplydetail")
         },
         {
             path: "dispatch",

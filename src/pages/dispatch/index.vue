@@ -15,6 +15,7 @@
 <script>
 // import lodash from "lodash";
 // import moment from "moment";
+import siteCard from "../../components/siteCard"
 
 export default {
     name: "dispatch",
