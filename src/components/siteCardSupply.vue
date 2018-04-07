@@ -14,8 +14,10 @@
 
         </q-item-main>
         <q-item-side right>
+          <a :href=supplyDetailURL()>
           <q-item-tile icon="shopping cart"
                        color="green" /> {{site.suppliesNeeded.length}}
+          </a>
         </q-item-side>
         <q-item-separator />
       </q-item>
@@ -42,22 +44,18 @@ export default {
     },
     created() {},
     mounted() {
-        console.log("site", this.site)
-    // const self = this;
-    // this.$nextTick(() => {
-    //     try {
-    //     } catch (e) {
-    //         //
-    //     }
-    // });
+
     },
     methods: {
         getPercent(site){
             const x = site.guest.current / site.guest.max
             return x * 100
         },
-        clickEmit(){
+        clickEmit() {
             this.$emit('siteClicked', this.site)
+        },
+        supplyDetailURL() {
+            return `/supplydetail/${this.site.id}`
         }
     }
 }

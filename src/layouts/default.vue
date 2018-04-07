@@ -56,10 +56,6 @@
                     <q-item-side icon="home" />
                     <q-item-main label="admin" sublabel="" />
                 </q-item>
-                <q-item @click.native="openPage('/supplydetail')">
-                    <q-item-side icon="home" />
-                    <q-item-main label="Supply Dashboard" sublabel="" />
-                </q-item>
             </q-list>
         </q-layout-drawer>
 

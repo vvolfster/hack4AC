@@ -14,11 +14,21 @@
             :selected.sync="selected"
         >
             <template slot="top-selection" slot-scope="props">
+                <q-btn color="secondary" flat label="Add Item" />
                 <q-btn color="secondary" flat label="Fulfill" />
                 <div class="col" />
                 <q-btn color="negative" flat round delete icon="delete" @click="deleteRow" />
             </template>
         </q-table>
+
+        <q-page-sticky position="bottom-right" :offset="[18, 18]">
+            <q-btn
+            round
+            color="primary"
+            @click="method"
+            icon="add"
+        />
+        </q-page-sticky>
 
   </q-page>
 </template>
@@ -32,9 +42,10 @@
 <script>
 export default {
     name: 'SupplyDashboard',
-    props: [""], // TODO siteID should go here
+    props: [""], // TODO siteID should go here 
     data() {
-        const siteId = "a"
+        const siteId = this.$route.params.siteID
+        console.log(siteId)
         return {
             siteId,
             zsubscriptions: [`org/egan/site/${siteId}`],
@@ -88,17 +99,12 @@ export default {
             }
         },
         supplyList() {
-            // const supplyList = this.currentSite.suppliesNeeded
-            // const transformedList = {}
             // TODO transfrom list to match the data your table expects'
-            // return transformedList
             return {}
         }
     },
     methods: {
-        getSupplyData() {
-        },
-        deleteRow() {
+       deleteRow() {
             console.log("womp")
         }
     }
