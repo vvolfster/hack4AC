@@ -1,8 +1,10 @@
 <template>
-  <q-page class="flex flex-center">
+  <q-page class='flex flex-center'>
     <q-table
-        title="Supply Dashboard"
+        title='Supply Dashboard'
         :columns="columns"
+        :data="tableData"
+        :selection="selection"
     />
 
   </q-page>
@@ -40,7 +42,21 @@ export default {
                 field: 'fulfilled',
                 sortable: true
             }
-        ]
+        ],
+        tableData: [
+            {
+                name: 'toilet paper',
+                qty: 10,
+                fulfilled: true
+            },
+            {
+                name: 'garbage bags',
+                qty: 3,
+                fulfilled: false
+            }
+        ],
+        selection: 'multiple',
+        selected: []
     })
 };
 </script>
