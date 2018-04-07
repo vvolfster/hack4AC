@@ -4,6 +4,10 @@
             <phone-contact role="Site Lead" :contact=site.siteLead></phone-contact>
             <phone-contact role="Shift Lead" :contact=site.shiftLead></phone-contact>
         </div>
+        <div class="flex flex-center">
+            <supply :siteId=siteId></supply>
+        </div>
+
         <pre>
             option contains: suppliesNeeded incidents userCard
         </pre>
@@ -15,23 +19,25 @@
 
 <script>
 import phoneContact from "../../../components/phoneContact";
+import supply from "../../../components/siteDetail/supply";
 
 export default {
     name: "PageIndex",
     components: {
-        phoneContact
+        phoneContact,
+        supply,
     },
     props: [""],
     data() {
         return {
             zsubscriptions: ["org/egan"],
-            id: "a"
+            siteId: this.$route.params.siteId
         };
     },
     computed: {
         site() {
             try {
-                return this.zsubData["org/egan"].site[this.id];
+                return this.zsubData["org/egan"].site[this.siteId];
             } catch (e) {
                 return {};
             }
