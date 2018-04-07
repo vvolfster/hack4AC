@@ -25,16 +25,20 @@ If you are using VSCODE (Recommended)
 https://marketplace.visualstudio.com/items?itemName=mubaidr.vuejs-extension-pack  
 
 
-To run:
-quasar dev
+* To run:
+`quasar dev`
+or `npm start`
 
-To test firebase functions:
-cd functions
-npm run shell
+* To test firebase functions:
+`cd functions`
+`npm run shell`
+or `npm test`
 
-To deploy functions
-firebase deploy --only functions
+* To deploy functions:
+`firebase deploy --only functions`
+or `npm run deploy`
 
-To deploy hosting
-quasar build
-firebase deploy --only hosting
+* To deploy hosting:
+`quasar build`
+`firebase deploy --only hosting`
+or `npm run deploy:hosting`
