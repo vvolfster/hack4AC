@@ -47,3 +47,7 @@ We are using an open source repo I have created to speed us up.
 It has decent docs about all its components & it has some powerful features.
 
 https://github.com/vvolfster/shrimpVueComponents
+
+### How do i login / logout?
+Press f7 to bring up login!
+We can allow google auth or disable it!
