@@ -1,5 +1,5 @@
 <template>
-  <!-- home -->
+  <!-- main dashboard -->
   <q-page class="flex flex-center">
 
   </q-page>
