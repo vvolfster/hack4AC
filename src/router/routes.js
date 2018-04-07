@@ -47,17 +47,12 @@ export default [
             ]
         },
         {
+            // TODO for Jason: nest the supply detail under this path 
             path: "supplies",
-            component: load("supplies"),
-            children: [
-                {
-                    path: "detail", 
-                    component: load("supplies/supplydetail")
-                }
-            ]
+            component: load("supplies")
         },
         {
-            path: "supplydetail", 
+            path: "supplydetail/:siteID", 
             component: load("supplies/supplydetail")
         },
         {
@@ -69,9 +64,8 @@ export default [
             component: load('sites'),
         },
         {
-            path: "detail",
+            path: "detail/:siteId",
             component: load("sites/detail"),
-            // props: ["id"]
         },
         {
             path: 'welcomeUser',

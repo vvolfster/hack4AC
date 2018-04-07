@@ -33,6 +33,7 @@ export default {
     computed: {
         sites() {
             try {
+                console.log(this.zsubData["org/egan"].site)
                 return this.zsubData["org/egan"].site;
             } catch (e) {
                 return {};
@@ -41,19 +42,14 @@ export default {
     },
     created() {},
     mounted() {
-    // const self = this;
-    // this.$nextTick(() => {
-    //     try {
-    //     } catch (e) {
-    //         //
-    //     }
-    // });
     },
     methods: {
+        /*
         getPercent(site) {
             const x = site.guest.current / site.guest.max;
             return x * 100;
         },
+        */
         clickSite(site) {
             console.log("clicked site", site);
         }

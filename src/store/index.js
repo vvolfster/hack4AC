@@ -3,7 +3,6 @@ import Vue from "vue";
 import Vuex from "vuex";
 import svc from "shrimp-vue-components";
 
-
 Vue.use(svc, {
     cms: {
         disable: true
@@ -25,7 +24,9 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
     modules: {
-        fbSubscriptions: require("./fbSubscriptions").default
+        fbSubscriptions: require("./fbSubscriptions").default,
+        user: require('./users').default,
+        // site: require('./site').default
     }
 });
 

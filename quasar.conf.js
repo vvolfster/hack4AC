@@ -78,6 +78,10 @@ module.exports = (ctx) => {
                 'QCardMedia',
                 'QPageSticky',
                 'QTable',
+                'QTh',
+                'QTr',
+                'QTd',
+                'QTableColumns',
                 'QTab',
                 'QTabs',
                 'QTabPane',
@@ -88,6 +92,10 @@ module.exports = (ctx) => {
                 'QBreadcrumbs',
                 'QBreadcrumbsEl',
                 'QItemSeparator',
+                'QToggle',
+                'QSelect',
+                'QFab',
+                'QFabAction'
             ],
             directives: [
                 'Ripple'
