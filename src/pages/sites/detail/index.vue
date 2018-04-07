@@ -1,15 +1,32 @@
 <template>
   <q-page>
-        <div class="q-pa-lg">
+        <h3 class="text-center">{{ site.title }}</h3>
+
+        <div>
             <people-bar :site=site></people-bar>
             <pet-bar :site=site></pet-bar>
         </div>
+
         <div>
             <phone-contact role="Site Lead" :contact=site.siteLead></phone-contact>
             <phone-contact role="Shift Lead" :contact=site.shiftLead></phone-contact>
         </div>
+
+       <div class="flex flex-center">
+            <intake :siteId=siteId></intake>
+        </div>
+
         <div class="flex flex-center">
             <supply :siteId=siteId></supply>
+        </div>
+
+        <div class="flex flex-center">
+            <incident :siteId=siteId></incident>
+        </div>
+
+        <div class="flex flex-center">
+            <changeSiteLead :siteId=siteId></changeSiteLead>
+            <changeShiftLead :siteId=siteId></changeShiftLead>
         </div>
 
         <pre>
