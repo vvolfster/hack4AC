@@ -11,8 +11,9 @@
                       style="height: 4px" />
         </q-item-main>
         <q-item-side right>
-          <q-item-tile icon="person"
+                       <q-item-tile icon="shopping cart"
                        color="green" />
+                       {{s.suppliesNeeded.length}}
         </q-item-side>
       </q-item>
     </q-list>

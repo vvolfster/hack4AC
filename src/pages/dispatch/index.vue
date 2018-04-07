@@ -1,6 +1,25 @@
 <template>
   <q-page class="flex flex-center">
-    in transit
+    <q-list highlight>
+      <q-list-header>Sites</q-list-header>
+      <q-item @click.native="clickSite(s)"
+              v-for="(s, id) in site"
+              :key="id">
+        <q-item-side>
+        </q-item-side>
+        <q-item-main :label="s.title">
+          <q-progress :percentage="getPercent(s)"
+                      style="height: 4px" />
+        </q-item-main>
+        <q-item-side right>
+          <q-item-tile icon="person"
+                       color="green" /> {{s.guest.current}}/{{s.guest.max}}
+          <q-item-tile icon="directions car"
+                       color="green" /> {{s.suppliesNeeded.length}}
+        </q-item-side>
+        <q-item-separator />
+      </q-item>
+    </q-list>
   </q-page>
 </template>
 
@@ -21,10 +40,11 @@ export default {
             site: {
                 a: {
                     active: true,
+                    title: "zabaat's church",
                     guest: {
                         max: 10,
                         reserved: 1,
-                        current: 5,
+                        current: 7,
                         lastUpdated: 1523082682773,
                         pickUpNeeded: 1
                     },
@@ -63,6 +83,126 @@ export default {
                             name: "toilet paper",
                             qty: 10,
                             fulfilled: true
+                        }
+                    ],
+                    supplyNote: "Please bring me lots of supplies",
+                    history: {
+                        "2018-4-5": {
+                            incidents: [],
+                            suppliesNeeded: [],
+                            volunteerHours: []
+                        }
+                    }
+                },
+                b: {
+                    active: true,
+                    title: "wolfs's grave",
+                    guest: {
+                        max: 50,
+                        reserved: 10,
+                        current: 50,
+                        lastUpdated: 1523082622773,
+                        pickUpNeeded: 1
+                    },
+                    volunteer: {
+                        current: 50,
+                        lastUpdated: 1523082282773
+                    },
+                    pets: {
+                        max: 0,
+                        current: 2,
+                        lastUpdated: 1523082282773
+                    },
+                    supports: {
+                        ADA: true,
+                        ageGroup: "child",
+                        pets: false
+                    },
+                    siteLead: {
+                        firstName: "Shahan",
+                        lastName: "Kazi",
+                        email: "shahan@zabaat.com",
+                        phone: "5415551010",
+                        roles: ["driver"],
+                        id: "c"
+                    },
+                    shiftLead: {
+                        firstName: "Greyson",
+                        lastName: "Yant",
+                        email: "greyson.yant@gmail.com",
+                        phone: "5415550000",
+                        roles: ["driver"],
+                        id: "d"
+                    },
+                    suppliesNeeded: [
+                        {
+                            name: "toilet paper",
+                            qty: 1000,
+                            fulfilled: true
+                        },
+                        {
+                            name: "garbage bags",
+                            qty: 30,
+                            fulfilled: false
+                        },
+                        {
+                            name: "tooth paste",
+                            qty: 30,
+                            fulfilled: false
+                        }
+                    ],
+                    supplyNote: "Please bring me lots of supplies",
+                    history: {
+                        "2018-4-5": {
+                            incidents: [],
+                            suppliesNeeded: [],
+                            volunteerHours: []
+                        }
+                    }
+                },
+                c: {
+                    active: false,
+                    title: "fat tuna",
+                    guest: {
+                        max: 10,
+                        reserved: 1,
+                        current: 5,
+                        lastUpdated: 1523082682773,
+                        pickUpNeeded: 1
+                    },
+                    volunteer: {
+                        current: 5,
+                        lastUpdated: 1523082682773
+                    },
+                    pets: {
+                        max: 5,
+                        current: 2,
+                        lastUpdated: 1523082682773
+                    },
+                    supports: {
+                        ADA: false,
+                        ageGroup: "adult",
+                        pets: true
+                    },
+                    siteLead: {
+                        firstName: "Brett",
+                        lastName: "Ansite",
+                        email: "thebart@gmail.com",
+                        phone: "5413594679",
+                        roles: ["driver"]
+                    },
+                    shiftLead: {
+                        firstName: "Anam",
+                        lastName: "Kazi",
+                        email: "anamfaryal412@gmail.com",
+                        phone: "5415550000",
+                        roles: ["driver"]
+                    },
+                    suppliesNeeded: [
+                        {
+                            name: "toilet paper",
+                            qty: 10,
+                            fulfilled: true
                         },
                         {
                             name: "garbage bags",
@@ -85,15 +225,21 @@ export default {
     computed: {},
     created() {},
     mounted() {
-        // const self = this;
-
-        // this.$nextTick(() => {
-        //     try {
-        //     } catch (e) {
-        //         //
-        //     }
-        // });
+    // const self = this;
+    // this.$nextTick(() => {
+    //     try {
+    //     } catch (e) {
+    //         //
+    //     }
+    // });
     },
-    methods: {}
+    methods: {
+        getPercent(site) {
+            return (site.guest.current / site.guest.max) * 100;
+        },
+        clickSite(site) {
+            console.log("clicked site", site);
+        }
+    }
 };
 </script>

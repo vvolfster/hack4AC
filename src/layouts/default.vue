@@ -6,17 +6,32 @@
                     <q-icon name="menu" />
                 </q-btn>
 
-                <q-toolbar-title>
-                    Warming Neighbors
-                    <div slot="subtitle"></div>
-                </q-toolbar-title>
-            </q-toolbar>
-            <q-tabs>
-                <q-route-tab slot="title" icon="view_quilt" to="/dispatch" replace hide="icon" label="Dispatch" />
-                <q-route-tab slot="title" icon="view_day" to="/sites" replace hide="icon" label="Main" />
-                <q-route-tab slot="title" icon="view_day" to="/supplies" replace label="Supplies" />
-            </q-tabs>
-        </q-layout-header>
+
+        <q-toolbar-title>
+          Warm and Toasty
+          <div slot="subtitle"></div>
+        </q-toolbar-title>
+      </q-toolbar>
+      <q-tabs>
+        <q-route-tab slot="title"
+                     icon="view_quilt"
+                     to="/dispatch"
+                     replace
+                     hide="icon"
+                     label="Dispatch" />
+        <q-route-tab slot="title"
+                     icon="view_day"
+                     to="/sites"
+                     replace
+                     hide="icon"
+                     label="Main" />
+        <q-route-tab slot="title"
+                     icon="view_day"
+                     to="/supplies"
+                     replace
+                     label="Supplies" />
+      </q-tabs>
+    </q-layout-header>
 
         <q-layout-drawer v-model="leftDrawerOpen" :content-class="$q.theme === 'mat' ? 'bg-grey-2' : null">
             <q-list no-border link inset-delimiter>
