@@ -31,3 +31,10 @@ quasar dev
 To test firebase functions:
 cd functions
 npm run shell
+
+To deploy functions
+firebase deploy --only functions
+
+To deploy hosting
+quasar build
+firebase deploy --only hosting
