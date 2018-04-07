@@ -1,12 +1,6 @@
 <template>
-  <div>
+  <q-page>
     <q-item @click.native="clickEmit(site)">
-      <q-item-side>
-        <!-- ICONS showing pet friendly etc -->
-        <q-item-tile v-if="isAccessible"
-                     icon="accessible"
-                     color="green" />
-      </q-item-side>
       <q-item-main :label="site.title">
         <div class="column">
             <people-bar :site=site></people-bar>
@@ -20,7 +14,7 @@
       </q-item-side>
       <q-item-separator />
     </q-item>
-  </div>
+  </q-page>
 </template>
 
 <script>
@@ -42,13 +36,9 @@ export default {
         clickEmit() {
             this.$emit("siteClicked", this.site);
         },
-        isAccessible() {
-            return this.site.supports.ADA;
-        },
     }
 };
 </script>
 
 <style scoped>
-/* css for this here */
 </style>

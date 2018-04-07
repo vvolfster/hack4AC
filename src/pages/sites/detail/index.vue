@@ -1,6 +1,6 @@
 <template>
   <q-page>
-        <div class="q-pa-sm">
+        <div class="q-pa-lg">
             <people-bar :site=site></people-bar>
             <pet-bar :site=site></pet-bar>
         </div>
@@ -50,7 +50,7 @@ export default {
             } catch (e) {
                 return {};
             }
-        }
+        },
     },
     created() {},
     mounted() {},
