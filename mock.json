@@ -4,6 +4,7 @@
         "site": {
           "a": {
             "active": true,
+            "title":"zabaat's church",
             "guest": {
               "max": 10,
               "reserved": 1,
@@ -68,6 +69,7 @@
           },
           "b": {
             "active": true,
+            "title":"wolfs's grave",
             "guest": {
               "max": 50,
               "reserved": 10,
@@ -132,6 +134,7 @@
           },
           "c": {
             "active": false,
+            "title":"fat tuna",
             "guest": {
               "max": 10,
               "reserved": 1,
