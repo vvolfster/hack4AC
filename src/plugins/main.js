@@ -19,7 +19,7 @@ export default ({ Vue, store }) => {
         unsub: requester => store.dispatch("fbSubscriptions/unsubscribe", { requester })
     });
     base.store = store;
-    document.addEventListener(Vue.fbAuthenticationEventName, () => store.dispatch("user/setCurrentUserFromAuth"))
+    document.addEventListener(Vue.fbAuthenticationEventName, () => store.dispatch("users/setCurrentUserFromAuth"))
 
     // for easy debugging
     window.Vue = Vue;

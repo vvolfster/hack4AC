@@ -41,6 +41,10 @@ export default [
                     component: load("admin/user")
                 },
                 {
+                    path: "invite",
+                    component: load("admin/invite")
+                },
+                {
                     path: "report",
                     component: load("admin/report")
                 }
