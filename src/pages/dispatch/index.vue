@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template>
   <q-page class="flex">
     <q-list highlight>
@@ -27,6 +28,7 @@ export default {
             zsubscriptions: ["org/egan"]
         };
     },
+
     computed: {
         sites() {
             try{
