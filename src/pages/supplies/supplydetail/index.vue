@@ -103,18 +103,4 @@ export default {
         }
     }
 };
-
-/* [
-            {
-                name: 'toilet paper',
-                qty: 10,
-                fulfilled: true
-            },
-            {
-                name: 'garbage bags',
-                qty: 3,
-                fulfilled: false
-            }
-        ]
-*/
 </script>
