@@ -111,6 +111,7 @@ export default {
         };
     },
     computed: {
+        users() {
             try {
                 console.log("sub data", this.zsubData.user);
                 return this.zsubData.user;
