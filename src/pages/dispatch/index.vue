@@ -2,7 +2,12 @@
   <q-page class="flex">
     <q-list highlight>
       <q-list-header>Sites</q-list-header>
-        <site-card v-for="(s, key) in sites" :site="s" :key="key" v-on:siteClicked="clickSite"></site-card>
+      <div v-for="(s, key) in sites"
+           :key="key">
+        <site-card :site="s"
+                   @siteClicked="clickSite" />
+      </div>
+
     </q-list>
   </q-page>
 </template>
@@ -14,10 +19,10 @@
 <script>
 // import lodash from "lodash";
 // import moment from "moment";
-import siteCard from "../../components/siteCard"
+import siteCard from "../../components/siteCard";
 
 export default {
-    name: "dispatch",
+    name: "Dispatch",
     components: {
         siteCard
     },
@@ -27,12 +32,14 @@ export default {
             zsubscriptions: ["org/egan"]
         };
     },
+
     computed: {
         sites() {
-            try{
-                return this.zsubData['org/egan'].site;
-            }catch(e){
-                return {}
+            try {
+                console.log("sub data", this.zsubData["org/egan"]);
+                return this.zsubData["org/egan"].site;
+            } catch (e) {
+                return {};
             }
         }
     },
@@ -48,7 +55,7 @@ export default {
     },
     methods: {
         getPercent(site) {
-            const x = site.guest.current / site.guest.max
+            const x = site.guest.current / site.guest.max;
             return x * 100;
         },
         clickSite(site) {
