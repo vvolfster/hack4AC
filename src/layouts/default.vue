@@ -13,7 +13,7 @@
         </q-btn>
 
         <q-toolbar-title>
-          Warming Neighbors
+          Warm and Toasty
           <div slot="subtitle"></div>
         </q-toolbar-title>
       </q-toolbar>
