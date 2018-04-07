@@ -1,7 +1,11 @@
+/* eslint-disable global-require */
+
 import Vue from "vue";
 import Vuex from "vuex";
-import example from "./module-example";
 import svc from "shrimp-vue-components";
+import example from "./module-example";
+// import fbSubscriptions from "./fbSubscriptions";
+
 
 Vue.use(svc, {
     cms: {
@@ -24,7 +28,8 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
     modules: {
-        example
+        example,
+        fbSubscriptions: require("./fbSubscriptions").default
     }
 });
 
