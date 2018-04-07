@@ -108,12 +108,9 @@ export default {
             dark: true,
             selection: 'multiple',
             selected: [],
-            zsubscriptions: ["user"]
         };
     },
-
     computed: {
-        users() {
             try {
                 console.log("sub data", this.zsubData.user);
                 return this.zsubData.user;

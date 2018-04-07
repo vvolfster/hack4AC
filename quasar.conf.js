@@ -93,7 +93,9 @@ module.exports = (ctx) => {
                 'QBreadcrumbsEl',
                 'QItemSeparator',
                 'QToggle',
-                'QSelect'
+                'QSelect',
+                'QFab',
+                'QFabAction'
             ],
             directives: [
                 'Ripple'
