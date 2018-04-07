@@ -27,21 +27,28 @@
                      :contact=site.shiftLead></phone-contact>
     </div>
 
-    <div class="flex flex-center">
-      <intake :siteId=siteId></intake>
+    <!-- show detailed supply requested list -->
+    <div v-if="!currentUserIsInControl">
     </div>
 
-    <div class="flex flex-center">
-      <supply :siteId=siteId></supply>
-    </div>
+    <!-- show full extent of functionalities, but do not show details of supply requests -->
+    <div v-if="currentUserIsInControl">
+        <div class="flex flex-center">
+        <intake :siteId=siteId></intake>
+        </div>
 
-    <div class="flex flex-center">
-      <incident :siteId=siteId></incident>
-    </div>
+        <div class="flex flex-center">
+        <supply :siteId=siteId></supply>
+        </div>
 
-    <div class="flex flex-center">
-      <changeSiteLead :siteId=siteId></changeSiteLead>
-      <changeShiftLead :siteId=siteId></changeShiftLead>
+        <div class="flex flex-center">
+        <incident :siteId=siteId></incident>
+        </div>
+
+        <div class="flex flex-center">
+        <changeSiteLead :siteId=siteId></changeSiteLead>
+        <changeShiftLead :siteId=siteId></changeShiftLead>
+        </div>
     </div>
 
     <pre>
