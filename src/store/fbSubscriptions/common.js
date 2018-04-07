@@ -18,7 +18,7 @@ export function PathMapEntry({ path, requester, dispatch }) {
                 r.zsubData = { [path]: data }
             }
             else {
-                r.zsubData[path] = data
+                Vue.set(r.zsubData, path, data)
             }
         })
     }
