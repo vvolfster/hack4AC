@@ -25,7 +25,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
     modules: {
         fbSubscriptions: require("./fbSubscriptions").default,
-        user: require('./user').default,
+        user: require('./users').default,
         // site: require('./site').default
     }
 });

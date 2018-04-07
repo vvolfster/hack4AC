@@ -6,19 +6,22 @@ import lodash from "lodash"
 const getters = {
     currentUser(state) {
         try {
-            return state.currentUser.dbUser
+            return state.currentUser.dbUser.app
         } catch(e) {
             return null
         }
     },
-    currentOrg(state) {
+    currentOrg(state, { currentUser }) {
         try {
-            const orgs = state.currentUser.dbUser.orgs
+            const orgs = currentUser.orgs
+            if(!orgs)
+                return null
+
             return lodash.findKey(orgs, o => o.default) || lodash.first(lodash.keys(orgs))
         } catch(e) {
             return null
         }
-    }
+    },
 }
 
 export default getters;

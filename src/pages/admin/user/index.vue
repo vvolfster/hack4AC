@@ -105,11 +105,16 @@ export default {
             dark: true,
             selection: 'multiple',
             selected: [],
-            zsubscriptions: ["user"]
         };
     },
-
     computed: {
+        zsubscriptions() {
+            const currentOrg = this.$store.getters["user/currentOrg"];
+
+            if(!currentOrg)
+                return null;
+            return []
+        },
         sites() {
             try {
                 console.log("sub data", this.zsubData.user);
