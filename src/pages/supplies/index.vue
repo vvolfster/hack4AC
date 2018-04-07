@@ -33,7 +33,7 @@ export default {
     computed: {
         sites() {
             try {
-                return this.zsubData["org/egan"].site;
+                return this.zsubData["org/egan"].site.a.suppliesNeeded;
             } catch (e) {
                 return {};
             }
