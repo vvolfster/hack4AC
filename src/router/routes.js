@@ -23,7 +23,6 @@ export default [
         { path: '', component: load('index') },
     ],
   },
-
   { // Always leave this as last one
     path: '*',
     component: load('404'),
