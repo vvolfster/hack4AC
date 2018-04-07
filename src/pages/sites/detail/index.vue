@@ -1,5 +1,9 @@
 <template>
   <q-page>
+        <div class="q-pa-sm">
+            <people-bar :site=site></people-bar>
+            <pet-bar :site=site></pet-bar>
+        </div>
         <div>
             <phone-contact role="Site Lead" :contact=site.siteLead></phone-contact>
             <phone-contact role="Shift Lead" :contact=site.shiftLead></phone-contact>
@@ -20,12 +24,16 @@
 <script>
 import phoneContact from "../../../components/phoneContact";
 import supply from "../../../components/siteDetail/supply";
+import peopleBar from "../../../components/peopleBar";
+import petBar from "../../../components/petBar";
 
 export default {
     name: "PageIndex",
     components: {
         phoneContact,
         supply,
+        peopleBar,
+        petBar,
     },
     props: [""],
     data() {
@@ -37,6 +45,7 @@ export default {
     computed: {
         site() {
             try {
+                console.log("sub data", this.zsubData["org/egan"]);
                 return this.zsubData["org/egan"].site[this.siteId];
             } catch (e) {
                 return {};
@@ -44,20 +53,8 @@ export default {
         }
     },
     created() {},
-    mounted() {
-    // const self = this;
-    // this.$nextTick(() => {
-    //     try {
-    //     } catch (e) {
-    //         //
-    //     }
-    // });
-    },
+    mounted() {},
     methods: {
-        getPercent(site) {
-            const x = site.guest.current / site.guest.max;
-            return x * 100;
-        },
         clickSite(site) {
             console.log("clicked site", site);
         }
