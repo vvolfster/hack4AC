@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template>
   <q-page class="flex">
     <q-list highlight>
@@ -14,7 +15,6 @@
 <script>
 // import lodash from "lodash";
 // import moment from "moment";
-import siteCard from "../../components/siteCard"
 
 export default {
     name: "dispatch",
@@ -27,6 +27,7 @@ export default {
             zsubscriptions: ["org/egan"]
         };
     },
+
     computed: {
         sites() {
             try{
