@@ -14,9 +14,7 @@
 
         </q-item-main>
         <q-item-side right>
-          <q-item-tile icon="person"
-                       color="green" /> {{site.guest.current}}/{{site.guest.max}}
-          <q-item-tile icon="directions car"
+          <q-item-tile icon="shopping cart"
                        color="green" /> {{site.suppliesNeeded.length}}
         </q-item-side>
         <q-item-separator />

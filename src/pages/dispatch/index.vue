@@ -2,7 +2,7 @@
   <q-page class="flex">
     <q-list highlight>
       <q-list-header>Sites</q-list-header>
-        <site-card v-for="(s, key) in sites" :site="s" :key="key"></site-card>
+        <site-card v-for="(s, key) in sites" :site="s" :key="key" v-on:siteClicked="clickSite"></site-card>
     </q-list>
   </q-page>
 </template>
