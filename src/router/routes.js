@@ -47,6 +47,10 @@ export default [
             ]
         },
         {
+            path: "supplies",
+            component: load("supplies")
+        },
+        {
             path: "dispatch",
             component: load("dispatch")
         },
