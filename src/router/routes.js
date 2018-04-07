@@ -41,6 +41,10 @@ export default [
                     component: load("admin/user")
                 },
                 {
+                    path: "invite",
+                    component: load("admin/invite")
+                },
+                {
                     path: "report",
                     component: load("admin/report")
                 }
@@ -58,6 +62,10 @@ export default [
         {
             path: "dispatch",
             component: load("dispatch")
+        },
+        {
+            path: "driver",
+            component: load("driver")
         },
         { 
             path: 'sites', 
