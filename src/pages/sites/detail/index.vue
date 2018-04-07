@@ -1,22 +1,26 @@
 <template>
-  <q-page class="flex flex-center">
-      option contains:
-        suppliesNeeded
-        incidents
-        userCard
+  <q-page>
+        <div>
+            <phone-contact role="Site Lead" :contact=site.siteLead></phone-contact>
+            <phone-contact role="Shift Lead" :contact=site.shiftLead></phone-contact>
+        </div>
         <pre>
-          {{ site }}
+            option contains: suppliesNeeded incidents userCard
         </pre>
-        yoyo
+        <pre>
+            {{ site }}
+        </pre>
   </q-page>
 </template>
 
 <script>
-export default {
-    name: 'PageIndex',
-    // components: {
+import phoneContact from "../../../components/phoneContact";
 
-    // },
+export default {
+    name: "PageIndex",
+    components: {
+        phoneContact
+    },
     props: [""],
     data() {
         return {
@@ -26,10 +30,10 @@ export default {
     },
     computed: {
         site() {
-            try{
-                return this.zsubData['org/egan'].site[this.id];
-            }catch(e){
-                return {}
+            try {
+                return this.zsubData["org/egan"].site[this.id];
+            } catch (e) {
+                return {};
             }
         }
     },
@@ -45,7 +49,7 @@ export default {
     },
     methods: {
         getPercent(site) {
-            const x = site.guest.current / site.guest.max
+            const x = site.guest.current / site.guest.max;
             return x * 100;
         },
         clickSite(site) {

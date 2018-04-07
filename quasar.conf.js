@@ -12,10 +12,10 @@ module.exports = (ctx) => {
         ],
         extras: [
             ctx.theme.mat ? 'roboto-font' : null,
-            'material-icons'
+            'material-icons',
             // 'ionicons',
             // 'mdi',
-            // 'fontawesome'
+            'fontawesome'
         ],
         supportIE: false,
         vendor: {
@@ -96,7 +96,8 @@ module.exports = (ctx) => {
             plugins: [
                 'Notify',
                 'Loading'
-            ]
+            ],
+            iconSet: 'fontawesome',
         },
         // animations: 'all' --- includes all animations
         animations: [
