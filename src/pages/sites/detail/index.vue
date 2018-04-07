@@ -29,7 +29,6 @@ export default {
             try{
                 return this.zsubData['org/egan'].site[this.id];
             }catch(e){
-                console.error('failed', e)
                 return {}
             }
         }
