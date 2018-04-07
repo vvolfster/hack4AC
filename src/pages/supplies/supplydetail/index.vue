@@ -11,7 +11,7 @@
             :columns="computedData.columns"
             :data="computedData.tableData"
             :selection="computedData.selection"
-            :selected.sync="computedData.selected"
+            :selected.sync="selected"
         >
             <template slot="top-selection" slot-scope="props">
                 <q-btn color="secondary" flat label="Fulfill" />
@@ -33,14 +33,23 @@
 export default {
     name: 'SupplyDashboard',
     props: [""], // TODO siteID should go here
+    data() {
+        const siteId = "a"
+        return {
+            siteId,
+            zsubscriptions: [`org/egan/site/${siteId}`],
+            selected: [
+
+            ]
+        }
+    },
     computed: {
         computedData() {
             if(!this.currentSite)
                 return null
 
             return {
-                siteId: "a",
-                zsubscriptions: [`org/egan/site/a`],
+                siteId: this.siteId,
                 columns: [
                     {
                         name: 'name',
@@ -68,10 +77,7 @@ export default {
                     }
                 ],
                 tableData: this.currentSite.suppliesNeeded,
-                selection: 'multiple',
-                selected: [
-
-                ]
+                selection: 'multiple'
             }
         },
         currentSite() {
