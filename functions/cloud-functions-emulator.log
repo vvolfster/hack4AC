@@ -12,3 +12,7 @@
     at <anonymous>
     at process._tickCallback (internal/process/next_tick.js:188:7)
 2018-04-07T02:24:53.652Z - info: Worker for fooBar closed due to file changes.
+2018-04-07T02:25:12.736Z - info: User function triggered, starting execution
+2018-04-07T02:25:12.752Z - info: Execution took 20 ms, user function completed successfully
+2018-04-07T02:25:32.103Z - info: User function triggered, starting execution
+2018-04-07T02:25:32.111Z - info: Execution took 8 ms, user function completed successfully
