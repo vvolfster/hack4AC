@@ -6,8 +6,8 @@ const fbApp = Vue.fbApps.app;
 const db = fbApp.database();
 
 const actions = {
-    create({ rootGetters }, orgInfo) {
-        const userId = Constants.store.getCurrentUserId();
+    create({ rootState, rootGetters }, orgInfo) {
+        const userId = Constants.store.getCurrentUserId(rootState, rootGetters)
         if (!userId) return Promise.reject(new Error(`No user logged in to create org`));
 
         const user = rootGetters['users/currentUser'];
@@ -33,7 +33,7 @@ const actions = {
         }
 
         return new Promise((resolve, reject) => {
-            orgInfo.id = db.ref("org").push();
+            orgInfo.id = db.ref("org").push().key;
             db.ref(`org/${orgInfo.id}`).set(orgInfo)
                 .then(() => {
                     addOrgToUser(orgInfo.id).then(() => addUserToOrg(orgInfo.id))

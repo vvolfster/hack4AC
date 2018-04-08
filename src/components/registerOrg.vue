@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            Update Organization Information
+            Create New Organization
         </div>
         <div class="column items-stretch" >
             <br/> <br/>
@@ -43,19 +43,22 @@
             /> <br/> <br/>-->
             <q-input v-model="aboutOrg"
                      type="tel"
-                     float-label="About Organisation"
-                     placeholder="About Organisation"
+                     float-label="About Organization"
+                     placeholder="About Organization"
                      v-on:input="$v.aboutOrg.$touch"
                      :class="{error: $v.aboutOrg.$error, valid: $v.aboutOrg.$dirty && !$v.aboutOrg.$invalid}"
             /> <br/> <br/>
+            <div>
+            <q-btn @click.stop="$emit('cancel')" size="lg">Cancel</q-btn>
             <q-btn
                 @click.stop="submit"
                 :disable="formIsInvalid"
                 :class="!formIsInvalid ? `bg-green text-white` : `bg-grey-5 text-grey-2`"
                 size="lg"
             >
-            Submit
+                Submit
             </q-btn>
+            </div>
         </div>
     </div>
 </template>
