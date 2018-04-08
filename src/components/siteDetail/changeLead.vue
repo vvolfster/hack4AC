@@ -2,7 +2,7 @@
   <div id="root"
        class="q-pa-md">
     <q-btn color="primary"
-           @click="() => takeLead()"
+           @click="takeLead"
            :label="'Take ' + role" />
   </div>
 </template>

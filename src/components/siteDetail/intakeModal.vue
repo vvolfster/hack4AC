@@ -42,7 +42,9 @@ export default {
         quickNumber,
     },
     props: ['site', 'intakeModalIsVisible', 'hideIntakeModal'],
-    data() {},
+    data() {
+        return {};
+    },
     computed: {
         modalIsVisible() {
             console.log(this.intakeModalIsVisible)

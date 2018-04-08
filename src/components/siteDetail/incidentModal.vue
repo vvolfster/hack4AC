@@ -27,7 +27,9 @@ export default {
         phoneContact,
     },
     props: ['site', 'incidentModalIsVisible', 'hideIncidentModal'],
-    data() {},
+    data() {
+        return {};
+    },
     computed: {
     },
     created() {},
