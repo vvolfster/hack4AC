@@ -1,5 +1,5 @@
 <template>
-  <q-list>
+  <q-list sparse=sparse>
     <div v-for="(category, key) in getFilteredSupplies"
          :key="key">
       <q-list-header>{{ key }}</q-list-header>
@@ -38,6 +38,7 @@ export default {
         return {
             zsubscriptions: ['org/egan'],
             supplyList: {},
+            sparse: true
         };
     },
     computed: {
@@ -59,9 +60,7 @@ export default {
         },
     },
     created() {},
-    mounted() {
-        console.log(this.supplies);
-    },
+    mounted() {},
     methods: {
         sendListUp(supplyItem, val) {
             supplyItem.qty = val
