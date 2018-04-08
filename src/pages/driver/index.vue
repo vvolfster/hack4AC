@@ -1,39 +1,34 @@
 <template>
     <q-page class="flex driver--page">
-        <q-list highlight
-                class="driver--list">
-            <q-list-header>Sites</q-list-header>
+        <q-list class="driver--list">
+            <!-- <q-list-header>Sites</q-list-header> -->
             <div v-for="(s, key) in sites"
-                 :key="key">
+                 :key="key"
+                 v-if="s.active">
                 <site-card :site="s"
                            @siteClicked="clickSite" />
             </div>
 
         </q-list>
         <q-modal v-if="driverModalVis"
-                 v-model="driverModalVis">
-            <div class="q-pa-lg column">
-                <h4 class="text-center">{{currentSite.title}}</h4>
-                <!-- PEOPLE BAR -->
-                <q-item-tile v-if="isChildFriendly"
-                             class="col-3"
-                             icon="fas fa-child"
-                             color="green" />
-                <q-item-tile class="col-3"
-                             v-if="isAdultFriendly"
-                             icon="fas fa-male"
-                             color="green" />
-                <q-progress class="col-6"
-                            :percentage="getPercentPeople(currentSite)"
-                            style="height: 15px" /> {{ moment(currentSite.guest.lastUpdated).fromNow() }}
-                <div class="col-3">{{ currentSite.guest.current }}/{{ currentSite.guest.max }}</div>
-                <q-item-tile v-if="countNeedsUpdated"
-                             icon="alarm"
-                             color="red" />
-                <quick-number label="In Transit"
+                 v-model="driverModalVis"
+                 position="bottom">
+            <div class="column">
+                <big>{{currentSite.title}}</big>
+                <small>{{currentSite.streetAddress}}</small>
+                <people-bar :site="currentSite"></people-bar>
+                <pet-bar :site="currentSite"></pet-bar>
+                <quick-number label="Guests In Transit"
                               class="quickNum"
                               :value="currentSite.guest.inTransit"
                               v-on:input="changeInTransit"></quick-number>
+                <quick-number label="Pets In Transit"
+                              class="quickNum"
+                              :value="currentSite.pets.inTransit"
+                              v-on:input="changeInTransit"></quick-number>
+
+            </div>
+            <div class="column modal--close-button">
                 <q-btn color="primary"
                        @click="closeModal"
                        label="Close" />
@@ -46,14 +41,19 @@
 <style scoped>
 .driver--page {
     width: 100%;
-    height: 100%;
 }
 .driver--list {
     width: 100%;
+}
+.driver--modal {
     height: 100%;
 }
-.quickNum{
-    width:30hw
+
+.modal--close-button{
+    margin-top:16px
+}
+.quickNum {
+    width: 30hw;
 }
 </style>
 
@@ -62,12 +62,16 @@
 // import moment from "moment";
 import siteCard from '../../components/siteCard';
 import quickNumber from '../../components/quickNumber';
+import peopleBar from '../../components/peopleBar';
+import petBar from '../../components/petBar';
 
 export default {
     name: 'driver',
     components: {
         siteCard,
         quickNumber,
+        peopleBar,
+        petBar,
     },
     props: [''],
     data() {
