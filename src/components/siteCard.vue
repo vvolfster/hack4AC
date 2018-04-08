@@ -1,31 +1,37 @@
 <template>
-  <q-page>
-    <q-item @click.native="clickEmit(site)">
-      <q-item-main :label="site.title">
-        <div class="column">
-            <people-bar :site=site></people-bar>
-            <pet-bar :site=site></pet-bar>
-            <div class="col-3">{{ site.guest.current }}/{{ site.guest.max }}</div>
-        </div>
-
-      </q-item-main>
-      <q-item-side right>
-
-      </q-item-side>
-      <q-item-separator />
+    <q-item
+            @click.native="clickEmit(site)">
+        <q-card inline
+                class="site--card">
+            <q-card-title>
+                <big>{{site.title}}</big>
+                <span slot="subtitle">{{site.streetAddress}}</span>
+                <div slot="right"
+                     class="row items-center">
+                    <!-- badges -->
+                    <q-item-tile v-if="isAccessible"
+                                 icon="accessible"
+                                 color="green" />
+                </div>
+            </q-card-title>
+            <q-card-separator />
+            <div class="column">
+                <people-bar :site=site></people-bar>
+                <pet-bar :site=site></pet-bar>
+            </div>
+        </q-card>
     </q-item>
-  </q-page>
 </template>
 
 <script>
 // import moment from "moment"
-import peopleBar from "./peopleBar";
-import petBar from "./petBar";
+import peopleBar from './peopleBar';
+import petBar from './petBar';
 
 export default {
-    name: "",
+    name: '',
     components: { peopleBar, petBar },
-    props: ["site"],
+    props: ['site'],
     data() {
         return {};
     },

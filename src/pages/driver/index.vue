@@ -1,10 +1,11 @@
 <template>
     <q-page class="flex driver--page">
-        <q-list highlight
-                class="driver--list">
+        <q-list class="driver--list">
             <q-list-header>Sites</q-list-header>
             <div v-for="(s, key) in sites"
-                 :key="key">
+                 :key="key"
+                 v-if="s.active"
+                 >
                 <site-card :site="s"
                            @siteClicked="clickSite" />
             </div>
@@ -36,14 +37,12 @@
 <style scoped>
 .driver--page {
     width: 100%;
-    height: 100%;
 }
 .driver--list {
     width: 100%;
-    height: 100%;
 }
-.quickNum{
-    width:30hw
+.quickNum {
+    width: 30hw;
 }
 </style>
 
@@ -52,8 +51,8 @@
 // import moment from "moment";
 import siteCard from '../../components/siteCard';
 import quickNumber from '../../components/quickNumber';
-import peopleBar from '../../components/peopleBar'
-import petBar from '../../components/petBar'
+import peopleBar from '../../components/peopleBar';
+import petBar from '../../components/petBar';
 
 export default {
     name: 'driver',
@@ -61,7 +60,7 @@ export default {
         siteCard,
         quickNumber,
         peopleBar,
-        petBar
+        petBar,
     },
     props: [''],
     data() {
