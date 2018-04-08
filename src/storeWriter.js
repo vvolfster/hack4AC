@@ -38,7 +38,7 @@ const writer = {
             return writer.base.store.dispatch(`${this.name}/updateTransitCount`, { siteId, type, number })
         },
         reportIncident(siteId) {
-            return writer.base.store.dispatch(`${this.name}/createIncident`, { siteId })
+            return writer.base.store.dispatch(`${this.name}/reportIncident`, { siteId })
         },
         clearAllIncidents(siteId) {
             return writer.base.store.dispatch(`${this.name}/clearAllIncidents`, { siteId })

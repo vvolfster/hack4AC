@@ -57,7 +57,7 @@ export default {
             if(!orgId)
                 return reject(new Error(`No orgId`))
 
-            if(type !== 'guest' || type !== 'pets')
+            if(type !== 'guest' && type !== 'pets')
                 return reject(new Error("bad type specified"))
 
             return db.ref(`org/${orgId}/site/${siteId}/${type}/current`).set(number).then(resolve).catch(reject)
