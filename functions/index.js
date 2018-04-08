@@ -46,15 +46,15 @@ exports.fooBar = functions.database.ref('foo/{id}').onCreate(event => {
 exports.inviteAdd = functions.database.ref('org/{orgId}/invites/{id}').onCreate((snapshot, context) => {
     let textBody = 'Welcome to ';
     textBody += snapshot.val().orgId;
-    textBody += 'Please click the following link to accept the invitation <br/>';
-    textBody += 'http://localhost:8080/?compositeInviteId=';
+    textBody += '. Please click the following link to accept the invitation <br/>';
+    textBody += 'http://warm.zabaat.com/?compositeInviteId=';
     textBody += snapshot.val().orgId;
     textBody += '@@@';
     textBody += context.params.id;
     const data = {
         from: 'Admin <postmaster@warm.zabaat.com>',
         to: snapshot.val().email,
-        subject: 'Message Received',
+        subject: 'Welcome! You are invited to join the Shrimps!',
         text: textBody
     };
     mailgun.messages().send(data, (error, body) => {
