@@ -19,7 +19,7 @@ export default ({ Vue, store }) => {
         sub: (requester, subs) => store.dispatch("fbSubscriptions/subscribe", { requester, subs }),
         unsub: requester => store.dispatch("fbSubscriptions/unsubscribe", { requester })
     });
-    Vue.use(orgConnectorPlugin)
+    Vue.use(orgConnectorPlugin, store)
     base.store = store;
     document.addEventListener(Vue.fbAuthenticationEventName, () => store.dispatch("users/setCurrentUserFromAuth"))
 

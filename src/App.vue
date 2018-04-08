@@ -23,6 +23,11 @@ export default {
     components: {
         welcomeUser,
     },
+    data() {
+        return {
+            isOrgConnectorPluginInstance: true
+        }
+    },
     methods: {
         startLoginFlow() {
             Vue.fbAuthenticationMethods.startLoginFlow();

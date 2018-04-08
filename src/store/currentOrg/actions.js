@@ -8,10 +8,12 @@ const miniState = {
 const actions = {
     setId({ commit, dispatch }, id){
         commit(M.SET_ID, id);
-        console.log("SET ID!", id)
         if(miniState.ref && miniState.fn){
             miniState.ref.off("value", miniState.fn)
         }
+
+        if(!id)
+            return
 
         if(!miniState.fn)
             miniState.fn = (snap) => dispatch("setData", snap.val())
