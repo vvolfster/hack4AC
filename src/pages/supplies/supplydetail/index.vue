@@ -5,7 +5,7 @@
     </div>
     <q-table v-else
              class="supplytable"
-             title='Supply Dashboard'
+             :title="computedData.dashboardTitle"
              row-key='name'
              :columns="computedData.columns"
              :data="computedData.tableData"
@@ -92,7 +92,8 @@ export default {
                     }
                 ],
                 tableData: this.currentSite.suppliesNeeded,
-                selection: "multiple"
+                selection: 'multiple',
+                dashboardTitle: `Supply Dashboard for ${this.currentSite.title}`
             };
         },
         currentSite() {
