@@ -3,7 +3,7 @@ import { db, mutationTypes as M } from './common';
 import lodash from 'lodash';
 
 function getCurrentUserId(state) {
-    const { currentUser } = state.users;
+    const { currentUser } = state;
     if (!currentUser) return null;
 
     const { authId } = currentUser;
@@ -31,7 +31,7 @@ function getUserOrgValue(state, getters) {
 }
 
 function getOrgRef(state, getters) {
-    const { currentUser } = state.users;
+    const { currentUser } = state;
     if (!currentUser) return null;
 
     const { authId } = currentUser;
@@ -144,16 +144,20 @@ const actions = {
         const orgUserRef = getUserOrgRef(state, getters);
         if (!orgUserRef) return Promise.reject(new Error('User not logged in or no site selected'));
 
+        const promises = [getOrgValue(state, getters), getUserOrgValue(state, getters)];
+
         return new Promise((resolve, reject) => {
-            getOrgValue(state, getters)
-                .then(val => {
-                    if (!val) return reject(new Error(`Could not get org`));
+            Promise.all(promises)
+                .then(results => {
+                    const [org, user] = results;
+                    if (!user || !org) return reject(new Error(`Could not get org or user`));
 
-                    if (!val.site[siteId]) return reject(new Error('Invalid site. No such site exists in the org'));
+                    if (!org.site[siteId]) return reject(new Error('Invalid site. No such site exists in the org'));
 
+                    const value = user.onSite ? null : siteId;
                     return orgUserRef
                         .child('onSite')
-                        .set(siteId)
+                        .set(value)
                         .then(resolve)
                         .catch(reject);
                 })
@@ -161,8 +165,9 @@ const actions = {
         });
     },
     toggleLead({ state, getters }, { siteId, role }) {
+        // console.log(siteId, role)
         const orgRef = getOrgRef(state, getters);
-        if (!orgRef || role !== 'shiftLead' || role !== 'siteLead')
+        if (!orgRef || (role !== 'shiftLead' && role !== 'siteLead'))
             return Promise.reject(new Error('User not logged in or no site selected or incorrect role'));
 
         const promises = [getUserOrgValue(state, getters), getOrgValue(state, getters)];
@@ -176,7 +181,7 @@ const actions = {
                     if (!org.site[siteId]) return reject(new Error('Invalid site. No such site exists in the org'));
 
                     return orgRef
-                        .child(`sites/${siteId}/${role}`)
+                        .child(`site/${siteId}/${role}`)
                         .set(user)
                         .then(resolve)
                         .catch(reject);

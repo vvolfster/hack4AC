@@ -1,7 +1,7 @@
 <template>
   <q-modal id="root"
-           v-if="intakeModalIsVisible"
-           v-model="intakeModalIsVisible">
+           v-if="modalIsVisible"
+           v-model="modalIsVisible">
     <div class="q-pa-lg column">
       <h4 class="flow column text-center">{{site.title}}</h4>
       <div class="q-pa-lg">
@@ -11,7 +11,17 @@
                       :value="site.guest.inTransit"
                       v-on:input="changeArrived"></quick-number>
       </div>
-      <q-btn color="primary"
+      <div class="q-pa-lg">
+        <pet-bar :site=site :hideExtraInfo=true></pet-bar>
+        <quick-number label="Arrived"
+                      class="quickNum"
+                      :value="site.guest.inTransit"
+                      v-on:input="changeArrived"></quick-number>
+      </div>
+      <q-btn color="secondary q-ma-sm"
+             @click="hideModal"
+             label="Submit" />
+      <q-btn color="primary q-ma-sm"
              @click="hideModal"
              label="Close" />
     </div>
@@ -32,8 +42,14 @@ export default {
         quickNumber,
     },
     props: ['site', 'intakeModalIsVisible', 'hideIntakeModal'],
-    data() {},
+    data() {
+        return {};
+    },
     computed: {
+        modalIsVisible() {
+            console.log(this.intakeModalIsVisible)
+            return this.intakeModalIsVisible
+        },
     },
     created() {},
     mounted() {},

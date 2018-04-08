@@ -3,15 +3,15 @@
 
     <div class="subcontrol flex justify-between q-pa-sm">
       <div>
-        <q-btn v-if="!checkIfCurrentUserIsOnSite"
+        <q-btn v-if="!orgUserData || !orgUserData.onSite"
                @click="$router.replace('/sites')">
           Back to sites
         </q-btn>
       </div>
       <div>
         <q-toggle v-if="site.active"
-                  :value="checkIfCurrentUserIsOnSite"
-                  @input="() => toggleOnSite()"
+                  :value="orgUserData.onSite === siteId"
+                  @input="toggleOnSite"
                   label="I'm on site" />
       </div>
     </div>
@@ -47,43 +47,45 @@
       </div>
 
       <!-- show detailed supply requested list -->
-      <div v-if="!currentUserIsOnSite">
+      <div v-if="!orgUserData.onSite">
         <supply readOnly=true
                 :suppliesNeeded=site.suppliesNeeded></supply>
       </div>
 
       <!-- show full extent of functionalities, but do not show details of supply requests -->
-      <div v-if="currentUserIsOnSite">
+      <div v-if="orgUserData.onSite">
         <div class="flex flex-center q-pa-lg">
-          <q-btn @click="showIntakeModal">
+          <q-btn @click="showIntakeModal" color="primary" class="q-ma-sm">
             Add / Remove Guests
           </q-btn>
-        </div>
-
-        <div class="flex flex-center q-pa-lg">
-          <q-btn @click="$router.push('/supplydetail/' + siteId)">
+          <q-btn @click="$router.push('/supplydetail/' + siteId)" color="primary" class="q-ma-sm">
             Request Supplies
           </q-btn>
         </div>
 
-        <div class="flex flex-center q-pa-lg">
-            <q-btn @click="showIncidentModal">
-                Report Incident
-            </q-btn>
+        <div class="flex flex-center column">
+            <h4>Incidents</h4>
+            <div class="flex flex-center q-pa-lg">
+                <q-btn @click="clearIncident" color="secondary" class="q-ma-sm">
+                    Clear Incident
+                </q-btn>
+                <q-btn @click="showIncidentModal" color="primary" class="q-ma-sm">
+                    Report Incident
+                </q-btn>
+            </div>
         </div>
 
         <div class="flex flex-center column">
           <h4>Change Lead</h4>
-          <changeLead role="site lead"
-                      :siteId=siteId></changeLead>
-          <changeLead role="shift lead"
-                      :siteId=siteId></changeLead>
+          <div class="flex flex-center">
+            <changeLead role="site lead" roleId="siteLead"
+                        :siteId=siteId ></changeLead>
+            <changeLead role="shift lead" roleId="shiftLead"
+                        :siteId=siteId></changeLead>
+        </div>
         </div>
       </div>
     </div>
-    <pre>
-        {{ site }}
-    </pre>
     <intake-modal :intakeModalIsVisible=intakeModalIsVisible :site=site :hideIntakeModal=hideIntakeModal></intake-modal>
     <incident-modal :incidentModalIsVisible=incidentModalIsVisible :site=site :hideIncidentModal=hideIncidentModal></incident-modal>
   </q-page>
@@ -97,6 +99,8 @@ import intakeModal from '../../../components/siteDetail/intakeModal';
 import supply from '../../../components/siteDetail/supply';
 import incidentModal from '../../../components/siteDetail/incidentModal';
 import changeLead from '../../../components/siteDetail/changeLead';
+
+import { user } from "../../../storeWriter"
 
 export default {
     name: 'PageIndex',
@@ -114,7 +118,6 @@ export default {
         return {
             zsubscriptions: ['org/egan'],
             siteId: this.$route.params.siteId,
-            currentUserIsOnSite: true, // null, // starts with special value null, so that the data from the server takes precedence over the state of the UI or vice versa when necessary
             intakeModalIsVisible: false,
             incidentModalIsVisible: false,
         };
@@ -127,25 +130,12 @@ export default {
                 return {};
             }
         },
-        checkIfCurrentUserIsOnSite() {
-            if (!this.site.active) {
-                return false;
-            }
-
-            if (this.currentUserIsOnSite) {
-                return true;
-            }
-
-            // TODO/FIXME: This will probably be checked differently once the data model of the database will be created
-
-            return false;
-        },
     },
     created() {},
     mounted() {},
     methods: {
         toggleOnSite() {
-            this.currentUserIsOnSite = !this.currentUserIsOnSite;
+            user.toggleUserOnSite(this.siteId)
         },
         showIntakeModal() {
             this.intakeModalIsVisible = true;
@@ -163,6 +153,9 @@ export default {
             this.incidentModalIsVisible = false;
             return false
         },
+        clearIncident() {
+            // TODO
+        }
     },
 };
 </script>
