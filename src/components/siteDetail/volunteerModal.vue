@@ -30,7 +30,7 @@
 <script>
 import quickNumber from '../quickNumber';
 
-import { user } from '../../storeWriter'
+import { site } from '../../storeWriter'
 
 export default {
     name: 'volunteerModal',
@@ -53,8 +53,9 @@ export default {
     mounted() {},
     methods: {
         submit() {
+            // TODO: Check that the store works correctly
             console.log("sending data:", this.volunteerCount, this.volunteeredHours, this.site.id)
-            user.countVolunteers(this.volunteerCount || 0, this.volunteeredHours || 0, this.site.id)
+            site.countVolunteers(this.volunteerCount || 0, this.volunteeredHours || 0, this.site.id)
         },
         hideModal() {
             this.hideVolunteerModal()

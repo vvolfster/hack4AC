@@ -34,7 +34,7 @@ import peopleBar from '../peopleBar';
 import petBar from '../petBar';
 import quickNumber from '../quickNumber';
 
-import { user } from '../../storeWriter'
+import { site } from '../../storeWriter'
 
 export default {
     name: 'changeLead',
@@ -62,8 +62,8 @@ export default {
             this.hideIntakeModal()
         },
         submit() {
-            user.updateCurrentCount(this.site.id, "guests", this.guestsArrived)
-            user.updateCurrentCount(this.site.id, "pets", this.petsArrived)
+            site.updateCurrentQty(this.site.id, "guest", Number(this.guestsArrived))
+            site.updateCurrentQty(this.site.id, "pets", Number(this.petsArrived))
         },
     },
 };
