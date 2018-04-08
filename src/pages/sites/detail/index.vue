@@ -3,14 +3,14 @@
 
     <div class="subcontrol flex justify-between q-pa-sm">
       <div>
-        <q-btn v-if="!checkIfCurrentUserIsOnSite"
+        <q-btn v-if="!orgUserData.onSite"
                @click="$router.replace('/sites')">
           Back to sites
         </q-btn>
       </div>
       <div>
         <q-toggle v-if="site.active"
-                  :value="checkIfCurrentUserIsOnSite"
+                  :value="orgUserData.onSite"
                   @input="() => toggleOnSite()"
                   label="I'm on site" />
       </div>
@@ -100,6 +100,8 @@ import supply from '../../../components/siteDetail/supply';
 import incidentModal from '../../../components/siteDetail/incidentModal';
 import changeLead from '../../../components/siteDetail/changeLead';
 
+import { user } from '../../../storeWriter'
+
 export default {
     name: 'PageIndex',
     components: {
@@ -116,7 +118,6 @@ export default {
         return {
             zsubscriptions: ['org/egan'],
             siteId: this.$route.params.siteId,
-            currentUserIsOnSite: true, // null, // starts with special value null, so that the data from the server takes precedence over the state of the UI or vice versa when necessary
             intakeModalIsVisible: false,
             incidentModalIsVisible: false,
         };
@@ -148,6 +149,7 @@ export default {
     methods: {
         toggleOnSite() {
             this.currentUserIsOnSite = !this.currentUserIsOnSite;
+            user.toggleUserOnSite()
         },
         showIntakeModal() {
             this.intakeModalIsVisible = true;
