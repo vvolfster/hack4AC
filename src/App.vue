@@ -1,18 +1,18 @@
 <template>
-    <div id="q-app" style="padding:18px">
-        <div v-if="!authUserId" class="column items-center justify-between fillh">
-            <div>
+    <div id="q-app">
+        <div v-if="!authUserId" class="fillh zpadded" style="position:relative">
+            <div class="column items-center justify-center">
                 <img src="statics/icons/icon-512x512.png" class="warmlogo">
                 <h3>Finding Warmth</h3>
             </div>
-            <q-btn size="lg" @click.stop="startLoginFlow">Log in</q-btn>
+            <q-btn size="lg" class="bg-red-8 text-white zbot" @click.stop="startLoginFlow">Log in</q-btn>
         </div>
-        <div v-else-if="!matchesBasicRequirements">
+        <div v-else-if="!matchesBasicRequirements" class="zpadded">
             <welcomeUser :user="currentUser" @submit="onAcceptWelcome"/>
         </div>
-        <div v-else-if="!matchesOrgRequirements">
+        <div v-else-if="!matchesOrgRequirements" class="zpadded">
             <wakeupEmitter v-if="compositeInviteId" @awake="acceptInvite"/>
-            <div v-else>
+            <div v-else class="zpadded">
                 <registerOrg  :user="currentUser" @submit="onNewOrgWelcome"/>
             </div>
         </div>
@@ -123,5 +123,15 @@ export default {
 
     .fillh {
         height: 100%;
+    }
+
+    .zbot {
+        position: absolute;
+        bottom: 18px;
+        width: 100%;
+    }
+
+    .zpadded {
+        padding: 18px;
     }
 </style>
