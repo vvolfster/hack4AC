@@ -16,6 +16,10 @@ function validateEmail(email) {
     return re.test(String(email).toLowerCase());
 }
 
+function clone(obj) {
+    return JSON.parse(JSON.stringify(obj))
+}
+
 const store = {
     isValidSiteId(orgId, siteId){
         return new Promise((resolve, reject) => {
@@ -124,6 +128,7 @@ const store = {
 };
 
 export default {
+    clone,
     validateEmail,
     store,
 };

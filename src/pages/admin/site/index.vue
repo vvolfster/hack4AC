@@ -91,6 +91,7 @@ import lodash from 'lodash';
 import adminSiteAdd from '../../../components/adminSiteAdd';
 import Vue from "vue"
 import { site as siteWriter } from "../../../storeWriter"
+import Constants from "../../../Constants"
 
 const columns = /* array of Objects */ [
     // column Object definition
@@ -130,11 +131,7 @@ export default {
         tableData() {
             try {
                 // console.log(this.org.site);
-                const data = lodash.toArray(this.org.site);
-                return lodash.map(data, (ele, i) => {
-                    ele.id = i;
-                    return ele;
-                });
+                return lodash.toArray(this.org.site);
             } catch (e) {
                 return {};
             }
@@ -171,15 +168,24 @@ export default {
             this.selected = []
             this.siteAddModalVis = true;
         },
+        clearSelection() {
+            this.selected = []
+        },
         toggleActive(){
-            const payloadSite = this.selected[0]
+            const payloadSite = Constants.clone(this.selected[0])
+            /* eslint-disable-next-line */
+            delete payloadSite.__index
+
             payloadSite.active = !payloadSite.active
-            siteWriter.updateSite(payloadSite.id, payloadSite)
+            siteWriter.updateSite(payloadSite.id, payloadSite).then(this.clearSelection)
         },
         submitForm(data) {
             // console.log('SUBMITTING SITE admin data', data);
             if (this.selected.length > 0) {
-                const payloadSite = this.selected[0]
+                const payloadSite = Constants.clone(this.selected[0])
+                /* eslint-disable-next-line */
+                delete payloadSite.__index
+
                 payloadSite.title = data.title
                 payloadSite.guest.max = data.maxGuests
                 payloadSite.pets.max = data.maxPets
@@ -194,7 +200,8 @@ export default {
                 if(!lodash.isNumber(payloadSite.pets.max))
                     payloadSite.pets.max = parseInt(payloadSite.pets.max.trim(), 10)
 
-                siteWriter.updateSite(payloadSite.id, payloadSite);
+                // console.log('update the fucking site', payloadSite.id, payloadSite)
+                siteWriter.updateSite(payloadSite.id, payloadSite).then(this.clearSelection)
             } else {
                 // addFunction
                 const site = {

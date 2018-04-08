@@ -141,10 +141,10 @@ export default {
             if (!orgId) return reject(new Error(`No orgId`));
 
             const validateSiteId = () => Constants.store.isValidSiteId(orgId, siteId)
-            const validateSiteData = () => Constants.store.isValidSiteData(siteData, true)
+            const validateSiteData = () => Constants.store.isValidSiteData(siteData)
 
             return validateSiteId().then(validateSiteData).then(() => {
-                db.ref(`org/${orgId}/site/${siteId}`).update(siteData).then(resolve).catch(reject)
+                db.ref(`org/${orgId}/site/${siteId}`).set(siteData).then(resolve).catch(reject)
             }).catch(reject)
         })
     }
