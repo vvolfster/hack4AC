@@ -13,11 +13,12 @@
             <template slot="top-selection"
                       slot-scope="props">
                 <q-btn color="secondary"
+                       @click="editAndShowModal"
                        icon="fas fa-edit"
                        label="edit"
                        class="q-mr-sm" />
                 <q-btn color="secondary"
-                       @click="toggleSite"
+                       @click="toggleActive"
                        icon="fas fa-power-off"
                        label="Active/Inactive" />
                 <div class="col" />
@@ -163,7 +164,11 @@ export default {
         closeModal() {
             this.siteAddModalVis = false;
         },
+        editAndShowModal(){
+            this.siteAddModalVis = true;
+        },
         showSiteModal() {
+            this.selected = []
             this.siteAddModalVis = true;
         },
         toggleActive(){
