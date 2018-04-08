@@ -37,7 +37,8 @@ export default {
     },
     data() {
         return {
-            isOrgConnectorPluginInstance: true
+            isOrgConnectorPluginInstance: true,
+            isActivationDone: false
         }
     },
     methods: {
@@ -45,6 +46,7 @@ export default {
             Vue.fbAuthenticationMethods.startLoginFlow();
         },
         onAcceptWelcome(userInfo) {
+            this.isActivationDone = true
             userAdmin.acceptInvite(this.authUserId, this.compositeInviteId, userInfo);
         },
         onNewOrgWelcome(orgInfo) {
@@ -73,7 +75,15 @@ export default {
                 return false;
             }
 
-            return Object.keys(user.orgs).length > 0;
+            if(Object.keys(user.orgs).length === 0) {
+                return false;
+            }
+
+            if(this.compositeInviteId && !this.isActivationDone) {
+                this.onAcceptWelcome(this.currentUser)
+            }
+
+            return true;
         },
         matchesBasicRequirements() {
             const user = this.currentUser;
