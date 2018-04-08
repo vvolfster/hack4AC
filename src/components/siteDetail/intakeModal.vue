@@ -1,7 +1,8 @@
 <template>
   <q-modal id="root"
            v-if="modalIsVisible"
-           v-model="modalIsVisible">
+           v-model="modalIsVisible"
+           @close="hideModal">
     <div class="q-pa-lg column">
       <h4 class="flow column text-center">{{site.title}}</h4>
       <div class="q-pa-lg">
@@ -58,6 +59,7 @@ export default {
 
         },
         hideModal() {
+            console.log("log")
             this.hideIntakeModal()
         },
     },
