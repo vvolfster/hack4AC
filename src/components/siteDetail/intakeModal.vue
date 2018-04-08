@@ -11,7 +11,17 @@
                       :value="site.guest.inTransit"
                       v-on:input="changeArrived"></quick-number>
       </div>
-      <q-btn color="primary"
+      <div class="q-pa-lg">
+        <pet-bar :site=site :hideExtraInfo=true></pet-bar>
+        <quick-number label="Arrived"
+                      class="quickNum"
+                      :value="site.guest.inTransit"
+                      v-on:input="changeArrived"></quick-number>
+      </div>
+      <q-btn color="secondary q-ma-sm"
+             @click="hideModal"
+             label="Submit" />
+      <q-btn color="primary q-ma-sm"
              @click="hideModal"
              label="Close" />
     </div>

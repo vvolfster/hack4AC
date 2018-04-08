@@ -8,15 +8,18 @@
     </q-item-tile>
     <q-progress class="col-5 q-mr-sm"
                 :percentage="getPercentPets(site)"
-                style="height: 15px" />{{ moment(site.pets.lastUpdated).fromNow() }}
+                style="height: 15px" />
+    <span v-if="!hideExtraInfo">
+      {{ moment(site.pets.lastUpdated).fromNow() }}
+    </span>
   </div>
 </template>
 
 <script>
 export default {
-    name: "petBar",
+    name: 'petBar',
     components: {},
-    props: ["site"],
+    props: ['site', 'hideExtraInfo'],
     data() {
         return {};
     },
@@ -26,7 +29,7 @@ export default {
                 return false;
             }
             return this.site.supports.pets;
-        }
+        },
     },
     created() {},
     mounted() {},
@@ -34,8 +37,8 @@ export default {
         getPercentPets(site) {
             const x = site.pets.current / site.pets.max;
             return x * 100;
-        }
-    }
+        },
+    },
 };
 </script>
 
