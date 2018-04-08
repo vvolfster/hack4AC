@@ -1,11 +1,11 @@
 <template>
   <q-page class="flex">
-    <q-table :data="tableData"
+    <q-table :data="users"
              :columns="columns"
              :selection="selection"
              :selected.sync="selected"
              :loading="loading"
-             row-key="name"
+             row-key="email"
              color="secondary"
              class="tableClass">
     </q-table>
@@ -22,37 +22,10 @@
 
 <script>
 import lodash from 'lodash';
+import { userAdmin } from '../../../storeWriter'
 
 const columns = /* array of Objects */ [
     // column Object definition
-    {
-        // unique id (used by row-key, pagination.sortBy, ...)
-        name: 'email',
-
-        // label for header
-        // label: 'Users',
-
-        // row Object property to determine value for this column
-        field: 'name',
-        // OR field: row => row.some.nested.prop
-
-        // (optional) if we use visible-columns, this col will always be visible
-        // required: true,
-
-        // (optional) alignment
-        align: 'left',
-
-        // (optional) tell QTable you want this column sortable
-        sortable: true,
-
-        // (optional) compare function if you have
-        // some custom data or want a specific way to compare two rows
-        sort: (a, b) => parseInt(a, 10) - parseInt(b, 10),
-        // function return value:
-        //   * is less than 0 then sort a to an index lower than b, i.e. a comes first
-        //   * is 0 then leave a and b unchanged with respect to each other, but sorted with respect to all different elements
-        //   * is greater than 0 then sort b to an index lower than a, i.e. b comes first
-    },
     { name: 'firstName', label: 'First', field: 'firstName', sortable: true },
     { name: 'lastName', label: 'Last', field: 'lastName', sortable: true },
     { name: 'email', label: 'Email', field: 'email' },
@@ -105,6 +78,11 @@ export default {
         isChildFriendly(site) {
             return site.supports.ageGroup === 'child';
         },
+        toggleActive(){
+            lodash.each(this.selected, ele => {
+                userAdmin.toggleActive(ele.id, !ele.active)
+            })
+        }
     },
 };
 </script>

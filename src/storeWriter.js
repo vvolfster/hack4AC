@@ -27,6 +27,10 @@ const writer = {
         },
         acceptInvite(userId, compositeInviteId, profileInfo) {
             return writer.base.store.dispatch(`${this.name}/acceptInvite`, { userId, compositeInviteId, profileInfo })
+        },
+        setActiveState(userId, state){
+            console.log(state)
+            return Promise.resolve()
         }
     },
     site: {
