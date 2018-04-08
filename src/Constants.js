@@ -25,7 +25,13 @@ const store = {
     getCurrentOrgId(rootState, rootGetters) {
         return rootGetters['users/currentOrg'];
     },
-
+    isValidSiteId(orgId, siteId){
+        return new Promise((resolve, reject) => {
+            db().ref(`org/${orgId}/site/${siteId}`).once('value').then((snap) => {
+                return snap.val() ? resolve()  : reject(new Error(`invalid side id ${siteId}`))
+            })
+        })
+    },
     getUserOrgRef(rootState, rootGetters) {
         const authId = store.getCurrentUserId(rootState, rootGetters);
         const currentOrg = rootGetters['users/currentOrg'];
