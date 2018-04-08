@@ -144,16 +144,20 @@ const actions = {
         const orgUserRef = getUserOrgRef(state, getters);
         if (!orgUserRef) return Promise.reject(new Error('User not logged in or no site selected'));
 
+        const promises = [getOrgValue(state, getters), getUserOrgValue(state, getters)];
+
         return new Promise((resolve, reject) => {
-            getOrgValue(state, getters)
-                .then(val => {
-                    if (!val) return reject(new Error(`Could not get org`));
+            Promise.all(promises)
+                .then(results => {
+                    const [org, user] = results;
+                    if (!user || !org) return reject(new Error(`Could not get org or user`));
 
-                    if (!val.site[siteId]) return reject(new Error('Invalid site. No such site exists in the org'));
+                    if (!org.site[siteId]) return reject(new Error('Invalid site. No such site exists in the org'));
 
+                    const value = user.onSite ? null : siteId;
                     return orgUserRef
                         .child('onSite')
-                        .set(siteId)
+                        .set(value)
                         .then(resolve)
                         .catch(reject);
                 })

@@ -1,13 +1,14 @@
 <template>
-    <div id="root" class="q-pa-md">
-        <q-btn :value="checkIfCurrentUserIsOnSite" color="primary"
-                @click="() => takeLead()"
-                :label="'Take ' + role" />
-    </div>
+  <div id="root"
+       class="q-pa-md">
+    <q-btn color="primary"
+           @click="takeLead"
+           :label="'Take ' + role" />
+  </div>
 </template>
 
 <script>
-import { user } from '../../storeWriter'
+import { user } from '../../storeWriter';
 
 export default {
     name: 'changeLead',
@@ -21,8 +22,8 @@ export default {
     mounted() {},
     methods: {
         takeLead() {
-            user.toggleLead(this.roleId, this.siteId)
-        }
+            user.toggleLead(this.roleId, this.siteId);
+        },
     },
 };
 </script>

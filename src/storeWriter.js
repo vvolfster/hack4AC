@@ -31,7 +31,13 @@ const writer = {
     },
     site: {
 
+    },
+    org: {
+        createOrg(orgInfo) {
+            console.log("Need to create new Org", orgInfo)
+            // TO DO WOLF
+        }
     }
 }
 
-export const { base, user, userAdmin, site } = writer;
+export const { base, user, userAdmin, site, org } = writer;
