@@ -36,7 +36,7 @@
              @click="openModal"
              icon="add" />
     </q-page-sticky>
-    <supply-modal :open=open> </supply-modal>
+    <supply-modal :open=open :close=closeModal> </supply-modal>
   </q-page>
 </template>
 
@@ -120,6 +120,10 @@ export default {
         openModal() {
             this.open = true
             return true
+        },
+        closeModal() {
+            this.open = false
+            return false
         }
     },
 };

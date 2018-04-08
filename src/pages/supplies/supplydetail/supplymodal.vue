@@ -1,12 +1,12 @@
 <template>
-    <q-modal maximized v-model=opened v-if=opened>
+    <q-modal maximized v-model="open" v-if="open">
         <q-modal-layout>
             <q-toolbar slot="header">
                 <q-btn
                     flat
                     round
                     dense
-                    v-close-overlay
+                    @click=close
                     icon="keyboard_arrow_left"
                 />
                 <q-toolbar-title> Supply Form </q-toolbar-title>
@@ -54,15 +54,14 @@ export default {
     components: {
         quickSupplyNumber
     },
-    props: ['open'],
+    props: ['open', 'close'],
     data() {
         return {
             zsubscriptions: ['org/egan'],
             opened: this.open
         };
     },
-    computed: {
-    },
+    computed: { },
     created() {},
     mounted() {
 
