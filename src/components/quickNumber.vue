@@ -34,7 +34,6 @@ export default {
     computed: {},
     created() {},
     mounted() {
-        console.log(this.val, this.value);
         this.val = this.value;
     },
     watch: {

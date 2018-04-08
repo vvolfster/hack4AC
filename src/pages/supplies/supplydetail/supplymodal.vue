@@ -1,5 +1,5 @@
 <template>
-    <q-modal maximized v-model="opened">
+    <q-modal maximized v-model=opened v-if=opened>
         <q-modal-layout>
             <q-toolbar slot="header">
                 <q-btn
@@ -65,7 +65,7 @@ export default {
     },
     created() {},
     mounted() {
-        console.log("this is rendered")
+
     },
     methods: {
     },
