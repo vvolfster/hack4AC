@@ -3,8 +3,8 @@
 
     <div class="subcontrol flex justify-between q-pa-sm">
       <div>
-        <q-btn v-if="!orgUserData || (orgUserData.onSite !== siteId)"
-               @click="$router.replace('/sites')">
+        <q-btn v-if="orgUserData && (orgUserData.onSite === siteId)"
+               @click="returnToSite">
           Back to sites
         </q-btn>
       </div>
@@ -186,6 +186,10 @@ export default {
     methods: {
         toggleOnSite() {
             user.toggleUserOnSite(this.site.id)
+        },
+        returnToSite() {
+            this.$router.push('/sites')
+            this.$root.$emit('showHeader')
         },
         showIntakeModal() {
             this.intakeModalIsVisible = true;
