@@ -36,7 +36,7 @@
 export default {
     name: 'petBar',
     components: {},
-    props: ['site', 'type','hideExtraInfo'],
+    props: ['site', 'type', 'hideExtraInfo'],
     data() {
         return {
             renderType: 'default',
