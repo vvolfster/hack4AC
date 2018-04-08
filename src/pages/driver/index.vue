@@ -11,8 +11,9 @@
 
         </q-list>
         <q-modal v-if="driverModalVis"
-                 v-model="driverModalVis">
-            <div class="column">
+                 v-model="driverModalVis"
+                 >
+            <div class="q-pa-lg">
                 <big>{{currentSite.title}}</big>
                 <small>{{currentSite.streetAddress}}</small>
                 <people-bar :site="currentSite"></people-bar>
