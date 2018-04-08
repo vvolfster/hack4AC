@@ -47,13 +47,13 @@
       </div>
 
       <!-- show detailed supply requested list -->
-      <div v-if="!currentUserIsOnSite">
+      <div v-if="!orgUserData.onSite">
         <supply readOnly=true
                 :suppliesNeeded=site.suppliesNeeded></supply>
       </div>
 
       <!-- show full extent of functionalities, but do not show details of supply requests -->
-      <div v-if="currentUserIsOnSite">
+      <div v-if="orgUserData.onSite">
         <div class="flex flex-center q-pa-lg">
           <q-btn @click="showIntakeModal" color="primary" class="q-ma-sm">
             Add / Remove Guests
