@@ -3,7 +3,9 @@
     <q-page class="flex">
         <q-list highlight>
             <div v-for="(s, key) in sites" :key="key" v-if="s.active">
-                <site-card :site="s" @siteClicked="clickSite" />
+                <div @click="$router.push('/detail/' + key)">
+                    <site-card :site="s" />
+                </div>
             </div>
         </q-list>
     </q-page>
@@ -40,9 +42,6 @@ export default {
             const x = site.guest.current / site.guest.max;
             return x * 100;
         },
-        clickSite(site) {
-            console.log("clicked site", site);
-        }
     }
 };
 </script>

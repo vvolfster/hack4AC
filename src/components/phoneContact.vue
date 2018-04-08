@@ -1,15 +1,16 @@
 <template>
-  <div id="root">
-    <a v-bind:href="'tel:' + contact.phone"
-       class="link flex flex-center q-pa-sm">
-        <div>
-            <q-icon name="phone" />
-        </div>
-        <div class="q-ml-sm">{{ role }}:</div>
-        <div class="q-ml-sm">{{ contact.firstName }}</div>
-        <div class="q-ml-sm">{{ formatPhoneNumber(contact.phone) }}</div>
-    </a>
-  </div>
+    <div v-if=!contact></div>
+    <div v-else id="root">
+        <a v-bind:href="'tel:' + contact.phone"
+        class="link flex flex-center q-pa-sm">
+            <div>
+                <q-icon name="phone" />
+            </div>
+            <div class="q-ml-sm">{{ role }}:</div>
+            <div class="q-ml-sm">{{ contact.firstName }}</div>
+            <div class="q-ml-sm">{{ formatPhoneNumber(contact.phone) }}</div>
+        </a>
+    </div>
 </template>
 
 <script>

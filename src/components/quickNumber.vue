@@ -1,19 +1,23 @@
 <template>
-    <div class="row quickNum">
-        {{this.label}}
-        <q-btn round
-               icon="fas fa-minus"
-               color="primary"
-               @click="decrement"></q-btn>
-        <q-input v-model="val"
-                 min=0
-                 type="number"
-                 class="col-6 quickNum--value">
-        </q-input>
-        <q-btn round
-               icon="fas fa-plus"
-               color="primary"
-               @click="increment"></q-btn>
+    <div class="quickNum">
+        <div class="text-center">
+            <div class="custom-title">{{this.label}}</div>
+        </div>
+        <div class="flex justify-around">
+            <q-btn round
+                icon="fas fa-minus"
+                color="primary"
+                @click="decrement"></q-btn>
+            <q-input v-model="val"
+                    min=0
+                    type="number"
+                    class="col-6 quickNum--value">
+            </q-input>
+            <q-btn round
+                icon="fas fa-plus"
+                color="primary"
+                @click="increment"></q-btn>
+        </div>
     </div>
 </template>
 
@@ -54,11 +58,16 @@ export default {
 </script>
 
 <style scoped>
-.quickNum {
-    padding: 8px;
-}
-.quickNum--value {
-    padding: 8px;
-    width: 50%;
-}
+    .quickNum {
+        padding: 8px;
+    }
+    .quickNum--value {
+        padding: 8px;
+        width: 50%;
+    }
+    .custom-title {
+        font-weight: bold;
+        font-size: 22px;
+        margin-top: 10px;
+    }
 </style>
