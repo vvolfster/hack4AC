@@ -86,7 +86,6 @@ export default {
     computed: {
         sites() {
             try {
-                // console.log('sub data', this.zsubData['org/egan']);
                 return this.zsubData['org/egan'].site;
             } catch (e) {
                 return {};
@@ -112,7 +111,6 @@ export default {
         clickSite(site) {
             this.driverModalVis = true;
             this.currentSite = site;
-            console.log('clicked site', site);
         },
         closeModal() {
             this.driverModalVis = false;
@@ -133,7 +131,6 @@ export default {
         // },
         changeInTransit(type, value) {
             const { id } = this.currentSite
-            console.log(id, type, value)
             /* eslint-disable-next-line */
             siteWriter.updateTransitCount(id, type, value)
         },

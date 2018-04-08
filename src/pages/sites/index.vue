@@ -13,7 +13,7 @@
         <q-list highlight>
             <div v-for="(s, key) in sortedSites" :key="key" v-if="s.active">
                 <div @click="$router.push('/detail/' + s.id)">
-                    <site-card :site="s" @siteClicked="clickSite" />
+                    <site-card :site="s" />
                 </div>
             </div>
         </q-list>
@@ -79,7 +79,7 @@ export default {
         },
         sortedSites(){
             try{
-                const sortData = lodash.orderBy(this.sites, (site) => { if (typeof lodash.get(site, this.field) === 'object') { console.log("shweta", lodash.get(site, this.field).length); return lodash.get(site, this.field).length }  return lodash.get(site, this.field) }, [this.order]);
+                const sortData = lodash.orderBy(this.sites, (site) => { if (typeof lodash.get(site, this.field) === 'object') { return lodash.get(site, this.field).length }  return lodash.get(site, this.field) }, [this.order]);
                 return sortData;
             } catch (e){
                 return {};
@@ -91,14 +91,10 @@ export default {
             const x = site.guest.current / site.guest.max;
             return x * 100;
         },
-        clickSite(site) {
-            console.log("clicked site", site);
-        },
         toggleSort() {
             this.order = 'desc'
         },
         sortList(field) {
-            console.log("Sorted data on field", field);
             this.field = field;
             // return {};
         }

@@ -54,7 +54,6 @@ export default {
     methods: {
         submit() {
             // TODO: Check that the store works correctly
-            console.log("sending data:", this.volunteerCount, this.volunteeredHours, this.site.id)
             site.countVolunteers(this.volunteerCount || 0, this.volunteeredHours || 0, this.site.id)
         },
         hideModal() {
