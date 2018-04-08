@@ -30,7 +30,10 @@
                 <q-item-tile v-if="countNeedsUpdated"
                              icon="alarm"
                              color="red" />
-                <quick-number :value="currentSite.guest.inTransit" v-on:input="changeInTransit"></quick-number>
+                <quick-number label="In Transit"
+                              class="quickNum"
+                              :value="currentSite.guest.inTransit"
+                              v-on:input="changeInTransit"></quick-number>
                 <q-btn color="primary"
                        @click="closeModal"
                        label="Close" />
@@ -49,6 +52,9 @@
     width: 100%;
     height: 100%;
 }
+.quickNum{
+    width:30hw
+}
 </style>
 
 <script>
@@ -61,7 +67,7 @@ export default {
     name: 'driver',
     components: {
         siteCard,
-        quickNumber
+        quickNumber,
     },
     props: [''],
     data() {
@@ -80,6 +86,11 @@ export default {
             } catch (e) {
                 return {};
             }
+        },
+        countNeedsUpdated() {
+            const now = +new Date();
+            const thirtyMinutes = 30 * 60 * 1000;
+            return this.currentSite.guest.lastUpdated + thirtyMinutes < now;
         },
     },
     created() {},
@@ -122,9 +133,9 @@ export default {
         isChildFriendly() {
             return this.site.supports.ageGroup === 'child';
         },
-        changeInTransit(value){
-            console.log("intransit change", value)
-        }
+        changeInTransit(value) {
+            console.log('intransit change', value);
+        },
     },
 };
 </script>
