@@ -88,6 +88,7 @@
 <script>
 import lodash from 'lodash';
 import adminSiteAdd from '../../../components/adminSiteAdd';
+import Vue from "vue"
 import { site as siteWriter } from "../../../storeWriter"
 
 const columns = /* array of Objects */ [
@@ -126,7 +127,7 @@ export default {
     computed: {
         tableData() {
             try {
-                console.log(this.org.site);
+                // console.log(this.org.site);
                 const data = lodash.toArray(this.org.site);
                 return lodash.map(data, (ele, i) => {
                     ele.id = i;
@@ -164,10 +165,6 @@ export default {
         showSiteModal() {
             this.siteAddModalVis = true;
         },
-        updateSite(payload){
-            // WOLF updateSite
-            console.log(payload)
-        },
         toggleActive(){
             const payloadSite = this.selected[0]
             payloadSite.active = !payloadSite.active
@@ -186,10 +183,10 @@ export default {
                 payloadSite.streetAddress = data.streetAddress
 
                 if(!lodash.isNumber(payloadSite.guest.max))
-                    payloadSite.guest.max = parseInt(payloadSite.guest.max, 10)
+                    payloadSite.guest.max = parseInt(payloadSite.guest.max.trim(), 10)
 
                 if(!lodash.isNumber(payloadSite.pets.max))
-                    payloadSite.pets.max = parseInt(payloadSite.pets.max, 10)
+                    payloadSite.pets.max = parseInt(payloadSite.pets.max.trim(), 10)
 
                 this.updateSite(payloadSite)
             } else {
@@ -209,7 +206,7 @@ export default {
                         current: 0,
                         inTransit: 0,
                         lastUpdated: 1523082682773,
-                        max: data.mexPets,
+                        max: data.maxPets,
                     },
                     shiftLead: {
                         dateCreated: '2018-04-08T03:17:45.890Z',
@@ -254,12 +251,14 @@ export default {
                 };
 
                 if(!lodash.isNumber(site.guest.max))
-                    site.guest.max = parseInt(site.guest.max, 10)
+                    site.guest.max = parseInt(site.guest.max.trim(), 10)
 
                 if(!lodash.isNumber(site.pets.max))
-                    site.pets.max = parseInt(site.pets.max, 10)
+                    site.pets.max = parseInt(site.pets.max.trim(), 10)
 
-                siteWriter.addSite(site);
+                siteWriter.addSite(site).then(() => {
+                    Vue.toast.positive(`${site.title}: Site Created`)
+                })
             }
         },
     },
