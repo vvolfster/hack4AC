@@ -6,11 +6,13 @@
     <q-table v-else
              class="supplytable"
              :title="computedData.dashboardTitle"
-             row-key='name'
+             row-key='uuid'
              :columns="computedData.columns"
              :data="computedData.tableData"
              :selection="computedData.selection"
-             :selected.sync="selected">
+             :selected.sync="selected"
+             :pagination:sync="pagination"
+             :visible-columns="visible">
       <template slot="top-selection"
                 slot-scope="props">
       <q-btn color="secondary"
@@ -61,13 +63,21 @@ export default {
             siteId,
             zsubscriptions: [`org/egan/site/${siteId}`],
             selected: [],
-            open: false
+            visible: ["name", "qty", "fulfilled"],
+            open: false,
+            pagination: {
+                sortBy: null, // String, column "name" property value
+                descending: false,
+                page: 1,
+                rowsPerPage: 15 // current rows per page being displayed
+            }
         };
     },
     computed: {
         computedData() {
             if (!this.currentSite) return null;
 
+            this.addUUID()
             return {
                 siteId: this.siteId,
                 columns: [
@@ -94,6 +104,11 @@ export default {
                         align: "left",
                         field: "fulfilled",
                         sortable: true
+                    },
+                    {
+                        name: "uuid",
+                        required: true,
+                        field: "uuid",
                     }
                 ],
                 tableData: this.currentSite.suppliesNeeded,
@@ -136,6 +151,17 @@ export default {
                 return e
             })
             site.updateSuppliesNeeded(this.siteId, this.currentSite.suppliesNeeded)
+        },
+        addUUID() {
+            const randNum = () => Math.floor(Math.random()) * 100
+            const newSupplies = lodash.map(this.currentSite.suppliesNeeded, (e) => {
+                if (e.uuid === null) {
+                    const uuid = randNum
+                    e.uuid = uuid
+                }
+                return e
+            })
+            site.updateSuppliesNeeded(this.siteId, newSupplies)
         }
     },
 };
