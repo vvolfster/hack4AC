@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import lodash from 'lodash';
+import moment from "moment"
 import Constants from '../../Constants';
 
 const db = Vue.fbApps.app.database();
@@ -50,12 +51,13 @@ export default {
             return Constants.store
                 .isValidSiteId(orgId, siteId)
                 .then(() => {
+                    const todayKey = moment().format("MM-DD-YYYY");
                     const dateResolved = new Date().toISOString();
                     return Constants.store
                         .getOrgValue(rootState, rootGetters)
                         .then(org => {
                             const incidents = lodash.get(org, `site.${siteId}.incidents`);
-                            const historyIncidents = lodash.get(org, `site.${siteId}.history.incidents`, {});
+                            const historyIncidents = lodash.get(org, `site.${siteId}.history.${todayKey}.incidents`, {});
                             if (!incidents) return resolve('Nothing to resolve');
 
                             lodash.each(incidents, (i, k) => {
@@ -65,7 +67,7 @@ export default {
 
                             const promises = [
                                 db.ref(`org/${orgId}/site/${siteId}/incidents`).set(null),
-                                db.ref(`org/${orgId}/site/${siteId}/history/incidents`).set(historyIncidents),
+                                db.ref(`org/${orgId}/site/${siteId}/history/${todayKey}/incidents`).set(historyIncidents),
                             ];
                             return Promise.all(promises)
                                 .then(resolve)
@@ -108,4 +110,16 @@ export default {
             })
         });
     },
+    logVolunteerHours({ rootState, rootGetters }, { siteId, count, hours }){
+        const orgId = Constants.store.getCurrentOrgId(rootState, rootGetters);
+        return new Promise((resolve, reject) => {
+            if (!orgId) return reject(new Error(`No orgId`));
+
+            return Constants.store.isValidSiteId(orgId, siteId).then(() => {
+                // create today's date
+                const todayKey = moment().format("MM-DD-YYYY");
+                db.ref(`org/${orgId}/site/${siteId}/history/${todayKey}/volunteer`).set({ hours, count }).then(resolve).catch(reject)
+            })
+        })
+    }
 };

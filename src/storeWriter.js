@@ -61,6 +61,9 @@ const writer = {
                 return Promise.reject(new Error("one of the supplies did not match requirement of name:String & qty: Number"))
 
             return writer.base.store.dispatch(`${this.name}/updateSuppliesNeeded`, { siteId, suppliesNeeded })
+        },
+        logVolunteerHours(siteId, volunteerCounts, volunteerHours) {
+            return writer.base.store.dispatch(`${this.name}/logVolunteerHours`, { siteId, count: volunteerCounts, hours: volunteerHours })
         }
     },
     org: {
