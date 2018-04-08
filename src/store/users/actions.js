@@ -57,12 +57,12 @@ const actions = {
             });
         }
         function addUserToOrg(user) {
-            return db.child(`org/${orgId}/users/${userId}`).set(user);
+            return db.ref(`org/${orgId}/users/${userId}`).set(user);
         }
         function markInviteAsAccepted(){
             return new Promise((resolve, reject) => {
                 if (!orgId || !inviteId) return reject(new Error('No org id or no invite id'));
-                return db.child(`org/${orgId}/invites/${inviteId}/accepted`).set(true).then(resolve).catch(reject)
+                return db.ref(`org/${orgId}/invites/${inviteId}/accepted`).set(true).then(resolve).catch(reject)
             })
         }
 

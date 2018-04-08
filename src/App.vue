@@ -48,11 +48,10 @@ export default {
             return userAdmin.updateUserProfile(this.authUserId, userInfo);
         },
         onNewOrgWelcome(orgInfo) {
-            console.log(orgInfo)
-            org.createOrg(orgInfo)
+            return org.createOrg(orgInfo)
         },
         acceptInvite(){
-            return userAdmin.acceptInvite(this.authUserId, this.compositeInviteId)
+            return userAdmin.acceptInvite(this.authUserId, this.compositeInviteId).then(() => this.$router.push("/"))
         }
     },
     computed: {

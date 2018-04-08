@@ -17,14 +17,19 @@ const actions = {
             return new Promise((resolve, reject) => {
                 const isDefault = !lodash.keys(user.orgs).length || lodash.every(user.orgs, o => !o.isDefault || o.banned);
                 return db
-                    .child(`users/${userId}/orgs/${orgId}`)
+                    .ref(`users/${userId}/orgs/${orgId}`)
                     .set({ default: isDefault })
                     .then(resolve)
                     .catch(reject);
             });
         }
         function addUserToOrg(orgId) {
-            return db.child(`org/${orgId}/users/${userId}`).set(user);
+            return new Promise((resolve, reject) => {
+                Promise.all([
+                    db.ref(`org/${orgId}/users/${userId}`).set(user),
+                    db.ref(`org/${orgId}/adminUsers/${userId}`).set(true)
+                ]).then(resolve).catch(reject)
+            })
         }
 
         return new Promise((resolve, reject) => {
