@@ -4,7 +4,7 @@
            v-model="incidentModalIsVisible">
     <div class="q-pa-lg column">
       <h4 class="flow column text-center">Report Incidient</h4>
-      <div class="q-pb-lg">
+      <div class="q-pb-lg" @click="submitIncident">
           <phone-contact role="Emergency" :contact="{phone: '911', firstName: null}" omitFirstName></phone-contact>
           <phone-contact role="CAHOOTS" :contact="{phone: '5416825111', firstName: null}" omitFirstName></phone-contact>
           <phone-contact role="Admin" :contact="{phone: '5411234567', firstName: null}" omitFirstName></phone-contact>
@@ -21,6 +21,8 @@
 <script>
 import phoneContact from '../phoneContact'
 
+import { user } from '../../storeWriter'
+
 export default {
     name: 'changeLead',
     components: {
@@ -36,7 +38,7 @@ export default {
     mounted() {},
     methods: {
         submitIncident() {
-
+            user.reportIncident(this.site.id)
         },
         hideModal() {
             this.hideIncidentModal()
