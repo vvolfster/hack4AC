@@ -182,7 +182,7 @@ export default {
     props: [''],
     data() {
         return {
-            zsubscriptions: ['org/egan'],
+            zsubscriptions: [`org/${this.currentOrgId}`],
             siteId: this.$route.params.siteId,
             intakeModalIsVisible: false,
             incidentModalIsVisible: false,
@@ -192,7 +192,7 @@ export default {
     computed: {
         site() {
             try {
-                return this.zsubData['org/egan'].site[this.siteId];
+                return this.zsubData[`org/${this.currentOrgId}`].site[this.siteId];
             } catch (e) {
                 return {};
             }

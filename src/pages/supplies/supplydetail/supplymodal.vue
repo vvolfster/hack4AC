@@ -36,7 +36,7 @@ export default {
     props: ['open', 'close'],
     data() {
         return {
-            zsubscriptions: ['org/egan'],
+            zsubscriptions: [`org/${this.currentOrgId}`],
             opened: this.open,
             newSupplyList: {},
         };
@@ -44,7 +44,7 @@ export default {
     computed: {
         supplies() {
             try {
-                return this.zsubData['org/egan'].supplies;
+                return this.zsubData[`org/${this.currentOrgId}`].supplies;
             } catch (e) {
                 return [];
             }

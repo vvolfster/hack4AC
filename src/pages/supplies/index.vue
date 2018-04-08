@@ -28,14 +28,14 @@ export default {
     props: [''],
     data() {
         return {
-            zsubscriptions: ['org/egan'],
+            zsubscriptions: [`org/${this.currentOrgId}`],
         };
     },
     computed: {
         sites() {
             try {
-                console.log(this.zsubData['org/egan'].site);
-                return this.zsubData['org/egan'].site;
+                console.log(this.zsubData[`org/${this.currentOrgId}`].site);
+                return this.zsubData[`org/${this.currentOrgId}`].site;
             } catch (e) {
                 return {};
             }

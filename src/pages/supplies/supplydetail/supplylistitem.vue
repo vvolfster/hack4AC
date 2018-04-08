@@ -36,7 +36,7 @@ export default {
     props: ['supplies'],
     data() {
         return {
-            zsubscriptions: ['org/egan'],
+            zsubscriptions: [`org/${this.currentOrgId}`],
             supplyList: {},
         };
     },

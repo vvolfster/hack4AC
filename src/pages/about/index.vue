@@ -32,15 +32,15 @@ export default {
     props: [''],
     data() {
         return {
-            zsubscriptions: ['org/egan'],
+            zsubscriptions: [`org/${this.currentOrgId}`],
         };
     },
 
     computed: {
         sites() {
             try {
-                // console.log('sub data', this.zsubData['org/egan']);
-                return this.zsubData['org/egan'].site;
+                // console.log('sub data', this.zsubData[`org/${this.currentOrgId}`]);
+                return this.zsubData[`org/${this.currentOrgId}`].site;
             } catch (e) {
                 return {};
             }
