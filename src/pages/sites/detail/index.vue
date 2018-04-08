@@ -11,6 +11,7 @@
             <div>
                 <q-toggle v-if="site.active"
                           :value="orgUserData && orgUserData.onSite === siteId ? true : false"
+
                           @input="toggleOnSite"
                           label="I'm on site" />
             </div>
@@ -93,6 +94,19 @@
                     </div>
                 </div>
             </q-collapsible>
+            <q-collapsible icon="person"
+                           label="Volunteers">
+                <div class="flex flex-center column">
+                    <div class="flex flex-center">
+                        <q-btn @click="showVolunteerModal"
+                               color="primary"
+                               label="Count Volunteers"
+                               class="q-ma-sm">
+                        </q-btn>
+                    </div>
+                </div>
+            </q-collapsible>
+
             <!-- show full extent of functionalities, but do not show details of supply requests -->
             <div v-if="orgUserData && orgUserData.onSite === siteId">
                 <div class="flex flex-center column">
@@ -126,18 +140,6 @@
                         Request Supplies
                     </q-btn>
                 </div>
-
-                <!-- <div class="flex flex-center column">
-                    <h4>Volunteers</h4>
-                    <div class="flex flex-center">
-                        <q-btn @click="showVolunteerModal"
-                               color="primary"
-                               class="q-ma-sm">
-                            Count Volunteers
-                        </q-btn>
-                    </div>
-                </div> -->
-
             </div>
         </div>
         <intake-modal :intakeModalIsVisible=intakeModalIsVisible

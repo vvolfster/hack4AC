@@ -10,7 +10,7 @@
                     <q-icon name="menu" />
                 </q-btn>
                 <q-toolbar-title>
-                    Warmth
+                    Finding Warmth
                     <div slot="subtitle"></div>
                 </q-toolbar-title>
             </q-toolbar>
@@ -30,7 +30,7 @@
             <q-list no-border
                     link
                     inset-delimiter>
-                <q-list-header>Warmth</q-list-header>
+                <q-list-header>Finding Warmth</q-list-header>
                 <q-item @click.native="openPage('/')">
                     <q-item-side icon="fas fa-bed" />
                     <q-item-main label="Home"
@@ -75,7 +75,7 @@ export default {
     name: 'admin',
     data() {
         return {
-            leftDrawerOpen: this.$q.platform.is.desktop,
+            leftDrawerOpen: false // this.$q.platform.is.desktop,
         };
     },
     computed: {
