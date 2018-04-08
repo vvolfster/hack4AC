@@ -29,11 +29,13 @@
       </template>
     </q-table>
 
+
+    <supplyModal/>
     <q-page-sticky position="bottom-right"
                    :offset="[18, 18]">
       <q-btn round
              color="primary"
-             @click="method"
+             @click="openModal()"
              icon="add" />
     </q-page-sticky>
 
@@ -47,16 +49,22 @@
 </style>
 
 <script>
+import supplyModal from '.'
+
 export default {
-    name: "SupplyDashboard",
-    props: [""], // TODO siteID should go here
+    name: 'SupplyDashboard',
+    components: {
+        supplyModal
+    },
+    props: [''],
     data() {
         const siteId = this.$route.params.siteID;
         console.log(siteId);
         return {
             siteId,
             zsubscriptions: [`org/egan/site/${siteId}`],
-            selected: []
+            selected: [],
+            opened: false
         };
     },
     computed: {
@@ -110,8 +118,13 @@ export default {
     },
     methods: {
         deleteRow() {
-            console.log("womp");
+            console.log('womp');
+        },
+        openModal(opened) {
+            if (!opened) {
+                opened = true
+            }
         }
-    }
+    },
 };
 </script>

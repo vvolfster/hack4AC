@@ -104,7 +104,8 @@ module.exports = (ctx) => {
                 'QBtnToggle'
             ],
             directives: [
-                'Ripple'
+                'Ripple',
+                'CloseOverlay'
             ],
             // Quasar plugins
             plugins: [

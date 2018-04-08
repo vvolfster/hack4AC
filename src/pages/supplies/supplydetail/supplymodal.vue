@@ -1,6 +1,7 @@
 <template>
-    <q-page class="flex ">
-    </q-page>
+    <q-modal maximized v-model="opened">
+
+    </q-modal>
 </template>
 
 <style>
@@ -9,29 +10,20 @@
 
 <script>
 export default {
-    name: 'ItemModal',
-    props: [''],
+    name: 'supply-modal',
+    props: ['show'],
     data() {
         return {
-            zsubscriptions: ['org/egan'],
+            zsubscriptions: ['org/egan']
         };
     },
     computed: {
-        sites() {
-            try {
-                console.log(this.zsubData['org/egan'].site);
-                return this.zsubData['org/egan'].site;
-            } catch (e) {
-                return {};
-            }
-        },
     },
     created() {},
-    mounted() {},
+    mounted() {
+        console.log("this is rendered")
+    },
     methods: {
-        clickSite(site) {
-            console.log('clicked site', site);
-        },
     },
 };
 </script>
