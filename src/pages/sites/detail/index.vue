@@ -54,8 +54,10 @@
 
       <!-- show full extent of functionalities, but do not show details of supply requests -->
       <div v-if="currentUserIsOnSite">
-        <div class="flex flex-center">
-          <intake :siteId=siteId></intake>
+        <div class="flex flex-center q-pa-lg">
+          <q-btn @click="showIntakeModal">
+            Add / Remove Guests
+          </q-btn>
         </div>
 
         <div class="flex flex-center q-pa-lg">
@@ -84,6 +86,7 @@
     <pre>
             {{ site }}
         </pre>
+    <intake-modal :intakeModalIsVisible=intakeModalIsVisible :site=site></intake-modal>
   </q-page>
 </template>
 
@@ -91,6 +94,7 @@
 import peopleBar from '../../../components/peopleBar';
 import petBar from '../../../components/petBar';
 import phoneContact from '../../../components/phoneContact';
+import intakeModal from '../../../components/siteDetail/intakeModal';
 import supply from '../../../components/siteDetail/supply';
 import changeLead from '../../../components/siteDetail/changeLead';
 
@@ -100,6 +104,7 @@ export default {
         peopleBar,
         petBar,
         phoneContact,
+        intakeModal,
         supply,
         changeLead,
     },
@@ -109,6 +114,7 @@ export default {
             zsubscriptions: ['org/egan'],
             siteId: this.$route.params.siteId,
             currentUserIsOnSite: true, // null, // starts with special value null, so that the data from the server takes precedence over the state of the UI or vice versa when necessary
+            intakeModalIsVisible: false,
         };
     },
     computed: {
@@ -138,6 +144,14 @@ export default {
     methods: {
         toggleOnSite() {
             this.currentUserIsOnSite = !this.currentUserIsOnSite;
+        },
+        showIntakeModal() {
+            this.intakeModalIsVisible = true;
+            return true
+        },
+        hideIntakeModal() {
+            this.intakeModalIsVisible = false;
+            return false
         },
     },
 };

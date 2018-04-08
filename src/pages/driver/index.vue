@@ -12,8 +12,8 @@
         </q-list>
         <q-modal v-if="driverModalVis"
                  v-model="driverModalVis">
-            <div class="column">
-                <h4>{{currentSite.title}}</h4>
+            <div class="q-pa-lg column">
+                <h4 class="text-center">{{currentSite.title}}</h4>
                 <!-- PEOPLE BAR -->
                 <q-item-tile v-if="isChildFriendly"
                              class="col-3"
