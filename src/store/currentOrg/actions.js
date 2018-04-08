@@ -27,9 +27,6 @@ const actions = {
             const ref = db.ref(`org/${id}`);
             ref.on('value', fn);
             console.log("ref on")
-            if(!window.Vue)
-                window.Vue = Vue;
-
             commit(M.SET_MINI_STATE_REF, ref);
 
             return resolve();
