@@ -3,7 +3,7 @@
 
     <div class="subcontrol flex justify-between q-pa-sm">
       <div>
-        <q-btn v-if="!orgUserData.onSite"
+        <q-btn v-if="!orgUserData || !orgUserData.onSite"
                @click="$router.replace('/sites')">
           Back to sites
         </q-btn>
