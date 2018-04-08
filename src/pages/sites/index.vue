@@ -12,7 +12,7 @@
                 ]"
             />
             <div v-for="(s, key) in sortedSites" :key="key" v-if="s.active">
-                <div @click="$router.push('/detail/' + key)">
+                <div @click="$router.push('/detail/' + s.id)">
                     <site-card :site="s" @siteClicked="clickSite" />
                 </div>
             </div>
