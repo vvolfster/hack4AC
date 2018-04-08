@@ -1,7 +1,7 @@
 <template>
     <div id="root" class="q-pa-md">
         <q-btn :value="checkIfCurrentUserIsOnSite" color="primary"
-                @clicked="() => takeLead()"
+                @click="() => takeLead()"
                 :label="'Take ' + role" />
     </div>
 </template>
