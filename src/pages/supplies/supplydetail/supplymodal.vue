@@ -1,72 +1,78 @@
 <template>
-    <q-modal maximized v-model="open" v-if="open">
-        <q-modal-layout>
-            <q-toolbar slot="header">
-                <q-btn
-                    flat
-                    round
-                    dense
-                    @click=close
-                    icon="keyboard_arrow_left"
-                />
-                <q-toolbar-title> Supply Form </q-toolbar-title>
-            </q-toolbar>
-            <q-list>
-                <q-list-header>Food</q-list-header>
-                <q-item-separator />
-                <q-item>
-                    <q-item-main class="itemTitle">
-                        food
-                    </q-item-main>
-                    <q-item-side right>
-                        <quick-supply-number value=0 />
-                    </q-item-side>
-                </q-item>
-                <q-item-separator />
-                <q-item>
-                    <q-item-main class="itemTitle">
-                        Another item, this is longggggggg
-                    </q-item-main>
-                    <q-item-side right>
-                        <quick-supply-number value=0 />
-                    </q-item-side>
-                </q-item>
-
-            </q-list>
-            <q-toolbar slot="footer">
-                <q-btn> Submit </q-btn>
-            </q-toolbar>
-        </q-modal-layout>
-    </q-modal>
+  <q-modal maximized
+           v-model="open"
+           v-if="open">
+    <q-modal-layout>
+      <q-toolbar slot="header">
+        <q-btn flat
+               round
+               dense
+               @click=close
+               icon="keyboard_arrow_left" />
+        <q-toolbar-title> Supply Form </q-toolbar-title>
+      </q-toolbar>
+      <supply-list-item :supplies=supplies
+                        v-on:updated="saveList" />
+      <q-toolbar slot="footer">
+        <q-btn @click=submitSupplies> Submit </q-btn>
+      </q-toolbar>
+    </q-modal-layout>
+  </q-modal>
 </template>
 
 <style>
-.itemTitle {
-    width:75%;
-}
+
 </style>
 
 <script>
-import quickSupplyNumber from "./quickSupplyNumber"
+import supplyListItem from './supplylistitem';
+import lodash from 'lodash';
 
 export default {
     name: '',
     components: {
-        quickSupplyNumber
+        supplyListItem,
     },
     props: ['open', 'close'],
     data() {
         return {
             zsubscriptions: ['org/egan'],
-            opened: this.open
+            opened: this.open,
+            newSupplyList: {},
         };
     },
-    computed: { },
-    created() {},
-    mounted() {
-
+    computed: {
+        supplies() {
+            try {
+                return this.zsubData['org/egan'].supplies;
+            } catch (e) {
+                return [];
+            }
+        },
     },
+    created() {},
+    mounted() {},
     methods: {
+        submitSupplies() {
+            // const temp = lodash.flatten(this.newSupplyList)
+            let temp = lodash.transform(
+                this.newSupplyList,
+                (a, ele) => {
+                    a.push(...ele)
+                    return a;
+                },
+                []
+            );
+            temp = lodash.filter(temp, ele => ele.qty !== "0" && !lodash.isUndefined(ele.qty))
+            temp = lodash.map(temp, e => {
+                e.fulfilled = false
+                return e
+            })
+            this.$emit('submit', temp);
+        },
+        saveList(list) {
+            this.newSupplyList = list;
+        },
     },
 };
 </script>
