@@ -11,7 +11,7 @@
                       class="quickNum"
                       v-model="volunteerCount"></quick-number>
       </div>
-      <div class="q-pa-lg" v-if="site.supports.pets">
+      <div class="q-pa-lg">
         <quick-number label="Hours Volunteered"
                       class="quickNum"
                       v-model="volunteeredHours"></quick-number>
