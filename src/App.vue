@@ -1,25 +1,23 @@
 <template>
-    <div id="q-app">
-        <div v-if="!authUserId">
-            <q-btn @click.stop="startLoginFlow">Log in please</q-btn>
-            <br/> <br/> <br/>
-            <q-btn
-                @click="$router.push('/registerOrg')"
-                color="primary"
-                label="Looking for a different team"
-            />
+    <div id="q-app" style="padding:18px">
+        <div v-if="!authUserId" class="column items-center justify-between fillh">
+            <div>
+                <img src="statics/icons/icon-512x512.png" class="warmlogo">
+                <h3>Finding Warmth</h3>
+            </div>
+            <q-btn size="lg" @click.stop="startLoginFlow">Log in</q-btn>
         </div>
         <div v-else-if="!matchesBasicRequirements">
-            <welcomeUser :user="currentUser"
-                         @submit="onAcceptWelcome" />
+            <welcomeUser :user="currentUser" @submit="onAcceptWelcome"/>
         </div>
         <div v-else-if="!matchesOrgRequirements">
-            <registerOrg  :user="currentUser"
-                         @submit="onNewOrgWelcome" />
+            <wakeupEmitter v-if="compositeInviteId" @awake="acceptInvite"/>
+            <div v-else>
+                <registerOrg  :user="currentUser" @submit="onNewOrgWelcome"/>
+            </div>
         </div>
-        <div v-else>
-            <router-view />
-        </div>
+        <wakeupEmitter v-else-if="compositeInviteId" @awake="acceptInvite"/>
+        <router-view v-else />
     </div>
 </template>
 
@@ -27,13 +25,15 @@
 import Vue from 'vue';
 import welcomeUser from '../src/components/welcomeUser';
 import registerOrg from '../src/components/registerOrg';
+import wakeupEmitter from "../src/components/wakeupEmitter";
 import { userAdmin, org } from './storeWriter';
 
 export default {
     name: 'App',
     components: {
         welcomeUser,
-        registerOrg
+        registerOrg,
+        wakeupEmitter
     },
     data() {
         return {
@@ -45,12 +45,15 @@ export default {
             Vue.fbAuthenticationMethods.startLoginFlow();
         },
         onAcceptWelcome(userInfo) {
-            userAdmin.acceptInvite(this.authUserId, this.compositeInviteId, userInfo);
+            return userAdmin.updateUserProfile(this.authUserId, userInfo);
         },
         onNewOrgWelcome(orgInfo) {
             console.log(orgInfo)
             org.createOrg(orgInfo)
         },
+        acceptInvite(){
+            return userAdmin.acceptInvite(this.authUserId, this.compositeInviteId)
+        }
     },
     computed: {
         zsubscriptions() {
@@ -73,7 +76,11 @@ export default {
                 return false;
             }
 
-            return Object.keys(user.orgs).length > 0;
+            for(const o of user.orgs) {
+                if(o)
+                    return true;
+            }
+            return false;
         },
         matchesBasicRequirements() {
             const user = this.currentUser;
@@ -85,9 +92,36 @@ export default {
             return this.$route.query.compositeInviteId;
         },
     },
+    mounted() {
+        const { compositeInviteId } = this.$route.query;
+        if(compositeInviteId) {
+            Vue.fbAuthenticationMethods.signOut()
+        }
+        // console.log("APP MOUNT", compositeInviteId)
+    },
+    watch: {
+        compositeInviteId(current, prev){
+            console.log("WATCHER CATCHES IT??", current, prev)
+            // I am signing us out just so we don't end up having
+            // a wrong user log in & accept the invite. The invites
+            // are very loosely tied to the user!
+            if(current && !prev){
+                Vue.fbAuthenticationMethods.signOut()
+                this.$route.query.params = {}
+            }
+        }
+    }
 };
 </script>
 
 <style>
+    .warmlogo {
+        width: 20vh;
+        height: 20vh;
+        object-fit: contain;
+    }
 
+    .fillh {
+        height: 100%;
+    }
 </style>

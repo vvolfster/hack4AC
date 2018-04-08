@@ -30,60 +30,69 @@ const actions = {
                 .catch(reject);
         });
     },
-    acceptInvite(context, { userId, compositeInviteId, profileInfo }) {
+    acceptInvite(context, { userId, compositeInviteId }) {
+        if(!userId)
+            return Promise.reject(new Error(`No userId`))
+
+        if(!lodash.isString(compositeInviteId))
+            return Promise.reject(new Error(`Composite invite id must be a string`))
+
+        if(compositeInviteId.indexOf(`@@@`) === -1)
+            return Promise.reject(new Error(`Invalid composite id. They are of the form: <num>@@@</num>`))
+
         const userRef = db.ref(`users/${userId}`);
-        function getUser() {
-            return new Promise(resolve => {
-                return userRef.once('value').then(snap => resolve(snap.val()));
-            });
-        }
-        function updateProfile() {
-            return new Promise((resolve, reject) => {
-                if (profileInfo && lodash.keys(profileInfo).length) {
-                    userRef
-                        .update(profileInfo)
-                        .then(resolve)
-                        .catch(reject);
-                }
-                return resolve();
-            });
-        }
-        function addOrgToUser() {
-            return new Promise((resolve, reject) => {
-                const [orgId] = compositeInviteId.split('@@@');
-                if (!orgId) return reject(new Error('No org id'));
+        const [orgId, inviteId] = compositeInviteId.split('@@@');
 
-                return getUser().then(user => {
-                    const isDefault = !lodash.keys(user.orgs).length;
-                    return userRef
-                        .child(`orgs/${orgId}`)
-                        .set({ default: isDefault })
-                        .then(resolve)
-                        .catch(reject);
-                });
+        if (!orgId) return Promise.reject(new Error('No org id'));
+        if (!inviteId) return Promise.reject(new Error(`no invite id`))
+
+        function addOrgToUser(user) {
+            return new Promise((resolve, reject) => {
+                const isDefault = !lodash.keys(user.orgs).length || lodash.every(user.orgs, o => !o.isDefault || o.banned)
+                return userRef
+                    .child(`orgs/${orgId}`)
+                    .set({ default: isDefault })
+                    .then(resolve)
+                    .catch(reject);
             });
         }
-        function addUserToOrgAndMarkInviteAsAccepted() {
+        function addUserToOrg(user) {
+            return db.child(`org/${orgId}/users/${userId}`).set(user);
+        }
+        function markInviteAsAccepted(){
             return new Promise((resolve, reject) => {
-                const [orgId, inviteId] = compositeInviteId.split('@@@');
                 if (!orgId || !inviteId) return reject(new Error('No org id or no invite id'));
-
-                const orgRef = db.ref(`org/${orgId}`);
-                return getUser().then(user => {
-                    const promises = [orgRef.child(`users/${userId}`).set(user), orgRef.child(`invites/${inviteId}/accepted`).set(true)];
-                    return Promise.all(promises)
-                        .then(resolve)
-                        .catch(reject);
-                });
-            });
+                return db.child(`org/${orgId}/invites/${inviteId}/accepted`).set(true).then(resolve).catch(reject)
+            })
         }
 
         return new Promise((resolve, reject) => {
-            updateProfile()
-                .then(addOrgToUser)
-                .then(addUserToOrgAndMarkInviteAsAccepted)
-                .then(resolve)
-                .catch(reject);
+            const promises = [
+                userRef.once('value'),
+                db.ref(`org/${orgId}/invites/${inviteId}`).once('value')
+            ]
+
+            Promise.all(promises).then((results) => {
+                const user = results[0].val()
+                const invite = results[1].val()
+                if(!user)
+                    return reject(new Error(`User does not exist`));
+
+                if(invite.accepted)
+                    return resolve(`Invite alread accepted!!`);
+
+                // check if user is already part of the thing
+                if(user.orgs[orgId] !== null && user.orgs[orgId] !== undefined){
+                    Vue.toast.positive(`You are already part of this org`);
+                    return markInviteAsAccepted().then(resolve).catch(reject);
+                }
+
+                return addOrgToUser(user)
+                    .then(() => addUserToOrg(user))
+                    .then(markInviteAsAccepted)
+                    .then(resolve)
+                    .catch(reject)
+            }).catch(reject)
         });
     },
     setSelectedOrgId({ commit }, id) {
@@ -164,12 +173,36 @@ const actions = {
             userIsPartOfOrg().then(() => {
                 const userOrgRef = db.ref(`users/${userId}/orgs/${orgId}`)
                 const promises = [
-                    userOrgRef.set(value),
+                    userOrgRef.child('banned').set(value),
                     orgUserRef.child('banned').set(!value)
                 ]
                 Promise.all(promises).then(resolve).catch(reject)
             }).catch(reject)
         })
+    },
+    updateUserProfile(context, { userId, profileInfo }){
+        const userRef = db.ref(`users/${userId}`);
+        function getUser() {
+            return new Promise((resolve, reject) => {
+                return userRef.once('value').then((snap) => {
+                    return snap.val() ? resolve() : reject(new Error(`User does not exist!`))
+                });
+            });
+        }
+        function updateProfile() {
+            return new Promise((resolve, reject) => {
+                if (profileInfo && lodash.keys(profileInfo).length) {
+                    userRef
+                        .update(profileInfo)
+                        .then(resolve)
+                        .catch(reject);
+                }
+                return resolve();
+            });
+        }
+        return new Promise((resolve, reject) => {
+            getUser().then(updateProfile).then(resolve).catch(reject)
+        });
     }
 };
 

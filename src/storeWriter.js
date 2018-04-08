@@ -25,6 +25,9 @@ const writer = {
         inviteUser(email) {
             return writer.base.store.dispatch(`${this.name}/inviteUser`, email)
         },
+        updateUserProfile(userId, profileInfo){
+            return writer.base.store.dispatch(`${this.name}/updateUserProfile`, { userId, profileInfo })
+        },
         acceptInvite(userId, compositeInviteId, profileInfo) {
             return writer.base.store.dispatch(`${this.name}/acceptInvite`, { userId, compositeInviteId, profileInfo })
         },
