@@ -11,7 +11,7 @@
       <div>
         <q-toggle v-if="site.active"
                   :value="orgUserData.onSite === siteId"
-                  @click="toggleOnSite"
+                  @input="toggleOnSite"
                   label="I'm on site" />
       </div>
     </div>
@@ -100,7 +100,7 @@ import supply from '../../../components/siteDetail/supply';
 import incidentModal from '../../../components/siteDetail/incidentModal';
 import changeLead from '../../../components/siteDetail/changeLead';
 
-import { user } from '../../../storeWriter'
+import { user } from "../../../storeWriter"
 
 export default {
     name: 'PageIndex',

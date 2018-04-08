@@ -149,7 +149,7 @@ const actions = {
         return new Promise((resolve, reject) => {
             Promise.all(promises)
                 .then(results => {
-                    const [user, org] = results;
+                    const [org, user] = results;
                     if (!user || !org) return reject(new Error(`Could not get org or user`));
 
                     if (!org.site[siteId]) return reject(new Error('Invalid site. No such site exists in the org'));
