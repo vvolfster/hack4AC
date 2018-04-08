@@ -49,6 +49,11 @@ export default {
             }
             return this.site.supports.pets;
         },
+        countNeedsUpdated() {
+            const now = +new Date();
+            const thirtyMinutes = 30 * 60 * 1000;
+            return this.site.pets.lastUpdated + thirtyMinutes < now;
+        },
     },
     created() {},
     mounted() {
@@ -57,11 +62,6 @@ export default {
         }
     },
     methods: {
-        countNeedsUpdated() {
-            const now = +new Date();
-            const thirtyMinutes = 30 * 60 * 1000;
-            return this.site.pets.lastUpdated + thirtyMinutes < now;
-        },
         getPercentPets(site) {
             const x = site.pets.current / site.pets.max;
             return x * 100;
