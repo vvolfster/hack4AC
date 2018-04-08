@@ -30,6 +30,7 @@
                 <q-item-tile v-if="countNeedsUpdated"
                              icon="alarm"
                              color="red" />
+                <quick-number :value="currentSite.guest.inTransit" v-on:input="changeInTransit"></quick-number>
                 <q-btn color="primary"
                        @click="closeModal"
                        label="Close" />
@@ -54,11 +55,13 @@
 // import lodash from "lodash";
 // import moment from "moment";
 import siteCard from '../../components/siteCard';
+import quickNumber from '../../components/quickNumber';
 
 export default {
     name: 'driver',
     components: {
         siteCard,
+        quickNumber
     },
     props: [''],
     data() {
@@ -119,6 +122,9 @@ export default {
         isChildFriendly() {
             return this.site.supports.ageGroup === 'child';
         },
+        changeInTransit(value){
+            console.log("intransit change", value)
+        }
     },
 };
 </script>
