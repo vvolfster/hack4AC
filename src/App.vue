@@ -51,9 +51,7 @@ export default {
             return org.createOrg(orgInfo)
         },
         acceptInvite(){
-            return userAdmin.acceptInvite(this.authUserId, this.compositeInviteId).then(() => {
-                this.$router.push("/")
-            })
+            return userAdmin.acceptInvite(this.authUserId, this.compositeInviteId).then(() => this.$router.push("/"))
         }
     },
     computed: {
