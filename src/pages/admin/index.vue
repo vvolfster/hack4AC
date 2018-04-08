@@ -1,9 +1,7 @@
 <template>
     <q-layout view="lHh Lpr lFf">
         <q-layout-header v-if="isAdmin">
-            <q-toolbar color="primary"
-                       :glossy="$q.theme === 'mat'"
-                       :inverted="$q.theme === 'ios'">
+            <q-toolbar color="primary">
                 <q-btn flat
                        dense
                        round
