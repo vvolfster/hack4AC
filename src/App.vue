@@ -1,7 +1,13 @@
 <template>
     <div id="q-app">
         <div v-if="!authUserId">
-            <button @click.stop="startLoginFlow">Log in please</button>
+            <q-btn @click.stop="startLoginFlow">Log in please</q-btn>
+            <br/> <br/> <br/>
+            <q-btn
+                @click="$router.push('/registerOrg')"
+                color="primary"
+                label="Looking for a different team"
+            />
         </div>
         <div v-else-if="!matchesRequirements">
             <welcomeUser :user="currentUser"
@@ -22,6 +28,11 @@ export default {
     name: 'App',
     components: {
         welcomeUser,
+    },
+    data() {
+        return {
+            isOrgConnectorPluginInstance: true
+        }
     },
     methods: {
         startLoginFlow() {
