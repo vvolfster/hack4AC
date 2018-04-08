@@ -1,16 +1,18 @@
 <template>
     <div id="root" class="q-pa-md">
-        <q-toggle :value="checkIfCurrentUserIsOnSite"
-                @input="() => toggleLead()"
+        <q-btn :value="checkIfCurrentUserIsOnSite" color="primary"
+                @click="() => takeLead()"
                 :label="'Take ' + role" />
     </div>
 </template>
 
 <script>
+import { user } from '../../storeWriter'
+
 export default {
     name: 'changeLead',
     components: {},
-    props: ['role'],
+    props: ['siteId', 'role', 'roleId'],
     data() {
         return {};
     },
@@ -18,9 +20,8 @@ export default {
     created() {},
     mounted() {},
     methods: {
-        toggleLead() {
-            // TODO/FIXME: add server request to change lead
-
+        takeLead() {
+            user.toggleLead(this.roleId, this.siteId)
         }
     },
 };
