@@ -62,7 +62,7 @@
       <!-- show detailed supply requested list -->
       <div v-if="!orgUserData || orgUserData.onSite !== siteId">
         <supply readOnly=true
-                :suppliesNeeded=site.suppliesNeeded></supply>
+                :suppliesNeeded=fulfilledSuppliesNeeded></supply>
       </div>
 
       <!-- show full extent of functionalities, but do not show details of supply requests -->
@@ -124,6 +124,7 @@ import supply from '../../../components/siteDetail/supply';
 import incidentModal from '../../../components/siteDetail/incidentModal';
 import changeLead from '../../../components/siteDetail/changeLead';
 import volunteerModal from '../../../components/siteDetail/volunteerModal';
+import lodash from 'lodash'
 
 import { user, site as siteWriter } from "../../../storeWriter"
 
@@ -160,6 +161,15 @@ export default {
         ongoingIncident() {
             return !!this.site.incidents
         },
+        fulfilledSuppliesNeeded() {
+            const derp1 = lodash.map(this.site.suppliesNeeded, (e, id) => {
+                e.id = id
+                return e
+            })
+            return lodash.filter(derp1, e => {
+                return e.fulfilled === false
+            })
+        }
     },
     created() {},
     mounted() {},

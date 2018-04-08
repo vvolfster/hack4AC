@@ -63,9 +63,10 @@ export default {
                 },
                 []
             );
-            temp = lodash.map(temp, ele => {
-                ele.qty = ele.qty || +0
-                return ele
+            temp = lodash.filter(temp, ele => ele.qty !== "0" && !lodash.isUndefined(ele.qty))
+            temp = lodash.map(temp, e => {
+                e.fulfilled = false
+                return e
             })
             this.$emit('submit', temp);
         },

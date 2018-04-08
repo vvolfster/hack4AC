@@ -15,7 +15,8 @@
                 slot-scope="props">
       <q-btn color="secondary"
                flat
-               label="Fulfill" />
+               label="Fulfill"
+               @click="fulfillItems" />
         <div class="col" />
         <q-btn color="negative"
                flat
@@ -45,6 +46,7 @@
 
 <script>
 import supplyModal from './supplymodal'
+import lodash from 'lodash'
 import { site } from '../../../storeWriter.js'
 
 export default {
@@ -125,9 +127,15 @@ export default {
         },
         submitForm(data){
             this.closeModal()
-            // TODO send data to wolf
-            console.log("hi tehre kill me", data)
-            site.updateSuppliesNeeded(this.siteId, data)
+            const newData = data.concat(this.currentSite.suppliesNeeded)
+            site.updateSuppliesNeeded(this.siteId, newData)
+        },
+        fulfillItems() {
+            lodash.map(this.selected, e => {
+                e.fulfilled = true
+                return e
+            })
+            site.updateSuppliesNeeded(this.siteId, this.currentSite.suppliesNeeded)
         }
     },
 };
