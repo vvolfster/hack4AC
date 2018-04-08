@@ -14,19 +14,8 @@
                  v-model="driverModalVis">
             <div class="column">
                 <h4>{{currentSite.title}}</h4>
-                <!-- PEOPLE BAR -->
-                <q-item-tile v-if="isChildFriendly"
-                             class="col-3"
-                             icon="fas fa-child"
-                             color="green" />
-                <q-item-tile class="col-3"
-                             v-if="isAdultFriendly"
-                             icon="fas fa-male"
-                             color="green" />
-                <q-progress class="col-6"
-                            :percentage="getPercentPeople(currentSite)"
-                            style="height: 15px" /> {{ moment(currentSite.guest.lastUpdated).fromNow() }}
-                <div class="col-3">{{ currentSite.guest.current }}/{{ currentSite.guest.max }}</div>
+                <people-bar :site="currentSite"></people-bar>
+                <pet-bar :site="currentSite"></pet-bar>
                 <q-item-tile v-if="countNeedsUpdated"
                              icon="alarm"
                              color="red" />
@@ -34,6 +23,7 @@
                               class="quickNum"
                               :value="currentSite.guest.inTransit"
                               v-on:input="changeInTransit"></quick-number>
+
                 <q-btn color="primary"
                        @click="closeModal"
                        label="Close" />
@@ -62,12 +52,16 @@
 // import moment from "moment";
 import siteCard from '../../components/siteCard';
 import quickNumber from '../../components/quickNumber';
+import peopleBar from '../../components/peopleBar'
+import petBar from '../../components/petBar'
 
 export default {
     name: 'driver',
     components: {
         siteCard,
         quickNumber,
+        peopleBar,
+        petBar
     },
     props: [''],
     data() {

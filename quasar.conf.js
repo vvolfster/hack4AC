@@ -157,7 +157,7 @@ module.exports = (ctx) => {
             }
         },
         cordova: {
-            id: 'com.zabaat.vanpool.app'
+            id: 'com.zabaat.warm.app'
         },
         electron: {
             extendWebpack(cfg) {

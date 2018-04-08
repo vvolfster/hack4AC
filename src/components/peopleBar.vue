@@ -1,5 +1,7 @@
 <template>
+<div>
   <div id="root"
+        v-if="renderType ==='default'"
        class="row q-pa-sm">
     <q-item-tile class="col-3 flex flex-center">
       <q-item-tile v-if="isChildFriendly"
@@ -25,15 +27,24 @@
                  icon="alarm"
                  color="red" />
   </div>
+
+    <!-- NEW BAR -->
+  <div v-if="renderType===''">
+
+  </div>
+</div>
+
 </template>
 
 <script>
 export default {
     name: "peopleBar",
     components: {},
-    props: ["site"],
+    props: ["site", "type"],
     data() {
-        return {};
+        return {
+            renderType: "default"
+        };
     },
     computed: {
         countNeedsUpdated() {
@@ -61,7 +72,11 @@ export default {
         }
     },
     created() {},
-    mounted() {},
+    mounted() {
+        if(this.type){
+            this.renderType = this.type
+        }
+    },
     methods: {
         getPercentPeople(site) {
             const x = site.guest.current / site.guest.max;
