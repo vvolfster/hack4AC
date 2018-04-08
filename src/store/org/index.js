@@ -10,7 +10,6 @@ const actions = {
         const userId = Constants.store.getCurrentUserId(rootState, rootGetters)
         if (!userId) return Promise.reject(new Error(`No user logged in to create org`));
 
-        debugger;
         const user = rootGetters['users/currentUser'];
         if (!user) return Promise.reject(new Error(`No user logged in to create org`));
 
