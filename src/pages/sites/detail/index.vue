@@ -10,7 +10,7 @@
       </div>
       <div>
         <q-toggle v-if="site.active"
-                  :value="orgUserData.onSite === siteId"
+                  :value="orgUserData && orgUserData.onSite === siteId"
                   @input="toggleOnSite"
                   label="I'm on site" />
       </div>
@@ -66,7 +66,7 @@
         <div class="flex flex-center column">
             <h4>Incidents</h4>
             <div class="flex flex-center q-pa-lg">
-                <q-btn @click="clearIncident" color="secondary" class="q-ma-sm">
+                <q-btn v-if="ongoingIncident" @click="clearIncident" color="secondary" class="q-ma-sm">
                     Clear Incident
                 </q-btn>
                 <q-btn @click="showIncidentModal" color="primary" class="q-ma-sm">
@@ -77,17 +77,28 @@
 
         <div class="flex flex-center column">
           <h4>Change Lead</h4>
-          <div class="flex flex-center">
-            <changeLead role="site lead" roleId="siteLead"
-                        :siteId=siteId ></changeLead>
-            <changeLead role="shift lead" roleId="shiftLead"
-                        :siteId=siteId></changeLead>
+            <div class="flex flex-center">
+                <changeLead role="site lead" roleId="siteLead"
+                            :siteId=siteId ></changeLead>
+                <changeLead role="shift lead" roleId="shiftLead"
+                            :siteId=siteId></changeLead>
+            </div>
         </div>
+
+        <div class="flex flex-center column">
+          <h4>Volunteers</h4>
+            <div class="flex flex-center">
+                <q-btn @click="showVolunteerModal" color="primary" class="q-ma-sm">
+                    Count Volunteers
+                </q-btn>
+            </div>
         </div>
+
       </div>
     </div>
     <intake-modal :intakeModalIsVisible=intakeModalIsVisible :site=site :hideIntakeModal=hideIntakeModal></intake-modal>
     <incident-modal :incidentModalIsVisible=incidentModalIsVisible :site=site :hideIncidentModal=hideIncidentModal></incident-modal>
+    <volunteer-modal :volunteerModalIsVisible=volunteerModalIsVisible :site=site :hideVolunteerModal=hideVolunteerModal></volunteer-modal>
   </q-page>
 </template>
 
@@ -99,6 +110,7 @@ import intakeModal from '../../../components/siteDetail/intakeModal';
 import supply from '../../../components/siteDetail/supply';
 import incidentModal from '../../../components/siteDetail/incidentModal';
 import changeLead from '../../../components/siteDetail/changeLead';
+import volunteerModal from '../../../components/siteDetail/volunteerModal';
 
 import { user } from "../../../storeWriter"
 
@@ -112,6 +124,7 @@ export default {
         supply,
         incidentModal,
         changeLead,
+        volunteerModal,
     },
     props: [''],
     data() {
@@ -120,6 +133,7 @@ export default {
             siteId: this.$route.params.siteId,
             intakeModalIsVisible: false,
             incidentModalIsVisible: false,
+            volunteerModalIsVisible: false,
         };
     },
     computed: {
@@ -130,12 +144,15 @@ export default {
                 return {};
             }
         },
+        ongoingIncident() {
+            return this.site.incidents && this.site.incidents.some(incident => !incident.resolved)
+        },
     },
     created() {},
     mounted() {},
     methods: {
         toggleOnSite() {
-            user.toggleUserOnSite(this.siteId)
+            user.toggleUserOnSite(this.site.id)
         },
         showIntakeModal() {
             this.intakeModalIsVisible = true;
@@ -153,8 +170,16 @@ export default {
             this.incidentModalIsVisible = false;
             return false
         },
+        showVolunteerModal() {
+            this.volunteerModalIsVisible = true;
+            return true
+        },
+        hideVolunteerModal() {
+            this.volunteerModalIsVisible = false;
+            return false
+        },
         clearIncident() {
-            // TODO
+            user.clearIncident(this.site.id)
         }
     },
 };

@@ -22,7 +22,7 @@ export default [
     children: [
         { 
             path: '', 
-            component: load('index'),
+            component: load('sites'),
         },
         {
             path: "fbadmin",
