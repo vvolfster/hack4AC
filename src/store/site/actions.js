@@ -88,11 +88,12 @@ export default {
             if (type !== 'guest' && type !== 'pets') return reject(new Error('bad type specified'));
 
             return Constants.store.isValidSiteId(orgId, siteId).then(() => {
-                return db
-                    .ref(`org/${orgId}/site/${siteId}/${type}/current`)
-                    .set(number)
-                    .then(resolve)
-                    .catch(reject);
+                const ref = db.ref(`org/${orgId}/site/${siteId}/${type}`)
+                const promises = [
+                    ref.child(`current`).set(number),
+                    ref.child(`lastUpdated`).set(new Date().toISOString())
+                ]
+                Promise.all(promises).then(resolve).catch(reject)
             })
         });
     },

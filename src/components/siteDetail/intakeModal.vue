@@ -7,13 +7,13 @@
     <div class="q-pa-lg column">
       <h4 class="flow column text-center">{{site.title}}</h4>
       <div class="q-pa-lg">
-        <people-bar :site=site :hideExtraInfo=true></people-bar>
+        <people-bar :site="site" :hideExtraInfo="true"></people-bar>
         <quick-number label="Number of Guests"
                       class="quickNum"
                       v-model="guestsArrived"></quick-number>
       </div>
       <div class="q-pa-lg" v-if="site.supports.pets">
-        <pet-bar :site=site :hideExtraInfo=true></pet-bar>
+        <pet-bar :site="site" :hideExtraInfo="true"></pet-bar>
         <quick-number label="Number of Pets"
                       class="quickNum"
                       v-model="petsArrived"></quick-number>
@@ -34,7 +34,7 @@ import peopleBar from '../peopleBar';
 import petBar from '../petBar';
 import quickNumber from '../quickNumber';
 
-import { site } from '../../storeWriter'
+import { site as siteWriter } from '../../storeWriter'
 
 export default {
     name: 'changeLead',
@@ -62,8 +62,8 @@ export default {
             this.hideIntakeModal()
         },
         submit() {
-            site.updateCurrentQty(this.site.id, "guest", Number(this.guestsArrived))
-            site.updateCurrentQty(this.site.id, "pets", Number(this.petsArrived))
+            siteWriter.updateCurrentQty(this.site.id, "guest", Number(this.guestsArrived))
+            siteWriter.updateCurrentQty(this.site.id, "pets", Number(this.petsArrived))
         },
     },
 };

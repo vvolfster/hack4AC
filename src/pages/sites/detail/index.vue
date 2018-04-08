@@ -125,7 +125,7 @@ import incidentModal from '../../../components/siteDetail/incidentModal';
 import changeLead from '../../../components/siteDetail/changeLead';
 import volunteerModal from '../../../components/siteDetail/volunteerModal';
 
-import { user, site } from "../../../storeWriter"
+import { user, site as siteWriter } from "../../../storeWriter"
 
 export default {
     name: 'SiteDetail',
@@ -192,8 +192,7 @@ export default {
             return false
         },
         clearIncident() {
-            // TODO: Check that the store works correctly
-            site.clearAllIncidents(this.site.id)
+            siteWriter.clearAllIncidents(this.site.id)
         }
     },
 };
