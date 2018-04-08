@@ -30,7 +30,6 @@ module.exports = (ctx) => {
             // extractCSS: false,
             // useNotifier: false,
             extendWebpack(cfg) {
-                console.log("CONFIG", cfg);
                 cfg.module.rules.push({
                     enforce: 'pre',
                     test: /\.(js|vue)$/,
@@ -164,8 +163,7 @@ module.exports = (ctx) => {
             id: 'com.zabaat.warm.app'
         },
         electron: {
-            extendWebpack(cfg) {
-                console.log("electron config", cfg)
+            extendWebpack() {
                 // do something with cfg
             },
             packager: {
