@@ -88,6 +88,7 @@
 <script>
 import lodash from 'lodash';
 import adminSiteAdd from '../../../components/adminSiteAdd';
+import { site as siteWriter } from "../../../storeWriter"
 
 const columns = /* array of Objects */ [
     // column Object definition
@@ -163,11 +164,6 @@ export default {
         showSiteModal() {
             this.siteAddModalVis = true;
         },
-        addSite(payload){
-            // WOLF addSite
-            // don't forget to add id field inside this object
-            console.log(payload)
-        },
         updateSite(payload){
             // WOLF updateSite
             console.log(payload)
@@ -188,6 +184,13 @@ export default {
                 payloadSite.supports.pets = data.supportsPets
                 payloadSite.supports.ageGroup = data.ageGroup
                 payloadSite.streetAddress = data.streetAddress
+
+                if(!lodash.isNumber(payloadSite.guest.max))
+                    payloadSite.guest.max = parseInt(payloadSite.guest.max, 10)
+
+                if(!lodash.isNumber(payloadSite.pets.max))
+                    payloadSite.pets.max = parseInt(payloadSite.pets.max, 10)
+
                 this.updateSite(payloadSite)
             } else {
                 // addFunction
@@ -249,7 +252,14 @@ export default {
                         lastUpdated: 1523082682773,
                     },
                 };
-                this.addSite(site)
+
+                if(!lodash.isNumber(site.guest.max))
+                    site.guest.max = parseInt(site.guest.max, 10)
+
+                if(!lodash.isNumber(site.pets.max))
+                    site.pets.max = parseInt(site.pets.max, 10)
+
+                siteWriter.addSite(site);
             }
         },
     },

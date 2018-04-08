@@ -122,5 +122,20 @@ export default {
                 db.ref(`org/${orgId}/site/${siteId}/history/${todayKey}/volunteer`).set({ hours, count }).then(resolve).catch(reject)
             })
         })
+    },
+    addSite({ rootState, rootGetters }, { siteData }) {
+        const orgId = Constants.store.getCurrentOrgId(rootState, rootGetters);
+        return new Promise((resolve, reject) => {
+            if (!orgId) return reject(new Error(`No orgId`));
+
+            return Constants.store.isValidSiteData(siteData).then(() => {
+                const ref = db.ref(`org/${orgId}/site`)
+                siteData.id = ref.push().key;
+                ref.child(siteData.id).set(siteData).then(resolve).catch(reject)
+            }).catch(reject)
+        })
+    },
+    updateSite() {
+
     }
 };

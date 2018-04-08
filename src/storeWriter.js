@@ -64,6 +64,12 @@ const writer = {
         },
         logVolunteerHours(siteId, volunteerCounts, volunteerHours) {
             return writer.base.store.dispatch(`${this.name}/logVolunteerHours`, { siteId, count: volunteerCounts, hours: volunteerHours })
+        },
+        addSite(siteData) {
+            return writer.base.store.dispatch(`${this.name}/addSite`, { siteData })
+        },
+        updateSite(siteId, siteData) {
+            return writer.base.store.dispatch(`${this.name}/updateSite`, { siteId, siteData })
         }
     },
     org: {
