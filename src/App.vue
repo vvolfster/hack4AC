@@ -1,8 +1,8 @@
 <template>
     <div id="q-app">
-        <div v-if="!authUserId" class="fillh zpadded column items-center justify-betwen">
+        <div v-if="!authUserId" class="fillh zpadded column items-center justify-between">
             <div style="flex: 1 1 100%;"></div>
-            <div class="column items-center" style="flex: 0 0 20vh;">
+            <div class="column items-center" style="flex: 0 0 20vh; ">
                 <img src="statics/icons/icon-512x512.png" class="warmlogo">
                 <h3 class="text-red-8">Finding Warmth</h3>
             </div>
@@ -14,8 +14,18 @@
         </div>
         <div v-else-if="!matchesOrgRequirements" class="zpadded">
             <wakeupEmitter v-if="compositeInviteId" @awake="acceptInvite"/>
-            <div v-else class="zpadded">
-                <registerOrg  :user="currentUser" @submit="onNewOrgWelcome"/>
+            <div v-else>
+                <div class="fillh column items-center justify-between" v-if="!createOrgMode">
+                    <div style="flex: 1 1 100%;">
+                        <div class="column items-center" style="flex: 0 0 20vh;">
+                            <img src="statics/icons/icon-512x512.png" class="warmlogo">
+                            <div class="text-red-8 text-center">Looks like you are not part of any organizations. <br><br>Would you like to create one?</div>
+                        </div>
+                        <div style="flex: 1 1 100%;"></div>
+                        <q-btn size="lg" class="bg-red-8 text-white fillw" @click.stop="createOrgMode = true">Create Organization</q-btn>
+                    </div>
+                </div>
+                <registerOrg  v-else :user="currentUser" @submit="onNewOrgWelcome" @cancel="createOrgMode = false"/>
             </div>
         </div>
         <wakeupEmitter v-else-if="compositeInviteId" @awake="acceptInvite"/>
@@ -39,7 +49,8 @@ export default {
     },
     data() {
         return {
-            isOrgConnectorPluginInstance: true
+            isOrgConnectorPluginInstance: true,
+            createOrgMode: false,
         }
     },
     methods: {
