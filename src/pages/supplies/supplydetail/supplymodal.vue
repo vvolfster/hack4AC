@@ -1,6 +1,26 @@
 <template>
     <q-modal maximized v-model="opened">
-
+        <q-modal-layout>
+            <q-toolbar slot="header">
+                <q-btn
+                    flat
+                    round
+                    dense
+                    v-close-overlay
+                    icon="keyboard_arrow_left"
+                />
+                <q-toolbar-title> Supply Form </q-toolbar-title>
+            </q-toolbar>
+            <q-list>
+                <q-list-header>Food</q-list-header>
+                <q-item>
+                    <q-input v-model="numeric" type="number" value="1"></q-input>
+                </q-item>
+            </q-list>
+            <q-toolbar slot="footer">
+                <q-btn> Submit </q-btn>
+            </q-toolbar>
+        </q-modal-layout>
     </q-modal>
 </template>
 
@@ -10,11 +30,12 @@
 
 <script>
 export default {
-    name: 'supply-modal',
-    props: ['show'],
+    name: '',
+    props: ['open'],
     data() {
         return {
-            zsubscriptions: ['org/egan']
+            zsubscriptions: ['org/egan'],
+            opened: this.open
         };
     },
     computed: {

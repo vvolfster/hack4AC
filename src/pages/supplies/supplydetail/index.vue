@@ -30,7 +30,7 @@
     </q-table>
 
 
-    <supplyModal/>
+    <supply-modal :open="open"> </supply-modal>
     <q-page-sticky position="bottom-right"
                    :offset="[18, 18]">
       <q-btn round
@@ -49,7 +49,7 @@
 </style>
 
 <script>
-import supplyModal from '.'
+import supplyModal from './supplymodal'
 
 export default {
     name: 'SupplyDashboard',
@@ -64,7 +64,7 @@ export default {
             siteId,
             zsubscriptions: [`org/egan/site/${siteId}`],
             selected: [],
-            opened: false
+            open: true
         };
     },
     computed: {
@@ -120,9 +120,10 @@ export default {
         deleteRow() {
             console.log('womp');
         },
-        openModal(opened) {
-            if (!opened) {
-                opened = true
+        openModal() {
+            if (!this.open) {
+                this.open = true
+                console.log(this.open)
             }
         }
     },
