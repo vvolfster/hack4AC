@@ -139,6 +139,38 @@ const actions = {
                 .catch(reject);
         });
     },
+    setUserActiveState({ rootState, rootGetters }, { userId, value }){
+        const orgId = Constants.store.getCurrentOrgId(rootState, rootGetters)
+        const authUserId = Constants.store.getCurrentUserId(rootState, rootGetters)
+        const orgRef = Constants.store.getOrgRef(rootState, rootGetters);
+        if(!orgRef)
+            return Promise.reject(new Error(`no org ref`));
+
+        if(authUserId === userId) {
+            Vue.toast.negative(`Cannot change active status of self`)
+            return Promise.resolve(`Cannot change active status of self`)
+        }
+
+        const orgUserRef = orgRef.child(`users/${userId}`);
+        return new Promise((resolve, reject) => {
+            const userIsPartOfOrg = () => {
+                return new Promise((resolve, reject) => {
+                    orgRef.child(`users/${userId}`).once('value').then((snap) => {
+                        return snap.val() ? resolve() : reject(new Error(`User is not part of the org!`))
+                    })
+                })
+            }
+
+            userIsPartOfOrg().then(() => {
+                const userOrgRef = db.ref(`users/${userId}/orgs/${orgId}`)
+                const promises = [
+                    userOrgRef.set(value),
+                    orgUserRef.child('banned').set(!value)
+                ]
+                Promise.all(promises).then(resolve).catch(reject)
+            }).catch(reject)
+        })
+    }
 };
 
 export default actions;

@@ -89,7 +89,9 @@
 <script>
 import lodash from 'lodash';
 import adminSiteAdd from '../../../components/adminSiteAdd';
+import Vue from "vue"
 import { site as siteWriter } from "../../../storeWriter"
+import Constants from "../../../Constants"
 
 const columns = /* array of Objects */ [
     // column Object definition
@@ -128,12 +130,8 @@ export default {
     computed: {
         tableData() {
             try {
-                console.log(this.org.site);
-                const data = lodash.toArray(this.org.site);
-                return lodash.map(data, (ele, i) => {
-                    ele.id = i;
-                    return ele;
-                });
+                // console.log(this.org.site);
+                return lodash.toArray(this.org.site);
             } catch (e) {
                 return {};
             }
@@ -170,24 +168,24 @@ export default {
             this.selected = []
             this.siteAddModalVis = true;
         },
-        addSite(payload) {
-            // WOLF addSite
-            // don't forget to add id field inside this object
-            console.log(payload);
+        clearSelection() {
+            this.selected = []
         },
-        updateSite(payload) {
-            // WOLF updateSite
-            console.log(payload);
-        },
-        toggleActive() {
-            const payloadSite = this.selected[0];
-            payloadSite.active = !payloadSite.active;
-            this.updateSite(payloadSite);
+        toggleActive(){
+            const payloadSite = Constants.clone(this.selected[0])
+            /* eslint-disable-next-line */
+            delete payloadSite.__index
+
+            payloadSite.active = !payloadSite.active
+            siteWriter.updateSite(payloadSite.id, payloadSite).then(this.clearSelection)
         },
         submitForm(data) {
             // console.log('SUBMITTING SITE admin data', data);
             if (this.selected.length > 0) {
-                const payloadSite = this.selected[0]
+                const payloadSite = Constants.clone(this.selected[0])
+                /* eslint-disable-next-line */
+                delete payloadSite.__index
+
                 payloadSite.title = data.title
                 payloadSite.guest.max = data.maxGuests
                 payloadSite.pets.max = data.maxPets
@@ -197,12 +195,13 @@ export default {
                 payloadSite.streetAddress = data.streetAddress
 
                 if(!lodash.isNumber(payloadSite.guest.max))
-                    payloadSite.guest.max = parseInt(payloadSite.guest.max, 10)
+                    payloadSite.guest.max = parseInt(payloadSite.guest.max.trim(), 10)
 
                 if(!lodash.isNumber(payloadSite.pets.max))
-                    payloadSite.pets.max = parseInt(payloadSite.pets.max, 10)
+                    payloadSite.pets.max = parseInt(payloadSite.pets.max.trim(), 10)
 
-                this.updateSite(payloadSite.id, payloadSite);
+                // console.log('update the fucking site', payloadSite.id, payloadSite)
+                siteWriter.updateSite(payloadSite.id, payloadSite).then(this.clearSelection)
             } else {
                 // addFunction
                 const site = {
@@ -220,7 +219,7 @@ export default {
                         current: 0,
                         inTransit: 0,
                         lastUpdated: 1523082682773,
-                        max: data.mexPets,
+                        max: data.maxPets,
                     },
                     shiftLead: {
                         dateCreated: '2018-04-08T03:17:45.890Z',
@@ -265,12 +264,14 @@ export default {
                 };
 
                 if(!lodash.isNumber(site.guest.max))
-                    site.guest.max = parseInt(site.guest.max, 10)
+                    site.guest.max = parseInt(site.guest.max.trim(), 10)
 
                 if(!lodash.isNumber(site.pets.max))
-                    site.pets.max = parseInt(site.pets.max, 10)
+                    site.pets.max = parseInt(site.pets.max.trim(), 10)
 
-                siteWriter.addSite(site);
+                siteWriter.addSite(site).then(() => {
+                    Vue.toast.positive(`${site.title}: Site Created`)
+                })
             }
         },
     },

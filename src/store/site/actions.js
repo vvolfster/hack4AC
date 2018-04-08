@@ -135,7 +135,17 @@ export default {
             }).catch(reject)
         })
     },
-    updateSite() {
+    updateSite({ rootState, rootGetters }, { siteId, siteData }) {
+        const orgId = Constants.store.getCurrentOrgId(rootState, rootGetters);
+        return new Promise((resolve, reject) => {
+            if (!orgId) return reject(new Error(`No orgId`));
 
+            const validateSiteId = () => Constants.store.isValidSiteId(orgId, siteId)
+            const validateSiteData = () => Constants.store.isValidSiteData(siteData)
+
+            return validateSiteId().then(validateSiteData).then(() => {
+                db.ref(`org/${orgId}/site/${siteId}`).set(siteData).then(resolve).catch(reject)
+            }).catch(reject)
+        })
     }
 };

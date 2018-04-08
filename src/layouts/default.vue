@@ -1,6 +1,6 @@
 <template>
     <q-layout view="lHh Lpr lFf">
-        <q-layout-header>
+        <q-layout-header v-model="state">
             <q-toolbar color="primary">
                 <q-btn flat
                        dense
@@ -88,6 +88,7 @@ export default {
     data() {
         return {
             leftDrawerOpen: this.$q.platform.is.desktop,
+            state: true
         };
     },
     methods: {
@@ -95,11 +96,11 @@ export default {
         openPage(page) {
             this.$router.push(page);
         },
-        hideHeader(){
-            console.log("I want to hide")
+        hideHeader() {
+            this.state = false
         },
-        showHeader(){
-            console.log("I want to be seen")
+        showHeader() {
+            this.state = true
         }
     },
     mounted(){
@@ -107,7 +108,7 @@ export default {
         this.$root.$on('hideHeader', this.hideHeader)
         this.$root.$on('showHeader', this.showHeader)
     },
-    beforeDestoryed(){
+    beforeDestroyed(){
         this.$root.$off('hideHeader', this.hideHeader)
         this.$root.$off('showHeader', this.showHeader)
     }

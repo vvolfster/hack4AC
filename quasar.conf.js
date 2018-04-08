@@ -101,7 +101,7 @@ module.exports = (ctx) => {
                 'QModal',
                 'QUploader',
                 'QBtnToggle',
-                'QModalLayout'
+                'QModalLayout',
             ],
             directives: [
                 'Ripple',

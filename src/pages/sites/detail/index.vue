@@ -3,9 +3,9 @@
 
         <div class="subcontrol flex justify-between q-pa-sm">
             <div>
-                <q-btn v-if="!orgUserData || (orgUserData.onSite !== siteId)"
-                       @click="$router.replace('/sites')">
-                    Back to sites
+                <q-btn v-if="orgUserData && (orgUserData.onSite === siteId)"
+                       @click="returnToSite">
+                    Back to Site List
                 </q-btn>
             </div>
             <div>
@@ -55,8 +55,7 @@
                     <phone-contact role="Site Lead"
                                    :contact=site.siteLead
                                    small='true'></phone-contact>
-                    <phone-contact
-                                   role="Shift Lead"
+                    <phone-contact role="Shift Lead"
                                    :contact=site.shiftLead
                                    small='true'></phone-contact>
                 </q-card-actions>
@@ -80,23 +79,23 @@
                         :suppliesNeeded=fulfilledSuppliesNeeded></supply>
             </div>
 
+                <q-collapsible icon="person"
+                               label="Change Lead">
+                    <div>
+                        <div class="flex flex-center column">
+                            <div class="flex flex-center">
+                                <changeLead role="site lead"
+                                            roleId="siteLead"
+                                            :siteId=siteId></changeLead>
+                                <changeLead role="shift lead"
+                                            roleId="shiftLead"
+                                            :siteId=siteId></changeLead>
+                            </div>
+                        </div>
+                    </div>
+                </q-collapsible>
             <!-- show full extent of functionalities, but do not show details of supply requests -->
             <div v-if="orgUserData && orgUserData.onSite === siteId">
-                <div class="flex flex-center q-pa-md">
-                    <q-btn @click="showIntakeModal"
-                           color="primary"
-                           size="md"
-                           class="q-ma-sm">
-                        Update Guest Count
-                    </q-btn>
-                    <q-btn @click="$router.push('/supplydetail/' + siteId)"
-                           color="primary"
-                           size="md"
-                           class="q-ma-sm">
-                        Request Supplies
-                    </q-btn>
-                </div>
-
                 <div class="flex flex-center column">
                     <big>Incidents</big>
                     <div class="flex flex-center q-pa-sm">
@@ -114,16 +113,20 @@
                     </div>
                 </div>
 
-                <div class="flex flex-center column">
-                    <big>Change Lead</big>
-                    <div class="flex flex-center">
-                        <changeLead role="site lead"
-                                    roleId="siteLead"
-                                    :siteId=siteId></changeLead>
-                        <changeLead role="shift lead"
-                                    roleId="shiftLead"
-                                    :siteId=siteId></changeLead>
-                    </div>
+
+                <div class="flex flex-center q-pa-md">
+                    <q-btn @click="showIntakeModal"
+                           color="primary"
+                           size="md"
+                           class="q-ma-sm">
+                        Update Guest Count
+                    </q-btn>
+                    <q-btn @click="$router.push('/supplydetail/' + siteId)"
+                           color="primary"
+                           size="md"
+                           class="q-ma-sm">
+                        Request Supplies
+                    </q-btn>
                 </div>
 
                 <!-- <div class="flex flex-center column">
@@ -225,6 +228,10 @@ export default {
         },
         toggleOnSite() {
             user.toggleUserOnSite(this.site.id);
+        },
+        returnToSite() {
+            this.$router.push('/sites');
+            this.$root.$emit('showHeader');
         },
         showIntakeModal() {
             this.intakeModalIsVisible = true;

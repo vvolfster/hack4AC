@@ -3,17 +3,20 @@
              v-if="incidentModalIsVisible"
              v-model="incidentModalIsVisible">
         <div class="q-pa-lg column">
-            <h4 class="flow column text-center">Report Incidient</h4>
+            <h4 class="flow column text-center">Press To Call</h4>
             <div class="q-pb-lg"
                  @click="submitIncident">
                 <phone-contact role="E 911"
+                                flat='false'
                                :contact="{phone: '911111', firstName: null}"
                                @wasClicked="alertFrom911"
                                omitFirstName></phone-contact>
                 <phone-contact role="CAHOOTS"
+                                flat='false'
                                :contact="{phone: '5416825111', firstName: null}"
                                omitFirstName></phone-contact>
                 <phone-contact role="Admin"
+                                flat='false'
                                :contact="{phone: '5411234567', firstName: null}"
                                omitFirstName></phone-contact>
             </div>

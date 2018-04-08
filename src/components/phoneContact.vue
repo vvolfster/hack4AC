@@ -26,7 +26,7 @@ import { openURL } from 'quasar';
 export default {
     name: 'phoneContact',
     components: {},
-    props: ['role', 'contact', 'omitFirstName', 'phone', 'small'],
+    props: ['role', 'contact', 'omitFirstName', 'phone', 'small', 'flat'],
     data() {
         return {};
     },
