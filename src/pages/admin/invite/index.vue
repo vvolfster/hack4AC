@@ -1,9 +1,6 @@
 <template>
     <q-page>
-        <div v-for="(invite, key) in invites"
-             :key="key">
-            <q-table :data="tableData" :columns="columns" row-key="name" color="secondary" class="tableClass"/>
-        </div>
+        <q-table title="Invited" :data="tableData" :columns="columns" row-key="name" color="secondary" class="tableClass"/>
         <q-page-sticky position="bottom-right"
                        :offset="[18, 18]">
             <q-btn :fab="true"
