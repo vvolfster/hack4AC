@@ -12,7 +12,6 @@
                 ]"
             />
             <div v-for="(s, key) in sortedSites" :key="key" v-if="s.active">
-                yyaaay!
                 <div @click="$router.push('/detail/' + s.id)">
                     <site-card :site="s" @siteClicked="clickSite" />
                 </div>
