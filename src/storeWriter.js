@@ -25,4 +25,4 @@ const writer = {
     }
 }
 
-export const { base, user, site } = writer;
+export const { base, user, userAdmin, site } = writer;
