@@ -29,9 +29,15 @@ const writer = {
             return writer.base.store.dispatch(`${this.name}/acceptInvite`, { userId, compositeInviteId, profileInfo })
         }
     },
-    site: {
+    siteWriter: {
+        name: "site",
+        updateTransitCount(siteId, type, number){
+            if(typeof number !== 'number')
+                return Promise.reject()
 
+            return writer.base.store.dispatch(`${this.name}/updateTransitCount`, { siteId, type, number })
+        }
     }
 }
 
-export const { base, user, userAdmin, site } = writer;
+export const { base, user, userAdmin, siteWriter } = writer;

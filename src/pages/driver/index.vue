@@ -21,11 +21,11 @@
                 <quick-number label="Guests In Transit"
                               class="quickNum"
                               :value="currentSite.guest.inTransit"
-                              v-on:input="changeInTransit"></quick-number>
+                              v-on:input="changeInTransit(`guest`, $event)"></quick-number>
                 <quick-number label="Pets In Transit"
                               class="quickNum"
                               :value="currentSite.pets.inTransit"
-                              v-on:input="changeInTransit"></quick-number>
+                              v-on:input="changeInTransit(`pets`, $event)"></quick-number>
 
             </div>
             <div class="column modal--close-button">
@@ -58,12 +58,14 @@
 </style>
 
 <script>
+/* eslint-disable prefer-destructuring */
 // import lodash from "lodash";
 // import moment from "moment";
 import siteCard from '../../components/siteCard';
 import quickNumber from '../../components/quickNumber';
 import peopleBar from '../../components/peopleBar';
 import petBar from '../../components/petBar';
+import { siteWriter } from "../../storeWriter"
 
 export default {
     name: 'driver',
@@ -117,20 +119,24 @@ export default {
             this.driverModalVis = false;
             this.currentSite = {};
         },
-        isAccessible() {
-            return this.site.supports.ADA;
-        },
-        isPetFriendly() {
-            return this.site.supports.pets;
-        },
-        isAdultFriendly() {
-            return this.site.supports.ageGroup === 'adult';
-        },
-        isChildFriendly() {
-            return this.site.supports.ageGroup === 'child';
-        },
-        changeInTransit(value) {
-            console.log('intransit change', value);
+        // TODO BARTIMUS FIX
+        // isAccessible() {
+        //     return this.site.supports.ADA;
+        // },
+        // isPetFriendly() {
+        //     return this.site.supports.pets;
+        // },
+        // isAdultFriendly() {
+        //     return this.site.supports.ageGroup === 'adult';
+        // },
+        // isChildFriendly() {
+        //     return this.site.supports.ageGroup === 'child';
+        // },
+        changeInTransit(type, value) {
+            const { id } = this.currentSite
+            console.log(id, type, value)
+            /* eslint-disable-next-line */
+            siteWriter.updateTransitCount(id, type, value)
         },
     },
 };

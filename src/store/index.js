@@ -26,8 +26,8 @@ const store = new Vuex.Store({
     modules: {
         fbSubscriptions: require("./fbSubscriptions").default,
         users: require('./users').default,
-        currentOrg: require('./currentOrg').default
-        // site: require('./site').default
+        currentOrg: require('./currentOrg').default,
+        site: require('./site').default
     }
 });
 
