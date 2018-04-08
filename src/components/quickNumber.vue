@@ -50,7 +50,7 @@ export default {
             this.$emit('input', outVal);
         },
         decrement() {
-            this.val = this.val - 1;
+            this.val = this.val - 1
         },
         increment() {
             this.val = this.val + 1;
