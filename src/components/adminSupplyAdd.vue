@@ -16,8 +16,6 @@
                      :options="options"
             /> <br/> <br/>
             <q-btn @click.stop="submit"
-                   :disable="formIsInvalid"
-                   :class="!formIsInvalid ? `bg-green text-white` : `bg-grey-5 text-grey-2`"
                    size="lg">
                 Submit
             </q-btn>

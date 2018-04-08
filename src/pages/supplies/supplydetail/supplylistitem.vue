@@ -60,9 +60,7 @@ export default {
         },
     },
     created() {},
-    mounted() {
-        console.log(this.supplies);
-    },
+    mounted() {},
     methods: {
         sendListUp(supplyItem, val) {
             supplyItem.qty = val
