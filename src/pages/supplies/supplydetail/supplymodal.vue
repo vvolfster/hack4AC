@@ -1,37 +1,73 @@
 <template>
-    <q-page class="flex ">
-    </q-page>
+    <q-modal maximized v-model="opened">
+        <q-modal-layout>
+            <q-toolbar slot="header">
+                <q-btn
+                    flat
+                    round
+                    dense
+                    v-close-overlay
+                    icon="keyboard_arrow_left"
+                />
+                <q-toolbar-title> Supply Form </q-toolbar-title>
+            </q-toolbar>
+            <q-list>
+                <q-list-header>Food</q-list-header>
+                <q-item-separator />
+                <q-item>
+                    <q-item-main class="itemTitle">
+                        food
+                    </q-item-main>
+                    <q-item-side right>
+                        <quick-supply-number value=0 />
+                    </q-item-side>
+                </q-item>
+                <q-item-separator />
+                <q-item>
+                    <q-item-main class="itemTitle">
+                        Another item, this is longggggggg
+                    </q-item-main>
+                    <q-item-side right>
+                        <quick-supply-number value=0 />
+                    </q-item-side>
+                </q-item>
+
+            </q-list>
+            <q-toolbar slot="footer">
+                <q-btn> Submit </q-btn>
+            </q-toolbar>
+        </q-modal-layout>
+    </q-modal>
 </template>
 
 <style>
-
+.itemTitle {
+    width:75%;
+}
 </style>
 
 <script>
+import quickSupplyNumber from "./quickSupplyNumber"
+
 export default {
-    name: 'ItemModal',
-    props: [''],
+    name: '',
+    components: {
+        quickSupplyNumber
+    },
+    props: ['open'],
     data() {
         return {
             zsubscriptions: ['org/egan'],
+            opened: this.open
         };
     },
     computed: {
-        sites() {
-            try {
-                console.log(this.zsubData['org/egan'].site);
-                return this.zsubData['org/egan'].site;
-            } catch (e) {
-                return {};
-            }
-        },
     },
     created() {},
-    mounted() {},
+    mounted() {
+        console.log("this is rendered")
+    },
     methods: {
-        clickSite(site) {
-            console.log('clicked site', site);
-        },
     },
 };
 </script>
