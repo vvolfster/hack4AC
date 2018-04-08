@@ -71,6 +71,11 @@
                     <q-item-main label="Admin"
                                  sublabel="" />
                 </q-item>
+                <q-item @click.native="openPage('/about')">
+                    <q-item-side icon="fas fas fa-hand-peace" />
+                    <q-item-main label="About"
+                                 sublabel="" />
+                </q-item>
             </q-list>
         </q-layout-drawer>
 
@@ -88,7 +93,7 @@ export default {
     data() {
         return {
             leftDrawerOpen: false, // this.$q.platform.is.desktop,
-            state: true
+            state: true,
         };
     },
     methods: {
@@ -97,23 +102,24 @@ export default {
             this.$router.push(page);
         },
         hideHeader() {
-            this.state = false
+            this.state = false;
         },
         showHeader() {
-            this.state = true
-        }
+            this.state = true;
+        },
     },
-    mounted(){
+    mounted() {
         // listen for an event
-        this.$root.$on('hideHeader', this.hideHeader)
-        this.$root.$on('showHeader', this.showHeader)
+        this.$root.$on('hideHeader', this.hideHeader);
+        this.$root.$on('showHeader', this.showHeader);
     },
-    beforeDestroyed(){
-        this.$root.$off('hideHeader', this.hideHeader)
-        this.$root.$off('showHeader', this.showHeader)
-    }
+    beforeDestroyed() {
+        this.$root.$off('hideHeader', this.hideHeader);
+        this.$root.$off('showHeader', this.showHeader);
+    },
 };
 </script>
 
 <style scoped>
+
 </style>
