@@ -1,13 +1,13 @@
 <template>
-  <q-page class="flex">
-    <q-list highlight>
-      <q-list-header>Sites</q-list-header>
-      <site-card-supply v-for="(s, key) in sites"
-                        :site="s"
-                        :key="key"
-                        @siteClicked="clickSite" />
-    </q-list>
-  </q-page>
+    <q-page class="flex">
+        <q-list highlight>
+            <q-list-header>Sites</q-list-header>
+            <site-card-supply v-for="(s, key) in sites"
+                              :site="s"
+                              :key="key"
+                              @siteClicked="clickSite" />
+        </q-list>
+    </q-page>
 </template>
 
 <style>
@@ -17,46 +17,41 @@
 <script>
 // import lodash from "lodash";
 // import moment from "moment";
-import siteCardSupply from "../../components/siteCardSupply";
+import siteCardSupply from '../../components/siteCardSupply';
 
 export default {
-    name: "Dispatch",
+    name: 'Dispatch',
     components: {
-        siteCardSupply
+        siteCardSupply,
     },
-    props: [""],
+    props: [''],
     data() {
         return {
-            zsubscriptions: ["org/egan"]
+            zsubscriptions: ['org/egan'],
         };
     },
     computed: {
         sites() {
             try {
-                return this.zsubData["org/egan"].site.a.suppliesNeeded;
+                console.log(this.zsubData['org/egan'].site);
+                return this.zsubData['org/egan'].site;
             } catch (e) {
                 return {};
             }
-        }
+        },
     },
     created() {},
-    mounted() {
-    // const self = this;
-    // this.$nextTick(() => {
-    //     try {
-    //     } catch (e) {
-    //         //
-    //     }
-    // });
-    },
+    mounted() {},
     methods: {
+        /*
         getPercent(site) {
             const x = site.guest.current / site.guest.max;
             return x * 100;
         },
+        */
         clickSite(site) {
-            console.log("clicked site", site);
-        }
-    }
+            console.log('clicked site', site);
+        },
+    },
 };
 </script>

@@ -1,7 +1,14 @@
 <template>
-    <q-page class="flex">
-        <q-table :data="tableData" :columns="columns" :selection="selection" :selected.sync="selected" :loading="loading" row-key="name" color="secondary" class="tableClass">
-            <!-- <q-tr slot="top-row" slot-scope="props">
+  <q-page class="flex">
+    <q-table :data="tableData"
+             :columns="columns"
+             :selection="selection"
+             :selected.sync="selected"
+             :loading="loading"
+             row-key="name"
+             color="secondary"
+             class="tableClass">
+      <!-- <q-tr slot="top-row" slot-scope="props">
         <q-td colspan="100%">
             <strong>Extra top row</strong>
         </q-td>
@@ -13,29 +20,27 @@
         </q-td>
         </q-tr> -->
 
-            <!-- <template slot="top-left" slot-scope="props">
+      <!-- <template slot="top-left" slot-scope="props">
                 <q-select v-model="selection" stack-label="Selection" hide-underline :options="[
             { label: 'Single', value: 'single' },
             { label: 'Multiple', value: 'multiple' },
             { label: 'None', value: 'none' }
             ]" color="secondary" style="min-width: 100px" />
         </template> -->
-            <!-- <div slot="top-right" slot-scope="props" class="column">
+      <!-- <div slot="top-right" slot-scope="props" class="column">
             <q-toggle v-model="loading" label="Loading state" color="secondary" class="q-mb-sm" />
             <q-toggle v-model="dark" label="On dark background" color="secondary" />
         </div> -->
-        </q-table>
-    </q-page>
+    </q-table>
+  </q-page>
 
 </template>
 
 <style>
 .tableClass {
     height: 100%;
-    width: 100%
+    width: 100%;
 }
-
-
 </style>
 
 <script>
@@ -45,7 +50,7 @@ const columns = /* array of Objects */ [
     // column Object definition
     {
         // unique id (used by row-key, pagination.sortBy, ...)
-        name: 'id',
+        name: 'email',
 
         // label for header
         // label: 'Users',
@@ -55,7 +60,7 @@ const columns = /* array of Objects */ [
         // OR field: row => row.some.nested.prop
 
         // (optional) if we use visible-columns, this col will always be visible
-        required: true,
+        // required: true,
 
         // (optional) alignment
         align: 'left',

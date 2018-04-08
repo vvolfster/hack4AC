@@ -1,7 +1,7 @@
 <template>
   <div id="root">
     <a v-bind:href="'tel:' + contact.phone"
-       class="flex flex-center q-pa-sm">
+       class="link flex flex-center q-pa-sm">
         <div>
             <q-icon name="phone" />
         </div>
@@ -23,13 +23,6 @@ export default {
     computed: {},
     created() {},
     mounted() {
-    // const self = this;
-    // this.$nextTick(() => {
-    //     try {
-    //     } catch (e) {
-    //         //
-    //     }
-    // });
     },
     methods: {
         formatPhoneNumber(number) {

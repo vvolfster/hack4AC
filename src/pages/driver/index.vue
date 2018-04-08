@@ -1,6 +1,7 @@
 <template>
-    <q-page class="flex dispatch--page">
-        <q-list highlight class="dispatch--list">
+    <q-page class="flex driver--page">
+        <q-list highlight
+                class="driver--list">
             <q-list-header>Sites</q-list-header>
             <div v-for="(s, key) in sites"
                  :key="key">
@@ -9,15 +10,28 @@
             </div>
 
         </q-list>
+        <q-modal v-if="driverModalVis"
+                 v-model="driverModalVis">
+            <div class="column">
+                <h4>{{currentSite.title}}</h4>
+                {{currentSite.guest.current}}/{{currentSite.guest.max}}
+                <q-btn color="primary"
+                       @click="closeModal"
+                       label="Close" />
+            </div>
+
+        </q-modal>
     </q-page>
 </template>
 
 <style scoped>
-.dispatch--page{
-    width:100%
+.driver--page {
+    width: 100%;
+    height: 100%;
 }
-.dispatch--list{
-    width:100%
+.driver--list {
+    width: 100%;
+    height: 100%;
 }
 </style>
 
@@ -27,13 +41,15 @@
 import siteCard from '../../components/siteCard';
 
 export default {
-    name: 'Dispatch',
+    name: 'driver',
     components: {
         siteCard,
     },
     props: [''],
     data() {
         return {
+            currentSite: {},
+            driverModalVis: false,
             zsubscriptions: ['org/egan'],
         };
     },
@@ -64,7 +80,13 @@ export default {
             return x * 100;
         },
         clickSite(site) {
+            this.driverModalVis = true;
+            this.currentSite = site;
             console.log('clicked site', site);
+        },
+        closeModal() {
+            this.driverModalVis = false;
+            this.currentSite = {};
         },
     },
 };

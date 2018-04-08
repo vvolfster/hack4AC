@@ -56,22 +56,24 @@ export default [
             component: load("supplies")
         },
         {
-            // TODO add URL params to path -> /:id
-            path: "supplydetail", 
+            path: "supplydetail/:siteID", 
             component: load("supplies/supplydetail")
         },
         {
             path: "dispatch",
             component: load("dispatch")
         },
+        {
+            path: "driver",
+            component: load("driver")
+        },
         { 
             path: 'sites', 
             component: load('sites'),
         },
         {
-            path: "detail",
+            path: "detail/:siteId",
             component: load("sites/detail"),
-            // props: ["id"]
         },
         {
             path: 'welcomeUser',
