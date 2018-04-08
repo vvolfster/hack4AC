@@ -165,6 +165,7 @@ export default {
         },
         addSite(payload){
             // WOLF addSite
+            // don't forget to add id field inside this object
             console.log(payload)
         },
         updateSite(payload){
