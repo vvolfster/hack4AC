@@ -6,9 +6,9 @@
             <div>
                 <q-icon name="phone" />
             </div>
-            <div class="q-ml-sm">{{ role }}:</div>
-            <div class="q-ml-sm">{{ omitFirstName ? null : contact.firstName }}</div>
-            <div class="q-ml-sm">{{ formatPhoneNumber(omitFirstName ? phone : contact.phone) }}</div>
+            <div v-if="role" class="q-ml-sm">{{ role }}:</div>
+            <div v-if="contact.firstName" class="q-ml-sm">{{ contact.firstName }}</div>
+            <div class="q-ml-sm">{{ formatPhoneNumber(contact.phone) }}</div>
         </a>
     </div>
 </template>
