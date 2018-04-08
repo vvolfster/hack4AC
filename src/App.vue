@@ -1,8 +1,8 @@
 <template>
     <div id="q-app">
-        <div v-if="!authUserId" class="fillh zpadded column items-center justify-betwen" style="position:relative">
+        <div v-if="!authUserId" class="fillh zpadded column items-center justify-betwen">
             <div style="flex: 1 1 100%;"></div>
-            <div class="">
+            <div class="column items-center" style="flex: 0 0 20vh;">
                 <img src="statics/icons/icon-512x512.png" class="warmlogo">
                 <h3 class="text-red-8">Finding Warmth</h3>
             </div>
@@ -120,7 +120,7 @@ export default {
     .warmlogo {
         width: 20vh;
         height: 20vh;
-        object-fit: contain;
+        object-fit: cover;
     }
 
     .fillh {
