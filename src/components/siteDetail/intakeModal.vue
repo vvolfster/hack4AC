@@ -1,7 +1,7 @@
 <template>
   <q-modal id="root"
-           v-if="intakeModalIsVisible"
-           v-model="intakeModalIsVisible">
+           v-if="modalIsVisible"
+           v-model="modalIsVisible">
     <div class="q-pa-lg column">
       <h4 class="flow column text-center">{{site.title}}</h4>
       <div class="q-pa-lg">
@@ -42,8 +42,14 @@ export default {
         quickNumber,
     },
     props: ['site', 'intakeModalIsVisible', 'hideIntakeModal'],
-    data() {},
+    data() {
+        return {};
+    },
     computed: {
+        modalIsVisible() {
+            console.log(this.intakeModalIsVisible)
+            return this.intakeModalIsVisible
+        },
     },
     created() {},
     mounted() {},
