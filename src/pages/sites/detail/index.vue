@@ -46,7 +46,7 @@
       </div>
 
       <!-- show detailed supply requested list -->
-      <div v-if="!orgUserData || (orgUserData && !orgUserData.onSite)">
+      <div v-if="!orgUserData || !orgUserData.onSite">
         <supply readOnly=true
                 :suppliesNeeded=site.suppliesNeeded></supply>
       </div>

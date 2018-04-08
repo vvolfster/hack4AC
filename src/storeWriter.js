@@ -30,7 +30,13 @@ const writer = {
         }
     },
     site: {
+        name: "site",
+        updateTransitCount(siteId, type, number){
+            if(typeof number !== 'number')
+                return Promise.reject()
 
+            return writer.base.store.dispatch(`${this.name}/updateTransitCount`, { siteId, type, number })
+        }
     },
     org: {
         createOrg(orgInfo) {
