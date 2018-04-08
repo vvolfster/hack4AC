@@ -111,6 +111,9 @@ const actions = {
                     const [org, user] = results;
                     if (!user || !org) return reject(new Error(`Could not get org or user`));
 
+                    if(!org.site)
+                        return reject(new Error(`org has no site ${JSON.stringify(org, null, 2)}`));
+
                     if (!org.site[siteId]) return reject(new Error('Invalid site. No such site exists in the org'));
 
                     const value = user.onSite ? null : siteId;

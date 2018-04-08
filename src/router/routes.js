@@ -35,6 +35,10 @@ export default [
             {
                 path: 'report',
                 component: load('admin/report')
+            },
+            {
+                path: 'supplies',
+                component: load('admin/supplies')
             }
         ]
     },
@@ -45,10 +49,6 @@ export default [
             {
                 path: '',
                 component: load('sites')
-            },
-            {
-                path: 'fbadmin',
-                component: load('fbadmin')
             },
             {
                 // TODO for Jason: nest the supply detail under this path

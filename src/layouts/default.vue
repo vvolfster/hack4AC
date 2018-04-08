@@ -11,7 +11,7 @@
                 </q-btn>
 
                 <q-toolbar-title>
-                    Warmth
+                    Finding Warmth
                 </q-toolbar-title>
             </q-toolbar>
             <q-tabs>
@@ -66,7 +66,7 @@
                     <q-item-main label="Supplies"
                                  sublabel="" />
                 </q-item>
-                <q-item @click.native="openPage('/admin')">
+                <q-item @click.native="openPage('/admin/user')">
                     <q-item-side icon="fas fa-life-saver" />
                     <q-item-main label="Admin"
                                  sublabel="" />
@@ -74,6 +74,11 @@
                 <q-item @click.native="openPage('/about')">
                     <q-item-side icon="fas fas fa-hand-peace" />
                     <q-item-main label="About"
+                                 sublabel="" />
+                </q-item>
+                <q-item @click.native="signOut">
+                    <q-item-side icon="fas fas fa-sign-out-alt" />
+                    <q-item-main label="Sign out"
                                  sublabel="" />
                 </q-item>
             </q-list>
@@ -87,6 +92,7 @@
 
 <script>
 import { openURL } from 'quasar';
+import Vue from "vue"
 
 export default {
     name: 'LayoutDefault',
@@ -107,6 +113,9 @@ export default {
         showHeader() {
             this.state = true;
         },
+        signOut() {
+            Vue.fbAuthenticationMethods.signOut()
+        }
     },
     mounted() {
         // listen for an event
