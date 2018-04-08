@@ -45,6 +45,7 @@
 
 <script>
 import supplyModal from './supplymodal'
+import { site } from '../../../storeWriter.js'
 
 export default {
     name: 'SupplyDashboard',
@@ -126,7 +127,7 @@ export default {
             this.closeModal()
             // TODO send data to wolf
             console.log("hi tehre kill me", data)
-            debugger
+            site.updateSuppliesNeeded(this.siteId, data)
         }
     },
 };

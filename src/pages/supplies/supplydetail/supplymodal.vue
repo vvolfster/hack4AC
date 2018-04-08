@@ -55,7 +55,7 @@ export default {
     methods: {
         submitSupplies() {
             // const temp = lodash.flatten(this.newSupplyList)
-            const temp = lodash.transform(
+            let temp = lodash.transform(
                 this.newSupplyList,
                 (a, ele) => {
                     a.push(...ele)
@@ -63,6 +63,10 @@ export default {
                 },
                 []
             );
+            temp = lodash.map(temp, ele => {
+                ele.qty = ele.qty || +0
+                return ele
+            })
             this.$emit('submit', temp);
         },
         saveList(list) {
