@@ -1,6 +1,6 @@
 <template>
     <q-page class="flex">
-        <q-list highlight>
+        <q-list highlight class="sitetable">
             <q-list-header>Sites</q-list-header>
             <site-card-supply v-for="(s, key) in sites"
                               :site="s"
@@ -11,7 +11,9 @@
 </template>
 
 <style>
-
+.sitetable {
+    width: 100%;
+}
 </style>
 
 <script>
