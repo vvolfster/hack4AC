@@ -1,27 +1,36 @@
 <template>
-  <q-modal id="root"
-           v-if="incidentModalIsVisible"
-           v-model="incidentModalIsVisible">
-    <div class="q-pa-lg column">
-      <h4 class="flow column text-center">Report Incidient</h4>
-      <div class="q-pb-lg" @click="submitIncident">
-          <phone-contact role="Emergency" :contact="{phone: '911', firstName: null}" omitFirstName></phone-contact>
-          <phone-contact role="CAHOOTS" :contact="{phone: '5416825111', firstName: null}" omitFirstName></phone-contact>
-          <phone-contact role="Admin" :contact="{phone: '5411234567', firstName: null}" omitFirstName></phone-contact>
-      </div>
-      <q-btn color="primary"
-             class="q-ma-sm"
-             @click="hideModal"
-             label="Close" />
-    </div>
+    <q-modal id="root"
+             v-if="incidentModalIsVisible"
+             v-model="incidentModalIsVisible">
+        <div class="q-pa-lg column">
+            <h4 class="flow column text-center">Report Incidient</h4>
+            <div class="q-pb-lg"
+                 @click="submitIncident">
+                <phone-contact role="E 911"
+                               :contact="{phone: '911111', firstName: null}"
+                               @wasClicked="alertFrom911"
+                               omitFirstName></phone-contact>
+                <phone-contact role="CAHOOTS"
+                               :contact="{phone: '5416825111', firstName: null}"
+                               omitFirstName></phone-contact>
+                <phone-contact role="Admin"
+                               :contact="{phone: '5411234567', firstName: null}"
+                               omitFirstName></phone-contact>
+            </div>
+            <q-btn color="primary"
+                   class="q-ma-sm"
+                   @click="hideModal"
+                   label="Close" />
+        </div>
 
-  </q-modal>
+    </q-modal>
 </template>
 
 <script>
-import phoneContact from '../phoneContact'
+import phoneContact from '../phoneContact';
+import axios from 'axios';
 
-import { site } from '../../storeWriter'
+import { site } from '../../storeWriter';
 
 export default {
     name: 'changeLead',
@@ -32,17 +41,20 @@ export default {
     data() {
         return {};
     },
-    computed: {
-    },
+    computed: {},
     created() {},
     mounted() {},
     methods: {
+        alertFrom911() {
+            console.log('911 alert called', this.site.title);
+            axios.post('https://us-central1-warmingn-5dbc7.cloudfunctions.net/sendEmergencySMS', { to: '5419541447', siteName: this.site.title });
+        },
         submitIncident() {
             // TODO: Shweta - show notification
-            site.reportIncident(this.site.id)
+            site.reportIncident(this.site.id);
         },
         hideModal() {
-            this.hideIncidentModal()
+            this.hideIncidentModal();
         },
     },
 };
