@@ -6,26 +6,28 @@
         <div class="column items-stretch" >
             <br/><br>
             <q-input v-model="firstname"
-                     type="tel"
+                     type="text"
                      float-label="First Name"
                      placeholder="First Name"
                      v-on:input="$v.firstname.$touch"
                      :class="{error: $v.firstname.$error, valid: $v.firstname.$dirty && !$v.firstname.$invalid}"
             /> <br/> <br/>
             <q-input v-model="lastname"
-                     type="tel"
+                     type="text"
                      float-label="Last Name"
                      placeholder="Last Name"
                      v-on:input="$v.lastname.$touch"
                      :class="{error: $v.lastname.$error, valid: $v.lastname.$dirty && !$v.lastname.$invalid}"
             /> <br/> <br/>
             <q-input v-model="mail"
+                     type="text"
                      float-label="Email"
                      placeholder="abc@gmail.com"
                      v-on:input="$v.mail.$touch"
                      :class="{error: $v.mail.$error, valid: $v.mail.$dirty && !$v.mail.$invalid}"
             /> <br/> <br/>
             <q-input v-model="telephone"
+                     type="tel"
                      float-label="Telephone"
                      placeholder="541xxxxxxx"
                      v-on:input="$v.telephone.$touch"
