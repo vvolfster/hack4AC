@@ -1,5 +1,5 @@
 <template>
-    <q-page class="flex dispatch--page">
+    <q-page>
         <q-list highlight class="dispatch--list">
             <q-list-header>Sites</q-list-header>
             <div v-for="(s, key) in sites"
@@ -7,18 +7,12 @@
                 <site-card :site="s"
                            @siteClicked="clickSite" />
             </div>
-
         </q-list>
     </q-page>
 </template>
 
 <style scoped>
-.dispatch--page{
-    width:100%
-}
-.dispatch--list{
-    width:100%
-}
+
 </style>
 
 <script>

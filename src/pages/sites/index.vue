@@ -1,7 +1,8 @@
 <template>
   <!-- main dashboard -->
-    <q-page class="flex">
+    <q-page>
         <q-list highlight>
+            <q-list-header>Sites</q-list-header>
             <div v-for="(s, key) in sites" :key="key" v-if="s.active">
                 <div @click="$router.push('/detail/' + key)">
                     <site-card :site="s" />
