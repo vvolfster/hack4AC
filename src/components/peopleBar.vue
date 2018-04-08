@@ -10,8 +10,11 @@
                 <q-item-tile v-if="isAdultFriendly"
                              icon="fas fa-male"
                              color="green" />
+                <q-item-tile v-if="showAccessible && isAccessible"
+                                icon="accessible"
+                                color="green" />
             </q-item-tile>
-            <q-item-tile class="col-5 flex flex-center">
+            <q-item-tile class="col-6 flex flex-center">
                 <q-progress :percentage="getPercentPeople(site)"
                             style="height: 15px" />
             </q-item-tile>
@@ -40,7 +43,7 @@
 export default {
     name: 'peopleBar',
     components: {},
-    props: ['site', 'type', 'hideExtraInfo'],
+    props: ['site', 'type', 'hideExtraInfo', 'showAccessible'],
     data() {
         return {
             renderType: 'default',
