@@ -97,6 +97,7 @@ const columns = /* array of Objects */ [
         name: 'active',
         label: 'Active',
         field: 'active',
+        align: 'left',
         format: val => {
             return val ? 'Yes' : 'No';
         },
@@ -164,14 +165,19 @@ export default {
         showSiteModal() {
             this.siteAddModalVis = true;
         },
-        updateSite(payload){
-            // WOLF updateSite
-            console.log(payload)
+        addSite(payload) {
+            // WOLF addSite
+            // don't forget to add id field inside this object
+            console.log(payload);
         },
-        toggleActive(){
-            const payloadSite = this.selected[0]
-            payloadSite.active = !payloadSite.active
-            this.updateSite(payloadSite)
+        updateSite(payload) {
+            // WOLF updateSite
+            console.log(payload);
+        },
+        toggleActive() {
+            const payloadSite = this.selected[0];
+            payloadSite.active = !payloadSite.active;
+            this.updateSite(payloadSite);
         },
         submitForm(data) {
             // console.log('SUBMITTING SITE admin data', data);
@@ -191,7 +197,7 @@ export default {
                 if(!lodash.isNumber(payloadSite.pets.max))
                     payloadSite.pets.max = parseInt(payloadSite.pets.max, 10)
 
-                this.updateSite(payloadSite)
+                this.updateSite(payloadSite.id, payloadSite);
             } else {
                 // addFunction
                 const site = {
