@@ -13,8 +13,7 @@
                 </q-btn>
 
                 <q-toolbar-title>
-                    Warm and Toasty
-                    <div slot="subtitle"></div>
+                    Warmth
                 </q-toolbar-title>
             </q-toolbar>
             <q-tabs>
@@ -22,7 +21,7 @@
                              icon="fas fa-bed"
                              to="/sites"
                              replace
-                             label="Main" />
+                             label="Home" />
                 <q-route-tab slot="title"
                              icon="fas fa-user-secret"
                              to="/dispatch"
@@ -46,30 +45,32 @@
             <q-list no-border
                     link
                     inset-delimiter>
-                <q-list-header>Temporary Nav, put your links here</q-list-header>
+                <q-list-header id="header">
+                    Warmth
+                </q-list-header>
                 <q-item @click.native="openPage('/')">
-                    <q-item-side icon="home" />
+                    <q-item-side icon="fas fa-bed" />
                     <q-item-main label="Home"
                                  sublabel="" />
                 </q-item>
-                <q-item @click.native="openPage('/welcome')">
-                    <q-item-side icon="rss feed" />
-                    <q-item-main label="Welcome page"
-                                 sublabel="" />
-                </q-item>
-                <q-item @click.native="openPage('/sites')">
-                    <q-item-side icon="home" />
-                    <q-item-main label="main list"
-                                 sublabel="" />
-                </q-item>
                 <q-item @click.native="openPage('/dispatch')">
-                    <q-item-side icon="home" />
-                    <q-item-main label="dispatch"
+                    <q-item-side icon="fas fa-user-secret" />
+                    <q-item-main label="Dispatch"
+                                 sublabel="" />
+                </q-item>
+                <q-item @click.native="openPage('/driver')">
+                    <q-item-side icon="fas fa-bus" />
+                    <q-item-main label="Driver"
+                                 sublabel="" />
+                </q-item>
+                <q-item @click.native="openPage('/supplies')">
+                    <q-item-side icon="view_day" />
+                    <q-item-main label="Supplies"
                                  sublabel="" />
                 </q-item>
                 <q-item @click.native="openPage('/admin')">
-                    <q-item-side icon="home" />
-                    <q-item-main label="admin"
+                    <q-item-side icon="fas fa-life-saver" />
+                    <q-item-main label="Admin"
                                  sublabel="" />
                 </q-item>
             </q-list>
@@ -100,6 +101,5 @@ export default {
 };
 </script>
 
-<style>
-
+<style scoped>
 </style>

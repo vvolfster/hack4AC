@@ -11,8 +11,7 @@
 
         </q-list>
         <q-modal v-if="driverModalVis"
-                 v-model="driverModalVis"
-                 position="bottom">
+                 v-model="driverModalVis">
             <div class="column">
                 <big>{{currentSite.title}}</big>
                 <small>{{currentSite.streetAddress}}</small>
@@ -65,7 +64,7 @@ import siteCard from '../../components/siteCard';
 import quickNumber from '../../components/quickNumber';
 import peopleBar from '../../components/peopleBar';
 import petBar from '../../components/petBar';
-import { siteWriter } from "../../storeWriter"
+import { site as siteWriter } from "../../storeWriter"
 
 export default {
     name: 'driver',

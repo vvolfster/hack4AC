@@ -1,10 +1,11 @@
 <template>
     <q-page class="page">
         <q-list highlight class="sitetable">
-            <q-list-header>Sites</q-list-header>
+            <!-- <q-list-header>Sites</q-list-header> -->
             <site-card-supply v-for="(s, key) in sites"
                               :site="s"
                               :key="key"
+                              v-if="s.active"
                               @siteClicked="clickSite" />
         </q-list>
     </q-page>

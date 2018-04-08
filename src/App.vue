@@ -9,9 +9,13 @@
                 label="Looking for a different team"
             />
         </div>
-        <div v-else-if="!matchesRequirements">
+        <div v-else-if="!matchesBasicRequirements">
             <welcomeUser :user="currentUser"
                          @submit="onAcceptWelcome" />
+        </div>
+        <div v-else-if="!matchesOrgRequirements">
+            <registerOrg  :user="currentUser"
+                         @submit="onNewOrgWelcome" />
         </div>
         <div v-else>
             <router-view />
@@ -22,12 +26,14 @@
 <script>
 import Vue from 'vue';
 import welcomeUser from '../src/components/welcomeUser';
-import { userAdmin } from './storeWriter';
+import registerOrg from '../src/components/registerOrg';
+import { userAdmin, org } from './storeWriter';
 
 export default {
     name: 'App',
     components: {
         welcomeUser,
+        registerOrg
     },
     data() {
         return {
@@ -40,6 +46,10 @@ export default {
         },
         onAcceptWelcome(userInfo) {
             userAdmin.acceptInvite(this.authUserId, this.compositeInviteId, userInfo);
+        },
+        onNewOrgWelcome(orgInfo) {
+            console.log(orgInfo)
+            org.createOrg(orgInfo)
         },
     },
     computed: {
@@ -54,17 +64,22 @@ export default {
 
             return this.zsubData[`users/${this.authUserId}`];
         },
-        matchesRequirements() {
+        matchesOrgRequirements() {
             const user = this.currentUser;
             if(!user)
                 return false;
 
-            const basicRequirements = user.firstName && user.lastName && user.email && user.phone;
-            if (!basicRequirements || !user.orgs) {
+            if (!user.orgs) {
                 return false;
             }
 
             return Object.keys(user.orgs).length > 0;
+        },
+        matchesBasicRequirements() {
+            const user = this.currentUser;
+            if(!user)
+                return false;
+            return user.firstName && user.lastName && user.email && user.phone;
         },
         compositeInviteId() {
             return this.$route.query.compositeInviteId;

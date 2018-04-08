@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import lodash from 'lodash'
+
 export default {
     name: '',
     components: {},
@@ -34,7 +36,6 @@ export default {
     computed: {},
     created() {},
     mounted() {
-        console.log(this.val, this.value);
         this.val = this.value;
     },
     watch: {
@@ -45,10 +46,11 @@ export default {
     },
     methods: {
         emitChange() {
-            this.$emit('input', this.val);
+            const outVal = lodash.isNumber(this.val) ? this.val : 0
+            this.$emit('input', outVal);
         },
         decrement() {
-            this.val = this.val - 1;
+            this.val = this.val - 1
         },
         increment() {
             this.val = this.val + 1;

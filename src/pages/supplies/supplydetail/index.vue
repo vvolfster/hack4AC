@@ -29,16 +29,14 @@
       </template>
     </q-table>
 
-
-    <supply-modal :open="open"> </supply-modal>
     <q-page-sticky position="bottom-right"
                    :offset="[18, 18]">
       <q-btn round
              color="primary"
-             @click="openModal()"
+             @click="openModal"
              icon="add" />
     </q-page-sticky>
-
+    <supply-modal :open=open :close=closeModal> </supply-modal>
   </q-page>
 </template>
 
@@ -63,7 +61,7 @@ export default {
             siteId,
             zsubscriptions: [`org/egan/site/${siteId}`],
             selected: [],
-            open: true
+            open: false
         };
     },
     computed: {
@@ -120,9 +118,12 @@ export default {
 
         },
         openModal() {
-            if (!this.open) {
-                this.open = true
-            }
+            this.open = true
+            return true
+        },
+        closeModal() {
+            this.open = false
+            return false
         }
     },
 };

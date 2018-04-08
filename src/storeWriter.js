@@ -29,7 +29,7 @@ const writer = {
             return writer.base.store.dispatch(`${this.name}/acceptInvite`, { userId, compositeInviteId, profileInfo })
         }
     },
-    siteWriter: {
+    site: {
         name: "site",
         updateTransitCount(siteId, type, number){
             if(typeof number !== 'number')
@@ -37,7 +37,13 @@ const writer = {
 
             return writer.base.store.dispatch(`${this.name}/updateTransitCount`, { siteId, type, number })
         }
+    },
+    org: {
+        createOrg(orgInfo) {
+            console.log("Need to create new Org", orgInfo)
+            // TO DO WOLF
+        }
     }
 }
 
-export const { base, user, userAdmin, siteWriter } = writer;
+export const { base, user, userAdmin, site, org } = writer;

@@ -1,65 +1,72 @@
 <template>
-  <div>
-      <q-item @click.native="clickEmit(site)">
-        <q-item-side>
-        </q-item-side>
-        <q-item-main :label="site.title">
-            <div>
-                <q-progress :percentage="getPercent(site)"
-                      style="height: 15px" />
-                      {{moment(site.guest.lastUpdated).fromNow()}}
-                      <q-item-tile v-if="countNeedsUpdated" icon="alarm"
-                       color="red" />
-            </div>
-
-        </q-item-main>
-        <q-item-side right>
-          <q-btn @click="$router.push(supplyDetailURL())"
-                 icon="shopping cart"
-                 color="green" /> <!-- {{site.suppliesNeeded.length}} -->
-        </q-item-side>
-        <q-item-separator />
-      </q-item>
-  </div>
+    <div>
+        <q-item @click.native="clickEmit(site)">
+            <q-card inline
+                    class="site--card">
+                <q-card-title>
+                    <big>{{site.title}}</big>
+                    <span slot="subtitle">{{site.streetAddress}}</span>
+                    <div slot="right"
+                         class="row items-center">
+                        <!-- badges -->
+                        <!-- <q-item-tile v-if="isAccessible"
+                                     icon="accessible"
+                                     color="green" /> -->
+                    </div>
+                </q-card-title>
+                <q-card-separator />
+                <div class="column q-pa-sm">
+                    {{site.suppliesNeeded.length}} Items requested
+                </div>
+                <q-card-actions>
+                    <q-btn @click="$router.push(supplyDetailURL())"
+                           icon="shopping cart"
+                           label="See Cart"
+                           color="green" />
+                    <!-- {{site.suppliesNeeded.length}} -->
+                </q-card-actions>
+            </q-card>
+        </q-item>
+    </div>
 </template>
 
 <script>
 // import moment from "moment"
 
 export default {
-    name: "",
+    name: '',
     components: {},
-    props: ["site"],
+    props: ['site'],
     data() {
-        return {
-        };
+        return {};
     },
     computed: {
-        countNeedsUpdated(){
-            const now = +new Date()
-            const thirtyMinutes = 30 * 60 * 1000
-            return this.site.guest.lastUpdated + thirtyMinutes < now
-        }
+        countNeedsUpdated() {
+            const now = +new Date();
+            const thirtyMinutes = 30 * 60 * 1000;
+            return this.site.guest.lastUpdated + thirtyMinutes < now;
+        },
     },
     created() {},
-    mounted() {
-
-    },
+    mounted() {},
     methods: {
-        getPercent(site){
-            const x = site.guest.current / site.guest.max
-            return x * 100
+        getPercent(site) {
+            const x = site.guest.current / site.guest.max;
+            return x * 100;
         },
         clickEmit() {
-            this.$emit('siteClicked', this.site)
+            this.$emit('siteClicked', this.site);
         },
         supplyDetailURL() {
-            return `/supplydetail/${this.site.id}`
-        }
-    }
-}
+            return `/supplydetail/${this.site.id}`;
+        },
+    },
+};
 </script>
 
 <style scoped>
-    /* css for this here */
+/* css for this here */
+.site--card {
+    width: 100%;
+}
 </style>

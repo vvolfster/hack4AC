@@ -8,29 +8,6 @@
              row-key="name"
              color="secondary"
              class="tableClass">
-      <!-- <q-tr slot="top-row" slot-scope="props">
-        <q-td colspan="100%">
-            <strong>Extra top row</strong>
-        </q-td>
-        </q-tr>
-
-        <q-tr slot="bottom-row" slot-scope="props">
-        <q-td colspan="100%">
-            <strong>Extra bottom row</strong>
-        </q-td>
-        </q-tr> -->
-
-      <!-- <template slot="top-left" slot-scope="props">
-                <q-select v-model="selection" stack-label="Selection" hide-underline :options="[
-            { label: 'Single', value: 'single' },
-            { label: 'Multiple', value: 'multiple' },
-            { label: 'None', value: 'none' }
-            ]" color="secondary" style="min-width: 100px" />
-        </template> -->
-      <!-- <div slot="top-right" slot-scope="props" class="column">
-            <q-toggle v-model="loading" label="Loading state" color="secondary" class="q-mb-sm" />
-            <q-toggle v-model="dark" label="On dark background" color="secondary" />
-        </div> -->
     </q-table>
   </q-page>
 

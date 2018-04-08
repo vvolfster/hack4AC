@@ -7,21 +7,17 @@
     <div class="q-pa-lg column">
       <h4 class="flow column text-center">{{site.title}}</h4>
       <div class="q-pa-lg">
-        <people-bar :site=site :hideExtraInfo=true></people-bar>
-        <quick-number label="Arrived"
+        <quick-number label="Volunteer Count"
                       class="quickNum"
-                      v-model="guestsArrived"
-                      v-on:input="changeArrived"></quick-number>
+                      v-model="volunteerCount"></quick-number>
       </div>
       <div class="q-pa-lg" v-if="site.supports.pets">
-        <pet-bar :site=site :hideExtraInfo=true></pet-bar>
-        <quick-number label="Arrived"
+        <quick-number label="Hours Volunteered"
                       class="quickNum"
-                      v-model="petsArrived"
-                      v-on:input="changeArrived"></quick-number>
+                      v-model="volunteeredHours"></quick-number>
       </div>
       <q-btn color="secondary q-ma-sm"
-             @click="hideModal"
+             @click="submit"
              label="Submit" />
       <q-btn color="primary q-ma-sm"
              @click="hideModal"
@@ -32,41 +28,37 @@
 </template>
 
 <script>
-import peopleBar from '../peopleBar';
-import petBar from '../petBar';
 import quickNumber from '../quickNumber';
 
 import { user } from '../../storeWriter'
 
 export default {
-    name: 'changeLead',
+    name: 'volunteerModal',
     components: {
-        peopleBar,
-        petBar,
         quickNumber,
     },
-    props: ['site', 'intakeModalIsVisible', 'hideIntakeModal'],
+    props: ['site', 'volunteerModalIsVisible', 'hideVolunteerModal'],
     data() {
         return {
-            guestsArrived: 1,
-            petsArrived: 0,
+            volunteerCount: 0,
+            volunteeredHours: 0,
         };
     },
     computed: {
         modalIsVisible() {
-            return this.intakeModalIsVisible
+            return this.volunteerModalIsVisible
         },
     },
     created() {},
     mounted() {},
     methods: {
-        hideModal() {
-            this.hideIntakeModal()
-        },
         submit() {
-            console.log("sending data", this.guestsArrived, this.petsArrived)
-            user.updateIntake(this.guestsArrived, this.petsArrived, this.site.id)
-        }
+            console.log("sending data:", this.volunteerCount, this.volunteeredHours, this.site.id)
+            user.countVolunteers(this.volunteerCount || 0, this.volunteeredHours || 0, this.site.id)
+        },
+        hideModal() {
+            this.hideVolunteerModal()
+        },
     },
 };
 </script>
