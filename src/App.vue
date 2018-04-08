@@ -61,7 +61,7 @@ export default {
             return userAdmin.updateUserProfile(this.authUserId, userInfo);
         },
         onNewOrgWelcome(orgInfo) {
-            return org.createOrg(orgInfo)
+            return org.createOrg(orgInfo).then(() => Vue.toast.create.positive(`Your org has been created!`))
         },
         acceptInvite(){
             return userAdmin.acceptInvite(this.authUserId, this.compositeInviteId).then(() => this.$router.push("/"))
