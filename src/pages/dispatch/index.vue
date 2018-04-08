@@ -1,7 +1,6 @@
 <template>
     <q-page>
         <q-list highlight class="dispatch--list">
-            <q-list-header>Sites</q-list-header>
             <div v-for="(s, key) in sites"
                  :key="key"
                   v-if="s.active"

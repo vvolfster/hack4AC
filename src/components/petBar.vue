@@ -18,10 +18,10 @@
                 </div>
             </q-item-tile>
             <q-item-tile class="col-3 q-ml-sm">
-                <small>({{ moment(site.pets.lastUpdated).fromNow() }})</small>
                 <q-item-tile v-if="countNeedsUpdated && !hideExtraInfo"
                              icon="alarm"
                              color="red" />
+                <small>({{ moment(site.pets.lastUpdated).fromNow() }})</small>
             </q-item-tile>
         </div>
         <!-- NEW BAR -->

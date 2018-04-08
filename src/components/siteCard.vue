@@ -1,6 +1,5 @@
 <template>
-    <q-item
-            @click.native="clickEmit(site)">
+    <q-item @click.native="clickEmit(site)">
         <q-card inline
                 class="site--card">
             <q-card-title>
@@ -18,6 +17,18 @@
             <div class="column">
                 <people-bar :site=site></people-bar>
                 <pet-bar :site=site></pet-bar>
+                <!-- IN TRANSIT -->
+                <div class="row q-pa-sm">
+                    <span class="col-3">In Transit</span>
+                    <div class="col-2">
+                        <q-icon name="fas fa-male"></q-icon>
+                        {{site.guest.inTransit}}
+                    </div>
+                    <div class="col-2">
+                        <q-icon name="fas fa-paw"></q-icon>
+                        {{site.pets.inTransit}}
+                    </div>
+                </div>
             </div>
         </q-card>
     </q-item>
@@ -75,6 +86,6 @@ export default {
 
 <style scoped>
 .site--card {
-    width: 95%;
+    width: 100%;
 }
 </style>
