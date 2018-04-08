@@ -3,7 +3,7 @@ import { db, mutationTypes as M } from './common';
 import lodash from 'lodash';
 
 function getCurrentUserId(state) {
-    const { currentUser } = state.users;
+    const { currentUser } = state;
     if (!currentUser) return null;
 
     const { authId } = currentUser;
@@ -31,7 +31,7 @@ function getUserOrgValue(state, getters) {
 }
 
 function getOrgRef(state, getters) {
-    const { currentUser } = state.users;
+    const { currentUser } = state;
     if (!currentUser) return null;
 
     const { authId } = currentUser;
@@ -161,8 +161,9 @@ const actions = {
         });
     },
     toggleLead({ state, getters }, { siteId, role }) {
+        // console.log(siteId, role)
         const orgRef = getOrgRef(state, getters);
-        if (!orgRef || role !== 'shiftLead' || role !== 'siteLead')
+        if (!orgRef || (role !== 'shiftLead' && role !== 'siteLead'))
             return Promise.reject(new Error('User not logged in or no site selected or incorrect role'));
 
         const promises = [getUserOrgValue(state, getters), getOrgValue(state, getters)];
@@ -176,7 +177,7 @@ const actions = {
                     if (!org.site[siteId]) return reject(new Error('Invalid site. No such site exists in the org'));
 
                     return orgRef
-                        .child(`sites/${siteId}/${role}`)
+                        .child(`site/${siteId}/${role}`)
                         .set(user)
                         .then(resolve)
                         .catch(reject);
