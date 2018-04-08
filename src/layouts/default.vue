@@ -14,7 +14,6 @@
 
                 <q-toolbar-title>
                     Warmth
-                <div slot="subtitle"></div>
                 </q-toolbar-title>
             </q-toolbar>
             <q-tabs>
@@ -46,7 +45,9 @@
             <q-list no-border
                     link
                     inset-delimiter>
-                <q-list-header>Warmth</q-list-header>
+                <q-list-header id="header">
+                    Warmth
+                </q-list-header>
                 <q-item @click.native="openPage('/')">
                     <q-item-side icon="fas fa-bed" />
                     <q-item-main label="Home"
@@ -100,6 +101,5 @@ export default {
 };
 </script>
 
-<style>
-
+<style scoped>
 </style>
