@@ -77,7 +77,6 @@ export default {
         computedData() {
             if (!this.currentSite) return null;
 
-
             return {
                 siteId: this.siteId,
                 columns: [
@@ -151,6 +150,17 @@ export default {
                 return e
             })
             site.updateSuppliesNeeded(this.siteId, this.currentSite.suppliesNeeded)
+        },
+        addUUID() {
+            const randNum = () => Math.floor(Math.random()) * 100
+            const newSupplies = lodash.map(this.currentSite.suppliesNeeded, (e) => {
+                if (e.uuid === null) {
+                    const uuid = randNum
+                    e.uuid = uuid
+                }
+                return e
+            })
+            site.updateSuppliesNeeded(this.siteId, newSupplies)
         }
     },
 };
