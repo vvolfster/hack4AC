@@ -6,7 +6,7 @@
         <h4 class="flow column text-center">{{site.title}}</h4>
         <div class="q-pa-lg">
             <people-bar :site=site></people-bar>
-            <quick-number label="In Transit"
+            <quick-number label="Arrived"
                         class="quickNum"
                         :value="site.guest.inTransit"
                         v-on:input="changeInTransit"></quick-number>
