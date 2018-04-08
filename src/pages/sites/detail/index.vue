@@ -3,7 +3,7 @@
 
     <div class="subcontrol flex justify-between q-pa-sm">
       <div>
-        <q-btn v-if="!orgUserData.onSite"
+        <q-btn v-if="!orgUserData || !orgUserData.onSite"
                @click="$router.replace('/sites')">
           Back to sites
         </q-btn>
@@ -47,13 +47,13 @@
       </div>
 
       <!-- show detailed supply requested list -->
-      <div v-if="!currentUserIsOnSite">
+      <div v-if="!orgUserData.onSite">
         <supply readOnly=true
                 :suppliesNeeded=site.suppliesNeeded></supply>
       </div>
 
       <!-- show full extent of functionalities, but do not show details of supply requests -->
-      <div v-if="currentUserIsOnSite">
+      <div v-if="orgUserData.onSite">
         <div class="flex flex-center q-pa-lg">
           <q-btn @click="showIntakeModal" color="primary" class="q-ma-sm">
             Add / Remove Guests
@@ -79,7 +79,7 @@
           <h4>Change Lead</h4>
           <div class="flex flex-center">
             <changeLead role="site lead" roleId="siteLead"
-                        :siteId=siteId></changeLead>
+                        :siteId=siteId ></changeLead>
             <changeLead role="shift lead" roleId="shiftLead"
                         :siteId=siteId></changeLead>
         </div>
