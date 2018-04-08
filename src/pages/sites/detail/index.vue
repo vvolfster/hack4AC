@@ -79,7 +79,7 @@
           <h4>Change Lead</h4>
           <div class="flex flex-center">
             <changeLead role="site lead" roleId="siteLead"
-                        :siteId=siteId></changeLead>
+                        :siteId=siteId ></changeLead>
             <changeLead role="shift lead" roleId="shiftLead"
                         :siteId=siteId></changeLead>
         </div>
