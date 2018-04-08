@@ -2,7 +2,7 @@
   <div id="root"
        class="q-pa-sm">
     <q-table class="supplytable"
-             title="Supplies Needed"
+             title="Supply Needed"
              row-key='name'
              :columns="columns"
              :data="suppliesNeeded">
