@@ -59,7 +59,7 @@
         </div>
 
         <div class="flex flex-center q-pa-lg">
-          <q-btn @click="$router.replace('/supplydetail/' + siteId)">
+          <q-btn @click="$router.push('/supplydetail/' + siteId)">
             Request Supplies
           </q-btn>
         </div>
