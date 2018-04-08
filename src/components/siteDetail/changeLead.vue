@@ -7,10 +7,12 @@
 </template>
 
 <script>
+import { user } from '../../storeWriter'
+
 export default {
     name: 'changeLead',
     components: {},
-    props: ['role'],
+    props: ['siteId', 'role', 'roleId'],
     data() {
         return {};
     },
@@ -19,8 +21,7 @@ export default {
     mounted() {},
     methods: {
         takeLead() {
-            // TODO/FIXME: add server request to change lead
-
+            user.toggleLead(this.roleId, this.siteId)
         }
     },
 };
