@@ -11,28 +11,7 @@
                 />
                 <q-toolbar-title> Supply Form </q-toolbar-title>
             </q-toolbar>
-            <q-list>
-                <q-list-header>Food</q-list-header>
-                <q-item-separator />
-                <q-item>
-                    <q-item-main class="itemTitle">
-                        food
-                    </q-item-main>
-                    <q-item-side right>
-                        <quick-supply-number value=0 />
-                    </q-item-side>
-                </q-item>
-                <q-item-separator />
-                <q-item>
-                    <q-item-main class="itemTitle">
-                        Another item, this is longggggggg
-                    </q-item-main>
-                    <q-item-side right>
-                        <quick-supply-number value=0 />
-                    </q-item-side>
-                </q-item>
-
-            </q-list>
+            <supply-list-item :supplies=supplies />
             <q-toolbar slot="footer">
                 <q-btn> Submit </q-btn>
             </q-toolbar>
@@ -47,12 +26,12 @@
 </style>
 
 <script>
-import quickSupplyNumber from "./quickSupplyNumber"
+import supplyListItem from "./supplylistitem"
 
 export default {
     name: '',
     components: {
-        quickSupplyNumber
+        supplyListItem
     },
     props: ['open', 'close'],
     data() {
@@ -61,11 +40,18 @@ export default {
             opened: this.open
         };
     },
-    computed: { },
-    created() {},
-    mounted() {
-
+    computed: {
+        supplies() {
+            try {
+                return this.zsubData['org/egan'].supplies
+            } catch(e) {
+                console.log("not found ")
+                return []
+            }
+        }
     },
+    created() {},
+    mounted() {},
     methods: {
     },
 };
