@@ -1,57 +1,7 @@
 import Vue from 'vue';
 import { db, mutationTypes as M } from './common';
 import lodash from 'lodash';
-
-function getCurrentUserId(state) {
-    const { currentUser } = state;
-    if (!currentUser) return null;
-
-    const { authId } = currentUser;
-    return authId;
-}
-
-function getUserOrgRef(state, getters) {
-    const authId = getCurrentUserId(state);
-    const { currentOrg } = getters;
-    if (!authId || !currentOrg) return null;
-
-    return db.ref(`org/${currentOrg}/users/${authId}`);
-}
-
-function getUserOrgValue(state, getters) {
-    const userOrgRef = getUserOrgRef(state, getters);
-    if (!userOrgRef) return Promise.reject(new Error(`No auth user id`));
-
-    return new Promise((resolve, reject) => {
-        userOrgRef
-            .once('value')
-            .then(snap => resolve(snap.val()))
-            .catch(reject);
-    });
-}
-
-function getOrgRef(state, getters) {
-    const { currentUser } = state;
-    if (!currentUser) return null;
-
-    const { authId } = currentUser;
-    const { currentOrg } = getters;
-    if (!authId || !currentOrg) return null;
-
-    return db.ref(`org/${currentOrg}`);
-}
-
-function getOrgValue(state, getters) {
-    const orgRef = getOrgRef(state, getters);
-    if (!orgRef) return Promise.reject(new Error(`Failed to get org ref`));
-
-    return new Promise((resolve, reject) => {
-        orgRef
-            .once('value')
-            .then(snap => resolve(snap.val()))
-            .catch(reject);
-    });
-}
+import Constants from "../../Constants"
 
 const actions = {
     updateUserDetails({ commit }, { userId, details }) {
@@ -140,11 +90,11 @@ const actions = {
         commit(M.SET_SELECTED_ORG_ID, id);
         return Promise.resolve();
     },
-    toggleOnSite({ state, getters }, { siteId }) {
-        const orgUserRef = getUserOrgRef(state, getters);
+    toggleOnSite({ rootState, rootGetters }, { siteId }) {
+        const orgUserRef = Constants.store.getUserOrgRef(rootState, rootGetters);
         if (!orgUserRef) return Promise.reject(new Error('User not logged in or no site selected'));
 
-        const promises = [getOrgValue(state, getters), getUserOrgValue(state, getters)];
+        const promises = [Constants.store.getOrgValue(rootState, rootGetters), Constants.store.getUserOrgValue(rootState, rootGetters)];
 
         return new Promise((resolve, reject) => {
             Promise.all(promises)
@@ -164,13 +114,13 @@ const actions = {
                 .catch(reject);
         });
     },
-    toggleLead({ state, getters }, { siteId, role }) {
+    toggleLead({ rootState, rootGetters }, { siteId, role }) {
         // console.log(siteId, role)
-        const orgRef = getOrgRef(state, getters);
+        const orgRef = Constants.store.getOrgRef(rootState, rootGetters);
         if (!orgRef || (role !== 'shiftLead' && role !== 'siteLead'))
             return Promise.reject(new Error('User not logged in or no site selected or incorrect role'));
 
-        const promises = [getUserOrgValue(state, getters), getOrgValue(state, getters)];
+        const promises = [Constants.store.getUserOrgValue(rootState, rootGetters), Constants.store.getOrgValue(rootState, rootGetters)];
 
         return new Promise((resolve, reject) => {
             Promise.all(promises)
