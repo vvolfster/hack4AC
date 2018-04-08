@@ -38,6 +38,7 @@ export default {
     mounted() {},
     methods: {
         submitIncident() {
+            // TODO: Shweta - show notification
             user.reportIncident(this.site.id)
         },
         hideModal() {

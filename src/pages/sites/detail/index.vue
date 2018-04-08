@@ -3,7 +3,7 @@
 
     <div class="subcontrol flex justify-between q-pa-sm">
       <div>
-        <q-btn v-if="!orgUserData || (orgUserData && !orgUserData.onSite)"
+        <q-btn v-if="!orgUserData || (orgUserData && orgUserData.onSite !== siteId)"
                @click="$router.replace('/sites')">
           Back to sites
         </q-btn>
@@ -46,16 +46,16 @@
       </div>
 
       <!-- show detailed supply requested list -->
-      <div v-if="!orgUserData || !orgUserData.onSite">
+      <div v-if="!orgUserData || (orgUserData && orgUserData.onSite !== siteId)">
         <supply readOnly=true
                 :suppliesNeeded=site.suppliesNeeded></supply>
       </div>
 
       <!-- show full extent of functionalities, but do not show details of supply requests -->
-      <div v-if="orgUserData && orgUserData.onSite">
+      <div v-if="orgUserData && orgUserData.onSite === siteId">
         <div class="flex flex-center q-pa-lg">
           <q-btn @click="showIntakeModal" color="primary" class="q-ma-sm">
-            Add / Remove Guests
+            Guest Count
           </q-btn>
           <q-btn @click="$router.push('/supplydetail/' + siteId)" color="primary" class="q-ma-sm">
             Request Supplies
@@ -144,7 +144,7 @@ export default {
             }
         },
         ongoingIncident() {
-            return this.site.incidents && this.site.incidents.some(incident => !incident.resolved)
+            return !!this.site.incidents
         },
     },
     created() {},
