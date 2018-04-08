@@ -102,9 +102,11 @@ module.exports = (ctx) => {
                 'QModal',
                 'QUploader',
                 'QBtnToggle'
+                'QModalLayout'
             ],
             directives: [
-                'Ripple'
+                'Ripple',
+                'CloseOverlay'
             ],
             // Quasar plugins
             plugins: [
