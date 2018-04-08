@@ -10,7 +10,7 @@
       </div>
       <div>
         <q-toggle v-if="site.active"
-                  :value="orgUserData && orgUserData.onSite === siteId"
+                  :value="orgUserData && orgUserData.onSite === siteId ? true : false"
                   @input="toggleOnSite"
                   label="I'm on site" />
       </div>
@@ -114,7 +114,7 @@ import volunteerModal from '../../../components/siteDetail/volunteerModal';
 import { user } from "../../../storeWriter"
 
 export default {
-    name: 'PageIndex',
+    name: 'SiteDetail',
     components: {
         peopleBar,
         petBar,

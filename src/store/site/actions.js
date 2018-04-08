@@ -62,5 +62,14 @@ export default {
 
             return db.ref(`org/${orgId}/site/${siteId}/${type}/current`).set(number).then(resolve).catch(reject)
         })
+    },
+    updateSuppliesNeeded({ rootState, rootGetters }, { siteId, suppliesNeeded }){
+        const orgId = Constants.store.getCurrentOrgId(rootState, rootGetters);
+        return new Promise((resolve, reject) => {
+            if(!orgId)
+                return reject(new Error(`No orgId`))
+
+            return db.ref(`org/${orgId}/site/${siteId}/suppliesNeeded`).set(suppliesNeeded).then(resolve).catch(reject)
+        })
     }
 }
