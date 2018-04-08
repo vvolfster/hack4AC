@@ -47,10 +47,6 @@ export default [
                 component: load('sites')
             },
             {
-                path: 'fbadmin',
-                component: load('fbadmin')
-            },
-            {
                 // TODO for Jason: nest the supply detail under this path
                 path: 'supplies',
                 component: load('supplies')

@@ -30,7 +30,9 @@
             <q-list no-border
                     link
                     inset-delimiter>
-                <q-list-header>Finding Warmth</q-list-header>
+                <q-list-header id="header">
+                    Warmth
+                </q-list-header>
                 <q-item @click.native="openPage('/')">
                     <q-item-side icon="fas fa-bed" />
                     <q-item-main label="Home"
@@ -51,9 +53,14 @@
                     <q-item-main label="Supplies"
                                  sublabel="" />
                 </q-item>
-                <q-item @click.native="openPage('/admin')">
-                    <q-item-side icon="fas fa-life-saver" />
-                    <q-item-main label="Admin"
+                <q-item @click.native="openPage('/about')">
+                    <q-item-side icon="fas fas fa-hand-peace" />
+                    <q-item-main label="About"
+                                 sublabel="" />
+                </q-item>
+                <q-item @click.native="signOut">
+                    <q-item-side icon="fas fas fa-sign-out-alt" />
+                    <q-item-main label="Sign out"
                                  sublabel="" />
                 </q-item>
             </q-list>
