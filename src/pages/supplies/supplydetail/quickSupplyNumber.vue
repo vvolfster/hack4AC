@@ -36,6 +36,12 @@ export default {
     mounted() {
         this.val = this.value;
     },
+    watch: {
+        // whenever question changes, this function will run
+        val(oldVal, newVal) {
+            this.emitChange(newVal);
+        },
+    },
     methods: {
         emitChange() {
             this.$emit('input', this.val);

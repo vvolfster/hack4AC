@@ -13,10 +13,7 @@
              :selected.sync="selected">
       <template slot="top-selection"
                 slot-scope="props">
-        <q-btn color="secondary"
-               flat
-               label="Add Item" />
-        <q-btn color="secondary"
+      <q-btn color="secondary"
                flat
                label="Fulfill" />
         <div class="col" />
@@ -36,7 +33,7 @@
              @click="openModal"
              icon="add" />
     </q-page-sticky>
-    <supply-modal :open=open :close=closeModal> </supply-modal>
+    <supply-modal :open=open :close=closeModal @submit="submitForm"> </supply-modal>
   </q-page>
 </template>
 
@@ -124,6 +121,12 @@ export default {
         closeModal() {
             this.open = false
             return false
+        },
+        submitForm(data){
+            this.closeModal()
+            // TODO send data to wolf
+            console.log("hi tehre kill me", data)
+            debugger
         }
     },
 };
