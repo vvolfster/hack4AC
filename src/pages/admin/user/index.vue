@@ -99,7 +99,7 @@ export default {
         };
     },
     computed: {
-        tableData() {
+        users() {
             try {
                 return lodash.toArray(this.org.users);
             } catch (e) {

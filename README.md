@@ -87,7 +87,30 @@ Run the app, navigate to /fbadmin.
 or
 
 ```
-Ask me(wolf) to add you to the firebase console
+Ask me (wolf) to add you to the firebase console
 Go to the firebase console
 ```
 
+### Server request/response (subscriptions) in your components
+
+In the `data: {}` section of your component, add `zsubscriptions` in the `return` statement. The value should reflect what database object you want to listen to. For example, adding `zsubscriptions: ["org/egan"]` will give the component access to the Egan Warming Center data in the `org` database table. Here is the code snippet that you need to use:
+```
+data() {
+    return {
+        zsubscriptions: ["org/egan"], // subscribe to the database
+        siteId: this.$route.params.siteId, // grab the id from the route (this is not required to make server requests)
+    };
+},
+```
+
+Then, you can use `this.zsubdata` in a `try`/`catch` in the `computed` properties of your component, like this:
+```
+site() {
+    try {
+        return this.zsubData["org/egan"].site[this.siteId];
+    } catch (e) {
+        return {};
+    }
+},
+```
+After that, you can use `site` in the view of your component.
