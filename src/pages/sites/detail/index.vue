@@ -60,7 +60,7 @@
       </div>
 
       <!-- show detailed supply requested list -->
-      <div v-if="!orgUserData || orgUserData.onSite !== siteId">
+      <div v-if="showHeader">
         <supply readOnly=true
                 :suppliesNeeded=fulfilledSuppliesNeeded></supply>
       </div>
@@ -157,6 +157,16 @@ export default {
             } catch (e) {
                 return {};
             }
+        },
+        showHeader(){
+            if(!this.orgUserData || this.orgUserData.onSite !== this.siteId){
+                // show Header
+                this.$root.$emit('showHeader')
+                return true
+            }
+            // hide header
+            this.$root.$emit('hideHeader')
+            return false
         },
         ongoingIncident() {
             return !!this.site.incidents

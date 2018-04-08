@@ -1,9 +1,7 @@
 <template>
     <q-layout view="lHh Lpr lFf">
         <q-layout-header>
-            <q-toolbar color="primary"
-                       :glossy="$q.theme === 'mat'"
-                       :inverted="$q.theme === 'ios'">
+            <q-toolbar color="primary">
                 <q-btn flat
                        dense
                        round
@@ -97,7 +95,22 @@ export default {
         openPage(page) {
             this.$router.push(page);
         },
+        hideHeader(){
+            console.log("I want to hide")
+        },
+        showHeader(){
+            console.log("I want to be seen")
+        }
     },
+    mounted(){
+        // listen for an event
+        this.$root.$on('hideHeader', this.hideHeader)
+        this.$root.$on('showHeader', this.showHeader)
+    },
+    beforeDestoryed(){
+        this.$root.$off('hideHeader', this.hideHeader)
+        this.$root.$off('showHeader', this.showHeader)
+    }
 };
 </script>
 
