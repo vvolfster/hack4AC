@@ -1,14 +1,14 @@
 <template>
-  <q-page class="flex">
-    <q-table :data="tableData"
-             :columns="columns"
-             :selection="selection"
-             :selected.sync="selected"
-             :loading="loading"
-             row-key="name"
-             color="secondary"
-             class="tableClass">
-      <!-- <q-tr slot="top-row" slot-scope="props">
+    <q-page class="flex">
+        <q-table :data="tableData"
+                 :columns="columns"
+                 :selection="selection"
+                 :selected.sync="selected"
+                 :loading="loading"
+                 row-key="name"
+                 color="secondary"
+                 class="tableClass">
+            <!-- <q-tr slot="top-row" slot-scope="props">
         <q-td colspan="100%">
             <strong>Extra top row</strong>
         </q-td>
@@ -20,19 +20,40 @@
         </q-td>
         </q-tr> -->
 
-      <!-- <template slot="top-left" slot-scope="props">
+            <!-- <template slot="top-left" slot-scope="props">
                 <q-select v-model="selection" stack-label="Selection" hide-underline :options="[
             { label: 'Single', value: 'single' },
             { label: 'Multiple', value: 'multiple' },
             { label: 'None', value: 'none' }
             ]" color="secondary" style="min-width: 100px" />
         </template> -->
-      <!-- <div slot="top-right" slot-scope="props" class="column">
+            <!-- <div slot="top-right" slot-scope="props" class="column">
             <q-toggle v-model="loading" label="Loading state" color="secondary" class="q-mb-sm" />
             <q-toggle v-model="dark" label="On dark background" color="secondary" />
         </div> -->
-    </q-table>
-  </q-page>
+        </q-table>
+        <q-btn round
+               color="primary"
+               @click="showSiteModal"
+               class="fixed"
+               icon="add"
+               style="right: 18px; bottom: 18px" />
+
+        <q-modal v-if="siteAddModalVis"
+                 v-model="siteAddModalVis">
+            <div class="column">
+                <admin-site-add></admin-site-add>
+            </div>
+            <q-page-sticky position="bottom">
+                <div class="modal--close-button">
+                    <q-btn color="primary"
+                           @click="closeModal"
+                           label="Close" />
+                </div>
+            </q-page-sticky>
+
+        </q-modal>
+    </q-page>
 
 </template>
 
@@ -45,6 +66,7 @@
 
 <script>
 import lodash from 'lodash';
+import adminSiteAdd from '../../../components/adminSiteAdd'
 
 const columns = /* array of Objects */ [
     // column Object definition
@@ -87,7 +109,9 @@ const columns = /* array of Objects */ [
 
 export default {
     name: 'adminSite',
-    components: {},
+    components: {
+        adminSiteAdd
+    },
     props: ['org'],
     data() {
         return {
@@ -96,17 +120,18 @@ export default {
             dark: true,
             selection: 'multiple',
             selected: [],
+            siteAddModalVis: false,
         };
     },
     computed: {
         tableData() {
             try {
-                console.log(this.org.site)
+                console.log(this.org.site);
                 const data = lodash.toArray(this.org.site);
                 return lodash.map(data, (ele, i) => {
-                    ele.id = i
-                    return ele
-                })
+                    ele.id = i;
+                    return ele;
+                });
             } catch (e) {
                 return {};
             }
@@ -132,6 +157,12 @@ export default {
         },
         isChildFriendly(site) {
             return site.supports.ageGroup === 'child';
+        },
+        closeModal() {
+            this.siteAddModalVis = false;
+        },
+        showSiteModal() {
+            this.siteAddModalVis = true;
         },
     },
 };

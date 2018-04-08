@@ -21,10 +21,10 @@
                 </div>
             </q-item-tile>
             <q-item-tile class="col-3 q-ml-sm">
-                <small>({{ moment(site.guest.lastUpdated).fromNow() }})</small>
                 <q-item-tile v-if="countNeedsUpdated && !hideExtraInfo"
                              icon="alarm"
                              color="red" />
+                <small>({{ moment(site.guest.lastUpdated).fromNow() }})</small>
             </q-item-tile>
         </div>
 
@@ -87,7 +87,6 @@ export default {
 </script>
 
 <style scoped>
-
 .update {
     align-self: center;
 }

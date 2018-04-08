@@ -9,9 +9,9 @@
                     <div slot="right"
                          class="row items-center">
                         <!-- badges -->
-                        <q-item-tile v-if="isAccessible"
+                        <!-- <q-item-tile v-if="isAccessible"
                                      icon="accessible"
-                                     color="green" />
+                                     color="green" /> -->
                     </div>
                 </q-card-title>
                 <q-card-separator />

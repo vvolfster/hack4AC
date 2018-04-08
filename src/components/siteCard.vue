@@ -21,12 +21,12 @@
                 <div class="row q-pa-sm">
                     <span class="col-3">In Transit</span>
                     <div class="col-2">
-                        <q-icon name="fas fa-paw"></q-icon>
-                        {{site.pets.inTransit}}
-                    </div>
-                    <div class="col-2">
                         <q-icon name="fas fa-male"></q-icon>
                         {{site.guest.inTransit}}
+                    </div>
+                    <div class="col-2">
+                        <q-icon name="fas fa-paw"></q-icon>
+                        {{site.pets.inTransit}}
                     </div>
                 </div>
             </div>
