@@ -20,17 +20,23 @@
     </q-page>
 </template>
 
-<style>
+<style scoped>
+.main--page {
+    /* width: 100%; */
+}
+.main--list {
+    /* width: 100%; */
+}
 </style>
 
 <script>
 import siteCard from "../../components/siteCard";
-import _ from 'lodash'
+import lodash from 'lodash'
 
 export default {
     name: 'PageIndex',
     components: {
-        siteCard
+        siteCard,
     },
     data() {
         return {
@@ -73,7 +79,7 @@ export default {
         },
         sortedSites(){
             try{
-                const sortData = _.orderBy(this.sites, (site) => { if (typeof _.get(site, this.field) === 'object') { console.log("shweta", _.get(site, this.field).length); return _.get(site, this.field).length }  return _.get(site, this.field) }, [this.order]);
+                const sortData = lodash.orderBy(this.sites, (site) => { if (typeof lodash.get(site, this.field) === 'object') { console.log("shweta", lodash.get(site, this.field).length); return lodash.get(site, this.field).length }  return lodash.get(site, this.field) }, [this.order]);
                 return sortData;
             } catch (e){
                 return {};
