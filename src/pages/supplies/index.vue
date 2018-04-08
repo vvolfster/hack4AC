@@ -1,5 +1,5 @@
 <template>
-    <q-page class="flex">
+    <q-page class="page">
         <q-list highlight class="sitetable">
             <q-list-header>Sites</q-list-header>
             <site-card-supply v-for="(s, key) in sites"
@@ -11,9 +11,7 @@
 </template>
 
 <style>
-.sitetable {
-    width: 100%;
-}
+
 </style>
 
 <script>
@@ -45,12 +43,6 @@ export default {
     created() {},
     mounted() {},
     methods: {
-        /*
-        getPercent(site) {
-            const x = site.guest.current / site.guest.max;
-            return x * 100;
-        },
-        */
         clickSite(site) {
             console.log('clicked site', site);
         },

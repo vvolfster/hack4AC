@@ -22,7 +22,7 @@
             </q-item-tile>
             <q-item-tile class="col-3 q-ml-sm">
                 <small>({{ moment(site.guest.lastUpdated).fromNow() }})</small>
-                <q-item-tile v-if="countNeedsUpdated"
+                <q-item-tile v-if="countNeedsUpdated && !hideExtraInfo"
                              icon="alarm"
                              color="red" />
             </q-item-tile>
@@ -40,7 +40,7 @@
 export default {
     name: 'peopleBar',
     components: {},
-    props: ['site', 'type'],
+    props: ['site', 'type', 'hideExtraInfo'],
     data() {
         return {
             renderType: 'default',

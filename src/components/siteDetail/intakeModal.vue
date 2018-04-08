@@ -3,14 +3,17 @@
            v-if="intakeModalIsVisible"
            v-model="intakeModalIsVisible">
     <div class="q-pa-lg column">
-        <h4 class="flow column text-center">{{site.title}}</h4>
-        <div class="q-pa-lg">
-            <people-bar :site=site></people-bar>
-            <quick-number label="Arrived"
-                        class="quickNum"
-                        :value="site.guest.inTransit"
-                        v-on:input="changeInTransit"></quick-number>
-        </div>
+      <h4 class="flow column text-center">{{site.title}}</h4>
+      <div class="q-pa-lg">
+        <people-bar :site=site :hideExtraInfo=true></people-bar>
+        <quick-number label="Arrived"
+                      class="quickNum"
+                      :value="site.guest.inTransit"
+                      v-on:input="changeArrived"></quick-number>
+      </div>
+      <q-btn color="primary"
+             @click="hideModal"
+             label="Close" />
     </div>
 
   </q-modal>
@@ -28,14 +31,20 @@ export default {
         petBar,
         quickNumber,
     },
-    props: ['site', 'intakeModalIsVisible'],
-    data() {
-        return {};
+    props: ['site', 'intakeModalIsVisible', 'hideIntakeModal'],
+    data() {},
+    computed: {
     },
-    computed: {},
     created() {},
     mounted() {},
-    methods: {},
+    methods: {
+        changeArrived() {
+
+        },
+        hideModal() {
+            this.hideIntakeModal()
+        },
+    },
 };
 </script>
 

@@ -4,11 +4,11 @@
         <div id="root"
              class="row q-pa-sm"
              v-if="isPetFriendly && renderType === 'default'">
-            <q-item-tile class="col-1 flex-center">
+            <q-item-tile class="col-1 flex flex-center">
                 <q-item-tile icon="fas fa-paw"
                              color="green" />
             </q-item-tile>
-            <q-progress class="col-5 q-mr-sm"
+            <q-progress class="col-5 q-mr-sm flex-center"
                         :percentage="getPercentPets(site)"
                         style="height: 15px" />
             <q-item-tile class="update col-3 q-ml-sm">

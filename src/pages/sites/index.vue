@@ -1,12 +1,20 @@
 <template>
-    <!-- main dashboard -->
-    <q-page class="main--page">
-        <q-list class="main--list">
-            <div v-for="(s, key) in sites"
-                 :key="key"
-                 v-if="s.active"
-                 @click="$router.push('/detail/' + key)">
-                <site-card :site="s" />
+  <!-- main dashboard -->
+    <q-page>
+        <q-list highlight>
+            <q-select v-model="selectField" :options="selectOptions" @change="field=selectField">
+            </q-select>
+            <q-btn-toggle v-model="selectOrder" @input="order=selectOrder"
+                toggle-color="primary"
+                :options="[
+                    {label: 'Asc', value: 'asc'},
+                    {label: 'Desc', value: 'desc'}
+                ]"
+            />
+            <div v-for="(s, key) in sortedSites" :key="key" v-if="s.active">
+                <div @click="$router.push('/detail/' + s.id)">
+                    <site-card :site="s" @siteClicked="clickSite" />
+                </div>
             </div>
         </q-list>
     </q-page>
@@ -22,7 +30,8 @@
 </style>
 
 <script>
-import siteCard from '../../components/siteCard';
+import siteCard from "../../components/siteCard";
+import lodash from 'lodash'
 
 export default {
     name: 'PageIndex',
@@ -31,7 +40,33 @@ export default {
     },
     data() {
         return {
-            zsubscriptions: ['org/egan'],
+            zsubscriptions: ["org/egan"],
+            selectField: '',
+            selectOrder: '',
+            order: 'asc',
+            field: 'title',
+            selectOptions: [
+                {
+                    label: 'Title',
+                    value: 'title'
+                },
+                {
+                    label: 'Checked Guest',
+                    value: 'guest.current'
+                },
+                {
+                    label: 'Total Guest',
+                    value: 'guest.max'
+                },
+                {
+                    label: 'Supplies Needed',
+                    value: 'suppliesNeeded'
+                },
+                {
+                    label: 'Volunteers',
+                    value: 'volunteer.current'
+                }
+            ],
         };
     },
     computed: {
@@ -43,12 +78,31 @@ export default {
                 return {};
             }
         },
+        sortedSites(){
+            try{
+                const sortData = lodash.orderBy(this.sites, (site) => { if (typeof lodash.get(site, this.field) === 'object') { console.log("shweta", lodash.get(site, this.field).length); return lodash.get(site, this.field).length }  return lodash.get(site, this.field) }, [this.order]);
+                return sortData;
+            } catch (e){
+                return {};
+            }
+        }
     },
     methods: {
         getPercent(site) {
             const x = site.guest.current / site.guest.max;
             return x * 100;
         },
-    },
+        clickSite(site) {
+            console.log("clicked site", site);
+        },
+        toggleSort() {
+            this.order = 'desc'
+        },
+        sortList(field) {
+            console.log("Sorted data on field", field);
+            this.field = field;
+            // return {};
+        }
+    }
 };
 </script>

@@ -7,8 +7,8 @@
                 <q-icon name="phone" />
             </div>
             <div class="q-ml-sm">{{ role }}:</div>
-            <div class="q-ml-sm">{{ contact.firstName }}</div>
-            <div class="q-ml-sm">{{ formatPhoneNumber(contact.phone) }}</div>
+            <div class="q-ml-sm">{{ omitFirstName ? null : contact.firstName }}</div>
+            <div class="q-ml-sm">{{ formatPhoneNumber(omitFirstName ? phone : contact.phone) }}</div>
         </a>
     </div>
 </template>
@@ -17,7 +17,7 @@
 export default {
     name: "phoneContact",
     components: {},
-    props: ["role", "contact"],
+    props: ["role", "contact", "omitFirstName", "phone"],
     data() {
         return {};
     },

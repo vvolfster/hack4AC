@@ -87,15 +87,7 @@ export default {
         },
     },
     created() {},
-    mounted() {
-        // const self = this;
-        // this.$nextTick(() => {
-        //     try {
-        //     } catch (e) {
-        //         //
-        //     }
-        // });
-    },
+    mounted() {},
     methods: {
         getPercentPeople(site) {
             const x = site.guest.current / site.guest.max;
