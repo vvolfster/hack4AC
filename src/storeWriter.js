@@ -79,9 +79,9 @@ const writer = {
         }
     },
     org: {
+        name: "org",
         createOrg(orgInfo) {
-            console.log("Need to create new Org", orgInfo)
-            // TO DO WOLF
+            return writer.base.store.dispatch('org/create', orgInfo)
         }
     }
 }

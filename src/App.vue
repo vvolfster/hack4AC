@@ -76,8 +76,9 @@ export default {
                 return false;
             }
 
-            for(const o of user.orgs) {
-                if(o)
+            for(const k in user.orgs) {
+                const o = user.orgs[k]
+                if(o && !o.banned)
                     return true;
             }
             return false;
