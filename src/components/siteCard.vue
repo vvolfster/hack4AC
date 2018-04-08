@@ -67,7 +67,7 @@ export default {
     },
     created() {},
     mounted() {
-        console.log('site', this.site);
+        // console.log('site', this.site);
         // const self = this;
         // this.$nextTick(() => {
         //     try {
