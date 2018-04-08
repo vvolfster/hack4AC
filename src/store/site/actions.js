@@ -10,6 +10,8 @@ export default {
         return new Promise((resolve, reject) => {
             if (!orgId) return reject(new Error(`No orgId`));
 
+            if (number < 0) return reject(new Error(`qty cannot be less than 0`))
+
             return Constants.store
                 .isValidSiteId(orgId, siteId)
                 .then(() => {
@@ -78,6 +80,8 @@ export default {
         const orgId = Constants.store.getCurrentOrgId(rootState, rootGetters);
         return new Promise((resolve, reject) => {
             if (!orgId) return reject(new Error(`No orgId`));
+
+            if (number < 0) return reject(new Error(`qty cannot be less than 0`))
 
             if (type !== 'guest' && type !== 'pets') return reject(new Error('bad type specified'));
 
