@@ -48,6 +48,7 @@ module.exports = (ctx) => {
         // framework: 'all' --- includes everything; for dev only!
         framework: {
             components: [
+                'QChipsInput',
                 'QLayout',
                 'QLayoutHeader',
                 'QLayoutFooter',
@@ -56,6 +57,8 @@ module.exports = (ctx) => {
                 'QPage',
                 'QToolbar',
                 'QToolbarTitle',
+                'QFab',
+                'QFabAction',
                 'QBtn',
                 'QIcon',
                 'QList',
@@ -101,7 +104,8 @@ module.exports = (ctx) => {
             // Quasar plugins
             plugins: [
                 'Notify',
-                'Loading'
+                'Loading',
+                "Dialog"
             ],
             iconSet: 'fontawesome',
         },
