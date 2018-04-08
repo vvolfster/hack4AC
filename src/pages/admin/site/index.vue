@@ -98,6 +98,7 @@ const columns = /* array of Objects */ [
         name: 'active',
         label: 'Active',
         field: 'active',
+        align: 'left',
         format: val => {
             return val ? 'Yes' : 'No';
         },
@@ -168,7 +169,7 @@ export default {
         toggleActive(){
             const payloadSite = this.selected[0]
             payloadSite.active = !payloadSite.active
-            this.updateSite(payloadSite)
+            siteWriter.updateSite(payloadSite.id, payloadSite)
         },
         submitForm(data) {
             // console.log('SUBMITTING SITE admin data', data);
@@ -188,7 +189,7 @@ export default {
                 if(!lodash.isNumber(payloadSite.pets.max))
                     payloadSite.pets.max = parseInt(payloadSite.pets.max.trim(), 10)
 
-                this.updateSite(payloadSite)
+                siteWriter.updateSite(payloadSite.id, payloadSite);
             } else {
                 // addFunction
                 const site = {

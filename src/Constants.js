@@ -24,30 +24,51 @@ const store = {
             })
         })
     },
-    isValidSiteData(siteData) {
+    isValidSiteData(siteData, skipKeyCheck) {
         return new Promise((resolve, reject) => {
-            const requiredKeys = [
-                "active",
-                "guest",
-                "pets",
-                "shiftLead",
-                "siteLead",
-                "suppliesNeeded",
-                "supports",
-                "volunteer",
-            ]
-            const keys = lodash.keys(siteData)
-            const diff = lodash.difference(requiredKeys, keys)
-            if(diff.length)
-                return reject(new Error(`siteData is missing the following keys: ${diff}`))
+            if(!skipKeyCheck){
+                const requiredKeys = [
+                    "active",
+                    "guest",
+                    "pets",
+                    "shiftLead",
+                    "siteLead",
+                    "suppliesNeeded",
+                    "supports",
+                    "volunteer",
+                ]
+                const keys = lodash.keys(siteData)
+                const diff = lodash.difference(requiredKeys, keys)
+                if(diff.length)
+                    return reject(new Error(`siteData is missing the following keys: ${diff}`))
+            }
 
+            const skippable = (i) => skipKeyCheck && lodash.isNull(i)
+            const active = lodash.get(siteData, "active")
             const maxGuestCount = lodash.get(siteData, "guest.max")
-            if(!lodash.isNumber(maxGuestCount) || maxGuestCount < 0)
+            const maxPetCount = lodash.get(siteData, "pets.max")
+            const supportsADA = lodash.get(siteData, "supports.ADA")
+            const supportsPets = lodash.get(siteData, "supports.pets")
+            const ageGroup = lodash.get(siteData, "supports.ageGroup")
+
+            if(!skippable(active) && (!lodash.isBoolean(active)))
+                return reject(new Error(`supports.ADA should be a boolean`))
+
+            if(!skippable(maxGuestCount) && (!lodash.isNumber(maxGuestCount) || maxGuestCount < 0))
                 return reject(new Error(`Incorrect value for max guest count: ${maxGuestCount}`));
 
-            const maxPetCount = lodash.get(siteData, "pets.max")
-            if(!lodash.isNumber(maxPetCount) || maxPetCount < 0)
+            if(!skippable(maxPetCount) && (!lodash.isNumber(maxPetCount) || maxPetCount < 0))
                 return reject(new Error(`Incorrect value for max pet count: ${maxPetCount}`))
+
+            if(!skippable(supportsADA) && (!lodash.isBoolean(supportsADA)))
+                return reject(new Error(`supports.ADA should be a boolean`))
+
+            if(!skippable(supportsPets) && (!lodash.isBoolean(supportsPets)))
+                return reject(new Error(`supports.pets should be a boolean`))
+
+            if(!skippable(ageGroup) && (ageGroup !== 'adult' && ageGroup !== 'child')){
+                return reject(new Error(`supports.ageGroup should be a one of ["adult", "child"]. Found: ${ageGroup}`))
+            }
 
             return resolve();
         })
