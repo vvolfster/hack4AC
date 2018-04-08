@@ -57,7 +57,7 @@ const writer = {
                 return Promise.reject(new Error(`no siteId`))
 
             const suppliesNeeded = lodash.isArray(suppliesNeededArr) ? suppliesNeededArr : [suppliesNeededArr]
-            if(!lodash.every(suppliesNeeded, supply => supply.name && lodash.isNumber(supply.qty) && supply.qty > 0))
+            if(!lodash.every(suppliesNeeded, supply => supply.name && lodash.isNumber(supply.qty) && supply.qty >= 0))
                 return Promise.reject(new Error("one of the supplies did not match requirement of name:String & qty: Number"))
 
             return writer.base.store.dispatch(`${this.name}/updateSuppliesNeeded`, { siteId, suppliesNeeded })

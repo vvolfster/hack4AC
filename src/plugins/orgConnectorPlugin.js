@@ -13,7 +13,7 @@ export default {
                 if (!this.isOrgConnectorPluginInstance) return;
 
                 const currentOrgId = store.getters['currentOrg/id'];
-                if (currentOrgId !== this.currentOrgId) store.dispatch('currentOrg/setId', this.currentOrgId);
+                store.dispatch('currentOrg/setId', currentOrgId);
             },
             watch: {
                 currentOrgId(v) {

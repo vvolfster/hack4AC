@@ -15,8 +15,7 @@ const actions = {
 
             if (!id) return resolve();
 
-            if (!miniState.fn) miniState.fn = snap => dispatch('setData', snap.val());
-
+            miniState.fn = snap => dispatch('setData', snap.val());
             miniState.ref = db.ref(`org/${id}`);
             miniState.ref.on('value', miniState.fn);
             return resolve();

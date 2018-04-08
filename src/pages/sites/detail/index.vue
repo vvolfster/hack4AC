@@ -3,7 +3,7 @@
 
     <div class="subcontrol flex justify-between q-pa-sm">
       <div>
-        <q-btn v-if="!orgUserData || (orgUserData && orgUserData.onSite !== siteId)"
+        <q-btn v-if="!orgUserData || (orgUserData.onSite !== siteId)"
                @click="$router.replace('/sites')">
           Back to sites
         </q-btn>
@@ -60,7 +60,7 @@
       </div>
 
       <!-- show detailed supply requested list -->
-      <div v-if="!orgUserData || (orgUserData && orgUserData.onSite !== siteId)">
+      <div v-if="!orgUserData || orgUserData.onSite !== siteId">
         <supply readOnly=true
                 :suppliesNeeded=site.suppliesNeeded></supply>
       </div>
