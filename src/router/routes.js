@@ -35,6 +35,10 @@ export default [
             {
                 path: 'report',
                 component: load('admin/report')
+            },
+            {
+                path: 'supplies',
+                component: load('admin/supplies')
             }
         ]
     },

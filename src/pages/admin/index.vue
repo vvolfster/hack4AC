@@ -19,6 +19,7 @@
                 <q-route-tab slot="title" icon="fas fa-user-plus" to="/admin/invite" replace label="Invites" />
                 <q-route-tab slot="title" icon="fas fa-hospital" to="/admin/site" replace label="Sites" />
                 <q-route-tab slot="title" icon="view_day" to="/admin/report" replace label="Reports" />
+                <q-route-tab slot="title" icon="fas fa-shopping-basket" to="/admin/supplies" replace label="Supplies" />
             </q-tabs>
         </q-layout-header>
 
