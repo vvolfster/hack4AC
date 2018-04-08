@@ -3,15 +3,15 @@
 
     <div class="subcontrol flex justify-between q-pa-sm">
       <div>
-        <q-btn v-if="!checkIfCurrentUserIsOnSite"
+        <q-btn v-if="!orgUserData.onSite"
                @click="$router.replace('/sites')">
           Back to sites
         </q-btn>
       </div>
       <div>
         <q-toggle v-if="site.active"
-                  :value="checkIfCurrentUserIsOnSite"
-                  @input="() => toggleOnSite()"
+                  :value="orgUserData.onSite === siteId"
+                  @click="toggleOnSite"
                   label="I'm on site" />
       </div>
     </div>
@@ -100,6 +100,8 @@ import supply from '../../../components/siteDetail/supply';
 import incidentModal from '../../../components/siteDetail/incidentModal';
 import changeLead from '../../../components/siteDetail/changeLead';
 
+import { user } from '../../../storeWriter'
+
 export default {
     name: 'PageIndex',
     components: {
@@ -116,7 +118,6 @@ export default {
         return {
             zsubscriptions: ['org/egan'],
             siteId: this.$route.params.siteId,
-            currentUserIsOnSite: true, // null, // starts with special value null, so that the data from the server takes precedence over the state of the UI or vice versa when necessary
             intakeModalIsVisible: false,
             incidentModalIsVisible: false,
         };
@@ -129,25 +130,12 @@ export default {
                 return {};
             }
         },
-        checkIfCurrentUserIsOnSite() {
-            if (!this.site.active) {
-                return false;
-            }
-
-            if (this.currentUserIsOnSite) {
-                return true;
-            }
-
-            // TODO/FIXME: This will probably be checked differently once the data model of the database will be created
-
-            return false;
-        },
     },
     created() {},
     mounted() {},
     methods: {
         toggleOnSite() {
-            this.currentUserIsOnSite = !this.currentUserIsOnSite;
+            user.toggleUserOnSite(this.siteId)
         },
         showIntakeModal() {
             this.intakeModalIsVisible = true;
