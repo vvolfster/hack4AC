@@ -12,6 +12,12 @@ const writer = {
                 userId,
                 details: { firstName, lastName, phone }
             })
+        },
+        toggleUserOnSite(siteId) {
+            return writer.base.store.dispatch(`${this.name}/toggleOnSite`, { siteId })
+        },
+        toggleLead(role, siteId) {
+            return writer.base.store.dispatch(`${this.name}/toggleLead`, { siteId, role })
         }
     },
     userAdmin: {
