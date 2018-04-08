@@ -88,6 +88,7 @@
 <script>
 import lodash from 'lodash';
 import adminSiteAdd from '../../../components/adminSiteAdd';
+import { site as siteWriter } from "../../../storeWriter"
 
 const columns = /* array of Objects */ [
     // column Object definition
@@ -181,14 +182,21 @@ export default {
         submitForm(data) {
             // console.log('SUBMITTING SITE admin data', data);
             if (this.selected.length > 0) {
-                const payloadSite = this.selected[0];
-                payloadSite.title = data.title;
-                payloadSite.guest.max = data.maxGuests;
-                payloadSite.pets.max = data.maxPets;
-                payloadSite.supports.ADA = data.supportsADA;
-                payloadSite.supports.pets = data.supportsPets;
-                payloadSite.supports.ageGroup = data.ageGroup;
-                payloadSite.streetAddress = data.streetAddress;
+                const payloadSite = this.selected[0]
+                payloadSite.title = data.title
+                payloadSite.guest.max = data.maxGuests
+                payloadSite.pets.max = data.maxPets
+                payloadSite.supports.ADA = data.supportsADA
+                payloadSite.supports.pets = data.supportsPets
+                payloadSite.supports.ageGroup = data.ageGroup
+                payloadSite.streetAddress = data.streetAddress
+
+                if(!lodash.isNumber(payloadSite.guest.max))
+                    payloadSite.guest.max = parseInt(payloadSite.guest.max, 10)
+
+                if(!lodash.isNumber(payloadSite.pets.max))
+                    payloadSite.pets.max = parseInt(payloadSite.pets.max, 10)
+
                 this.updateSite(payloadSite.id, payloadSite);
             } else {
                 // addFunction
@@ -250,7 +258,14 @@ export default {
                         lastUpdated: 1523082682773,
                     },
                 };
-                this.addSite(site);
+
+                if(!lodash.isNumber(site.guest.max))
+                    site.guest.max = parseInt(site.guest.max, 10)
+
+                if(!lodash.isNumber(site.pets.max))
+                    site.pets.max = parseInt(site.pets.max, 10)
+
+                siteWriter.addSite(site);
             }
         },
     },

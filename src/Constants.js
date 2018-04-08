@@ -1,6 +1,7 @@
 /* use for static constants */
 /* eslint-disable no-useless-escape */
 import Vue from 'vue';
+import lodash from "lodash";
 
 let database = null;
 function db() {
@@ -16,6 +17,41 @@ function validateEmail(email) {
 }
 
 const store = {
+    isValidSiteId(orgId, siteId){
+        return new Promise((resolve, reject) => {
+            db().ref(`org/${orgId}/site/${siteId}`).once('value').then((snap) => {
+                return snap.val() ? resolve()  : reject(new Error(`invalid side id ${siteId}`))
+            })
+        })
+    },
+    isValidSiteData(siteData) {
+        return new Promise((resolve, reject) => {
+            const requiredKeys = [
+                "active",
+                "guest",
+                "pets",
+                "shiftLead",
+                "siteLead",
+                "suppliesNeeded",
+                "supports",
+                "volunteer",
+            ]
+            const keys = lodash.keys(siteData)
+            const diff = lodash.difference(requiredKeys, keys)
+            if(diff.length)
+                return reject(new Error(`siteData is missing the following keys: ${diff}`))
+
+            const maxGuestCount = lodash.get(siteData, "guest.max")
+            if(!lodash.isNumber(maxGuestCount) || maxGuestCount < 0)
+                return reject(new Error(`Incorrect value for max guest count: ${maxGuestCount}`));
+
+            const maxPetCount = lodash.get(siteData, "pets.max")
+            if(!lodash.isNumber(maxPetCount) || maxPetCount < 0)
+                return reject(new Error(`Incorrect value for max pet count: ${maxPetCount}`))
+
+            return resolve();
+        })
+    },
     getCurrentUserId(rootState, rootGetters) {
         const currentUser = rootGetters['users/currentUser'];
         if (!currentUser) return null;
@@ -24,13 +60,6 @@ const store = {
     },
     getCurrentOrgId(rootState, rootGetters) {
         return rootGetters['users/currentOrg'];
-    },
-    isValidSiteId(orgId, siteId){
-        return new Promise((resolve, reject) => {
-            db().ref(`org/${orgId}/site/${siteId}`).once('value').then((snap) => {
-                return snap.val() ? resolve()  : reject(new Error(`invalid side id ${siteId}`))
-            })
-        })
     },
     getUserOrgRef(rootState, rootGetters) {
         const authId = store.getCurrentUserId(rootState, rootGetters);
