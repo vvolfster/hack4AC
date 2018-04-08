@@ -1,15 +1,17 @@
 <template>
   <q-page>
 
-    <div class="flex justify-between q-pa-sm">
-      <q-btn @click="$router.replace('/sites')">
-        Back to sites
-      </q-btn>
+    <div class="subcontrol flex justify-between q-pa-sm">
+        <div>
+            <q-btn v-if="!checkIfCurrentUserIsOnSite"
+                    @click="$router.replace('/sites')">
+                Back to sites
+            </q-btn>
+        </div>
       <div>
-        <q-toggle v-if="currentUserCanTakeControl"
-                  v-model="currentUserIsInControl"
-                  @input="() => toggleControl()"
-                  :label="currentUserCanTakeControl" />
+        <q-toggle :value="checkIfCurrentUserIsOnSite"
+                  @input="() => toggleOnSite()"
+                  label="I'm on site" />
       </div>
     </div>
 
@@ -28,27 +30,29 @@
     </div>
 
     <!-- show detailed supply requested list -->
-    <div v-if="!currentUserIsInControl">
+    <div v-if="!currentUserIsOnSite">
     </div>
 
     <!-- show full extent of functionalities, but do not show details of supply requests -->
-    <div v-if="currentUserIsInControl">
-        <div class="flex flex-center">
+    <div v-if="currentUserIsOnSite">
+      <div class="flex flex-center">
         <intake :siteId=siteId></intake>
-        </div>
+      </div>
 
-        <div class="flex flex-center">
-        <supply :siteId=siteId></supply>
-        </div>
+      <div class="flex flex-center">
+        <q-btn @click="$router.replace('/supplydetail/' + siteId)">
+          Request Supplies
+        </q-btn>
+      </div>
 
-        <div class="flex flex-center">
+      <div class="flex flex-center">
         <incident :siteId=siteId></incident>
-        </div>
+      </div>
 
-        <div class="flex flex-center">
+      <div class="flex flex-center">
         <changeSiteLead :siteId=siteId></changeSiteLead>
         <changeShiftLead :siteId=siteId></changeShiftLead>
-        </div>
+      </div>
     </div>
 
     <pre>
@@ -79,7 +83,7 @@ export default {
         return {
             zsubscriptions: ["org/egan"],
             siteId: this.$route.params.siteId,
-            currentUserHasTakenControl: null // starts with special value null, so that the data from the server takes precedence over the state of the UI or vice versa when necessary
+            currentUserIsOnSite: null // starts with special value null, so that the data from the server takes precedence over the state of the UI or vice versa when necessary
         };
     },
     computed: {
@@ -90,49 +94,16 @@ export default {
                 return {};
             }
         },
-        currentUserCanTakeControl() {
-            // TODO/FIXME: replace the value of user with real value
-            const user = {
-                firstName: "George",
-                id: "a",
-                roles: ["someRole", "siteLead", "shiftLead"]
-            };
-
-            const isSiteLead = user.roles.some(role => role === "siteLead");
-            const isShiftLead = user.roles.some(role => role === "shiftLead");
-            if (isSiteLead) {
-                return "Take Site Lead";
-            } else if (isShiftLead) {
-                return "Take Shift Lead";
-            }
-
-            return false;
-        },
-        currentUserIsInControl() {
+        checkIfCurrentUserIsOnSite() {
             if (!this.site.active) {
                 return false;
             }
 
-            // TODO/FIXME: replace the value of user with real value
-            const user = {
-                firstName: "George",
-                id: "a",
-                roles: ["someRole", "siteLead", "shiftLead"]
-            };
-            const isSiteLead = user.roles.some(role => role === "siteLead");
-            const isShiftLead = user.roles.some(role => role === "shiftLead");
-
-            if (this.currentUserHasTakenControl === null) {
-                // the state of the UI is not enough to know if the user has taken control
-                if (isSiteLead) {
-                    return user.id === this.site.siteLead.id;
-                } else if (isShiftLead) {
-                    return user.id === this.site.shiftLead.id;
-                }
-            } else if (this.currentUserHasTakenControl === true) {
-                // the state of the UI is the source of truth when the user has taken control via a click on the toggle button
+            if (this.currentUserIsOnSite) {
                 return true;
             }
+
+            // TODO/FIXME: This will probably be checked differently once the data model of the database will be created
 
             return false;
         }
@@ -140,43 +111,15 @@ export default {
     created() {},
     mounted() {},
     methods: {
-        toggleControl() {
-            // TODO/FIXME: replace the value of user with real value
-            // NOTE: The toggle will not
-            const user = {
-                firstName: "George",
-                id: "a",
-                roles: ["someRole", "siteLead", "shiftLead"]
-            };
-            // TODO/FIXME: Send a server request
-            // no need to handle the response since the state of the UI is updated to reflect that the user has taken control
-
-
-            if (this.currentUserHasTakenControl === false) {
-                // the user has previously given up control via a click on the UI
-                this.currentUserHasTakenControl = true;
-            } else if (this.currentUserHasTakenControl === true) {
-                // the user has previously taken control via a click on the UI
-                this.currentUserHasTakenControl = false;
-            } else if (this.currentUserHasTakenControl === null) {
-                // the user has not interacted with the toggle button yet; server data takes precedence to know whether the user has taken control
-                const isSiteLead = user.roles.some(role => role === "siteLead");
-                const isShiftLead = user.roles.some(role => role === "shiftLead");
-                if (isSiteLead || isShiftLead) {
-                    this.currentUserHasTakenControl = false;
-                } else {
-                    this.currentUserHasTakenControl = true;
-                }
-            }
-            console.log(
-                "User has toggled their control on the site to",
-                this.currentUserHasTakenControl
-            );
+        toggleOnSite() {
+            this.currentUserIsOnSite = !this.currentUserIsOnSite;
         }
     }
 };
 </script>
 
 <style scoped>
-
+    .subcontrol {
+        min-height: 55px;
+    }
 </style>
