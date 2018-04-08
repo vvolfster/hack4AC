@@ -3,6 +3,7 @@ import lodash from "lodash";
 import Vuelidate from "vuelidate";
 import { AddressbarColor } from "quasar";
 import genericListenerPlugin from './genericListenerPlugin';
+import orgConnectorPlugin from "./orgConnectorPlugin"
 import { base } from "../storeWriter"
 
 // leave the export, even if you don't use it
@@ -18,6 +19,7 @@ export default ({ Vue, store }) => {
         sub: (requester, subs) => store.dispatch("fbSubscriptions/subscribe", { requester, subs }),
         unsub: requester => store.dispatch("fbSubscriptions/unsubscribe", { requester })
     });
+    Vue.use(orgConnectorPlugin, store)
     base.store = store;
     document.addEventListener(Vue.fbAuthenticationEventName, () => store.dispatch("users/setCurrentUserFromAuth"))
 

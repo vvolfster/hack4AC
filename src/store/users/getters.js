@@ -17,6 +17,10 @@ const getters = {
             if(!orgs)
                 return null
 
+            if(state.selectedOrgId) {
+                return state.selectedOrgId;
+            }
+
             return lodash.findKey(orgs, o => o.default) || lodash.first(lodash.keys(orgs))
         } catch(e) {
             return null
