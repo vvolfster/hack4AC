@@ -13,12 +13,10 @@
              :selected.sync="selected">
       <template slot="top-selection"
                 slot-scope="props">
-        <q-btn color="secondary"
+      <q-btn color="secondary"
                flat
-               label="Add Item" />
-        <q-btn color="secondary"
-               flat
-               label="Fulfill" />
+               label="Fulfill"
+               @click="fulfillItems" />
         <div class="col" />
         <q-btn color="negative"
                flat
@@ -36,7 +34,7 @@
              @click="openModal"
              icon="add" />
     </q-page-sticky>
-    <supply-modal :open=open :close=closeModal> </supply-modal>
+    <supply-modal :open=open :close=closeModal @submit="submitForm"> </supply-modal>
   </q-page>
 </template>
 
@@ -48,6 +46,8 @@
 
 <script>
 import supplyModal from './supplymodal'
+import lodash from 'lodash'
+import { site } from '../../../storeWriter.js'
 
 export default {
     name: 'SupplyDashboard',
@@ -124,6 +124,18 @@ export default {
         closeModal() {
             this.open = false
             return false
+        },
+        submitForm(data){
+            this.closeModal()
+            const newData = data.concat(this.currentSite.suppliesNeeded)
+            site.updateSuppliesNeeded(this.siteId, newData)
+        },
+        fulfillItems() {
+            lodash.map(this.selected, e => {
+                e.fulfilled = true
+                return e
+            })
+            site.updateSuppliesNeeded(this.siteId, this.currentSite.suppliesNeeded)
         }
     },
 };

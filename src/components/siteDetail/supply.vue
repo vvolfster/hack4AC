@@ -3,7 +3,7 @@
        class="q-pa-sm">
     <q-table class="supplytable"
              title="Supply Needed"
-             row-key='name'
+             row-key='id'
              :columns="columns"
              :data="suppliesNeeded">
       <template slot="top-selection"
