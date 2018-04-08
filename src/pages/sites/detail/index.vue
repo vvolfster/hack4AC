@@ -25,6 +25,20 @@
       <div class="stats">
         <people-bar :site=site :showAccessible=true></people-bar>
         <pet-bar :site=site></pet-bar>
+        <div class="column">
+            <!-- IN TRANSIT -->
+            <div class="row q-pa-sm">
+                <span class="col-3">In Transit</span>
+                <div class="col-2">
+                    <q-icon name="fas fa-male"></q-icon>
+                    {{site.guest.inTransit}}
+                </div>
+                <div class="col-2">
+                    <q-icon name="fas fa-paw"></q-icon>
+                    {{site.pets.inTransit}}
+                </div>
+            </div>
+        </div>
       </div>
 
       <div>
@@ -111,7 +125,7 @@ import incidentModal from '../../../components/siteDetail/incidentModal';
 import changeLead from '../../../components/siteDetail/changeLead';
 import volunteerModal from '../../../components/siteDetail/volunteerModal';
 
-import { user } from "../../../storeWriter"
+import { user, site } from "../../../storeWriter"
 
 export default {
     name: 'SiteDetail',
@@ -178,7 +192,8 @@ export default {
             return false
         },
         clearIncident() {
-            user.clearIncident(this.site.id)
+            // TODO: Check that the store works correctly
+            site.clearAllIncidents(this.site.id)
         }
     },
 };
