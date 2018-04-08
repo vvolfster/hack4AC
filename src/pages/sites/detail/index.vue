@@ -3,7 +3,7 @@
 
     <div class="subcontrol flex justify-between q-pa-sm">
       <div>
-        <q-btn v-if="!orgUserData || !orgUserData.onSite"
+        <q-btn v-if="!orgUserData || (orgUserData && !orgUserData.onSite)"
                @click="$router.replace('/sites')">
           Back to sites
         </q-btn>
@@ -22,9 +22,8 @@
 
     <div v-else>
       <h3 class="text-center">{{ site.title }}</h3>
-
-      <div>
-        <people-bar :site=site></people-bar>
+      <div class="stats">
+        <people-bar :site=site :showAccessible=true></people-bar>
         <pet-bar :site=site></pet-bar>
       </div>
 
@@ -186,10 +185,14 @@ export default {
 </script>
 
 <style scoped>
-.subcontrol {
-    min-height: 55px;
-}
-h4 {
-    margin-bottom: 0;
-}
+    .subcontrol {
+        min-height: 55px;
+    }
+    h4 {
+        margin-bottom: 0;
+    }
+    .stats {
+        max-width: 700px;
+        margin: auto;
+    }
 </style>

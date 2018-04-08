@@ -8,7 +8,7 @@
                 <q-item-tile icon="fas fa-paw"
                              color="green" />
             </q-item-tile>
-            <q-item-tile class="col-5 flex flex-center">
+            <q-item-tile class="col-6 flex flex-center">
                 <q-progress :percentage="getPercentPets(site)"
                             style="height: 15px" />
             </q-item-tile>
