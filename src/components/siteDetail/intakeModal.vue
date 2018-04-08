@@ -8,18 +8,18 @@
       <h4 class="flow column text-center">{{site.title}}</h4>
       <div class="q-pa-lg">
         <people-bar :site=site :hideExtraInfo=true></people-bar>
-        <quick-number label="Arrived"
+        <quick-number label="Number of Guests"
                       class="quickNum"
                       v-model="guestsArrived"></quick-number>
       </div>
       <div class="q-pa-lg" v-if="site.supports.pets">
         <pet-bar :site=site :hideExtraInfo=true></pet-bar>
-        <quick-number label="Arrived"
+        <quick-number label="Number of Pets"
                       class="quickNum"
                       v-model="petsArrived"></quick-number>
       </div>
       <q-btn color="secondary q-ma-sm"
-             @click="hideModal"
+             @click="submit"
              label="Submit" />
       <q-btn color="primary q-ma-sm"
              @click="hideModal"
@@ -46,7 +46,7 @@ export default {
     props: ['site', 'intakeModalIsVisible', 'hideIntakeModal'],
     data() {
         return {
-            guestsArrived: 1,
+            guestsArrived: 0,
             petsArrived: 0,
         };
     },
@@ -62,9 +62,9 @@ export default {
             this.hideIntakeModal()
         },
         submit() {
-            console.log("sending data", this.guestsArrived, this.petsArrived)
-            user.updateIntake(this.guestsArrived, this.petsArrived, this.site.id)
-        }
+            user.updateCurrentCount(this.site.id, "guests", this.guestsArrived)
+            user.updateCurrentCount(this.site.id, "pets", this.petsArrived)
+        },
     },
 };
 </script>
