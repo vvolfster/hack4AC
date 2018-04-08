@@ -111,7 +111,7 @@ import incidentModal from '../../../components/siteDetail/incidentModal';
 import changeLead from '../../../components/siteDetail/changeLead';
 import volunteerModal from '../../../components/siteDetail/volunteerModal';
 
-import { user } from "../../../storeWriter"
+import { user, site } from "../../../storeWriter"
 
 export default {
     name: 'PageIndex',
@@ -178,7 +178,8 @@ export default {
             return false
         },
         clearIncident() {
-            user.clearIncident(this.site.id)
+            // TODO: Check that the store works correctly
+            site.clearAllIncidents(this.site.id)
         }
     },
 };

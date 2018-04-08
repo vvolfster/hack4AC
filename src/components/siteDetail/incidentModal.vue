@@ -21,7 +21,7 @@
 <script>
 import phoneContact from '../phoneContact'
 
-import { user } from '../../storeWriter'
+import { site } from '../../storeWriter'
 
 export default {
     name: 'changeLead',
@@ -39,7 +39,7 @@ export default {
     methods: {
         submitIncident() {
             // TODO: Shweta - show notification
-            user.reportIncident(this.site.id)
+            site.reportIncident(this.site.id)
         },
         hideModal() {
             this.hideIncidentModal()
