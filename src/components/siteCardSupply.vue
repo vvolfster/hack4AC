@@ -14,10 +14,9 @@
 
         </q-item-main>
         <q-item-side right>
-          <a :href=supplyDetailURL()>
-          <q-item-tile icon="shopping cart"
-                       color="green" /> {{site.suppliesNeeded.length}}
-          </a>
+          <q-btn @click="$router.push(supplyDetailURL())"
+                 icon="shopping cart"
+                 color="green" /> <!-- {{site.suppliesNeeded.length}} -->
         </q-item-side>
         <q-item-separator />
       </q-item>

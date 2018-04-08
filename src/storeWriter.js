@@ -19,6 +19,9 @@ const writer = {
         inviteUser(email) {
             return writer.base.store.dispatch(`${this.name}/inviteUser`, email)
         },
+        acceptInvite(userId, compositeInviteId, profileInfo) {
+            return writer.base.store.dispatch(`${this.name}/acceptInvite`, { userId, compositeInviteId, profileInfo })
+        }
     },
     site: {
 

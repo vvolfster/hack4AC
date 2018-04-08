@@ -5,7 +5,7 @@
     </div>
     <q-table v-else
              class="supplytable"
-             title='Supply Dashboard'
+             :title="computedData.dashboardTitle"
              row-key='name'
              :columns="computedData.columns"
              :data="computedData.tableData"
@@ -42,21 +42,21 @@
 
 <style scoped>
 .supplytable {
-    width: 100%;
+  width: 100%;
 }
 </style>
 
 <script>
 export default {
-    name: 'SupplyDashboard',
-    props: [''], // TODO siteID should go here
+    name: "SupplyDashboard",
+    props: [""], // TODO siteID should go here
     data() {
         const siteId = this.$route.params.siteID;
         console.log(siteId);
         return {
             siteId,
             zsubscriptions: [`org/egan/site/${siteId}`],
-            selected: [],
+            selected: []
         };
     },
     computed: {
@@ -67,32 +67,33 @@ export default {
                 siteId: this.siteId,
                 columns: [
                     {
-                        name: 'name',
+                        name: "name",
                         required: true,
-                        label: 'Item',
-                        align: 'left',
-                        field: 'name',
-                        sortable: true,
+                        label: "Item",
+                        align: "left",
+                        field: "name",
+                        sortable: true
                     },
                     {
-                        name: 'qty',
+                        name: "qty",
                         required: true,
-                        label: 'Quantity',
-                        align: 'left',
-                        field: 'qty',
-                        sortable: true,
+                        label: "Quantity",
+                        align: "left",
+                        field: "qty",
+                        sortable: true
                     },
                     {
-                        name: 'fulfilled',
+                        name: "fulfilled",
                         required: true,
-                        label: 'Fulfilled?',
-                        align: 'left',
-                        field: 'fulfilled',
-                        sortable: true,
-                    },
+                        label: "Fulfilled?",
+                        align: "left",
+                        field: "fulfilled",
+                        sortable: true
+                    }
                 ],
                 tableData: this.currentSite.suppliesNeeded,
                 selection: 'multiple',
+                dashboardTitle: `Supply Dashboard for ${this.currentSite.title}`
             };
         },
         currentSite() {
@@ -105,12 +106,12 @@ export default {
         supplyList() {
             // TODO transfrom list to match the data your table expects'
             return {};
-        },
+        }
     },
     methods: {
         deleteRow() {
-            console.log('womp');
-        },
-    },
+            console.log("womp");
+        }
+    }
 };
 </script>
