@@ -166,6 +166,68 @@ export default {
         },
         submitForm(data){
             console.log("SUBMITTING SITE admin data", data)
+            if(this.selected.length > 0){
+                // update function!
+            }else{
+                // addFunction
+                const site =  {
+                    active: true,
+                    guest: {
+                        current: 0,
+                        inTransit: 0,
+                        lastUpdated: 1523117016889,
+                        max: data.maxGuests,
+                        pickUpNeeded: 0,
+                        reserved: 0
+                    },
+                    id: "",
+                    pets: {
+                        current: 0,
+                        inTransit: 0,
+                        lastUpdated: 1523082682773,
+                        max: data.mexPets
+                    },
+                    shiftLead: {
+                        dateCreated: "2018-04-08T03:17:45.890Z",
+                        displayName: "new",
+                        email: "new@test.com",
+                        firstName: "new",
+                        id: "new",
+                        lastName: "new",
+                        onSite: "id",
+                        phone: "1234567890",
+                    },
+                    siteLead: {
+                        dateCreated: "2018-04-08T03:17:45.890Z",
+                        displayName: "new",
+                        email: "new@test.com",
+                        firstName: "new",
+                        id: "new",
+                        lastName: "new",
+                        onSite: "id",
+                        phone: "1234567890",
+                    },
+                    streetAddress: data.streetAddress,
+                    suppliesNeeded: [{
+                        fulfilled: true,
+                        name: "Jelly",
+                        category: "kitchen",
+                        qty: 1
+                    }],
+                    supplyNote: ".",
+                    supports: {
+                        ADA: data.supportsADA,
+                        ageGroup: data.ageGroup,
+                        pets: data.supportsPets
+                    },
+                    title: data.title,
+                    volunteer: {
+                        current: 0,
+                        lastUpdated: 1523082682773
+                    }
+                }
+                console.log("WOLFY submit this to the add site", site)
+            }
         }
     },
 };
