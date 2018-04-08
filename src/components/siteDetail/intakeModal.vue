@@ -10,15 +10,13 @@
         <people-bar :site=site :hideExtraInfo=true></people-bar>
         <quick-number label="Arrived"
                       class="quickNum"
-                      v-model="guestsArrived"
-                      v-on:input="changeArrived"></quick-number>
+                      v-model="guestsArrived"></quick-number>
       </div>
       <div class="q-pa-lg" v-if="site.supports.pets">
         <pet-bar :site=site :hideExtraInfo=true></pet-bar>
         <quick-number label="Arrived"
                       class="quickNum"
-                      v-model="petsArrived"
-                      v-on:input="changeArrived"></quick-number>
+                      v-model="petsArrived"></quick-number>
       </div>
       <q-btn color="secondary q-ma-sm"
              @click="hideModal"
