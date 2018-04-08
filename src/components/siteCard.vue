@@ -1,62 +1,65 @@
 <template>
-  <div>
-    <q-item @click.native="clickEmit(site)">
-      <q-item-side>
-        <!-- ICONS showing pet friendly etc -->
-        <q-item-tile v-if="isAccessible"
-                     icon="accessible"
-                     color="green" />
-      </q-item-side>
-      <q-item-main :label="site.title">
-        <div class="column">
-          <div class="row col-12">
-            <!-- PEOPLE BAR -->
-            <q-item-tile v-if="isChildFriendly"
-                         class="col-3"
-                         icon="fas fa-child"
-                         color="green" />
-            <q-item-tile class="col-3"
-                         v-if="isAdultFriendly"
-                         icon="fas fa-male"
-                         color="green" />
-            <q-progress class="col-6"
-                        :percentage="getPercentPeople(site)"
-                        style="height: 15px" /> {{ moment(site.guest.lastUpdated).fromNow() }}
-            <div class="col-3">{{ site.guest.current }}/{{ site.guest.max }}</div>
-            <q-item-tile v-if="countNeedsUpdated"
-                         icon="alarm"
-                         color="red" />
-          </div>
-          <!-- pets bar -->
-          <div v-if="isPetFriendly"
-               class="row col-12">
-            <q-item-tile v-if="isPetFriendly"
-                         class="col-3"
-                         icon="fas fa-paw"
-                         color="green" />
-            <q-progress class="col-6"
-                        :percentage="getPercentPets(site)"
-                        style="height: 15px" /> {{ moment(site.pets.lastUpdated).fromNow() }}
-            <div class="col-3">{{ site.guest.current }}/{{ site.guest.max }}</div>
-          </div>
-        </div>
+    <div>
+        <q-card class="flex site--card"
+                @click.native="clickEmit(site)">
+            <q-card-title>
+                <div class="row">
+                    <q-item-tile v-if="isAccessible"
+                                 icon="accessible"
+                                 color="green" />
+                    <strong>{{site.title}}</strong>
+                </div>
+            </q-card-title>
+            <q-card-separator />
+            <q-card-main>
+                <div class="column">
+                    <div class="row col-12">
+                        <!-- PEOPLE BAR -->
+                        <q-item-tile v-if="isChildFriendly"
+                                     class="col-3"
+                                     icon="fas fa-child"
+                                     color="green" />
+                        <q-item-tile class="col-3"
+                                     v-if="isAdultFriendly"
+                                     icon="fas fa-male"
+                                     color="green" />
+                        <q-progress class="col-6"
+                                    :percentage="getPercentPeople(site)"
+                                    style="height: 15px" /> {{ moment(site.guest.lastUpdated).fromNow() }}
+                        <div class="col-3">{{ site.guest.current }}/{{ site.guest.max }}</div>
+                        <q-item-tile v-if="countNeedsUpdated"
+                                     icon="alarm"
+                                     color="red" />
+                    </div>
+                    <!-- pets bar -->
+                    <div v-if="isPetFriendly"
+                         class="row col-12">
+                        <q-item-tile v-if="isPetFriendly"
+                                     class="col-3"
+                                     icon="fas fa-paw"
+                                     color="green" />
+                        <q-progress class="col-6"
+                                    :percentage="getPercentPets(site)"
+                                    style="height: 15px" /> {{ moment(site.pets.lastUpdated).fromNow() }}
+                        <div class="col-3">{{ site.guest.current }}/{{ site.guest.max }}</div>
+                        <q-item-tile v-if="countNeedsUpdated"
+                                     icon="alarm"
+                                     color="red" />
+                    </div>
+                </div>
+            </q-card-main>
+        </q-card>
 
-      </q-item-main>
-      <q-item-side right>
-
-      </q-item-side>
-      <q-item-separator />
-    </q-item>
-  </div>
+    </div>
 </template>
 
 <script>
 // import moment from "moment"
 
 export default {
-    name: "",
+    name: '',
     components: {},
-    props: ["site"],
+    props: ['site'],
     data() {
         return {};
     },
@@ -73,22 +76,22 @@ export default {
             return this.site.supports.pets;
         },
         isAdultFriendly() {
-            return this.site.supports.ageGroup === "adult";
+            return this.site.supports.ageGroup === 'adult';
         },
         isChildFriendly() {
-            return this.site.supports.ageGroup === "child";
-        }
+            return this.site.supports.ageGroup === 'child';
+        },
     },
     created() {},
     mounted() {
-        console.log("site", this.site);
-    // const self = this;
-    // this.$nextTick(() => {
-    //     try {
-    //     } catch (e) {
-    //         //
-    //     }
-    // });
+        console.log('site', this.site);
+        // const self = this;
+        // this.$nextTick(() => {
+        //     try {
+        //     } catch (e) {
+        //         //
+        //     }
+        // });
     },
     methods: {
         getPercentPeople(site) {
@@ -100,12 +103,14 @@ export default {
             return x * 100;
         },
         clickEmit() {
-            this.$emit("siteClicked", this.site);
-        }
-    }
+            this.$emit('siteClicked', this.site);
+        },
+    },
 };
 </script>
 
 <style scoped>
-/* css for this here */
+.site--card {
+    width: 95%;
+}
 </style>
