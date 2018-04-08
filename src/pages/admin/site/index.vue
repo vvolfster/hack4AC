@@ -5,9 +5,29 @@
                  :selection="selection"
                  :selected.sync="selected"
                  :loading="loading"
-                 row-key="name"
+                 row-key="title"
                  color="secondary"
                  class="tableClass">
+
+            <!-- gets displayed only when there's at least one row selected -->
+            <template slot="top-selection"
+                      slot-scope="props">
+                <q-btn color="secondary"
+                       icon="fas fa-edit"
+                       label="edit"
+                       class="q-mr-sm" />
+                <q-btn color="secondary"
+                       @click="toggleSite"
+                       icon="fas fa-power-off"
+                       label="Active/Inactive" />
+                <div class="col" />
+                <!-- <q-btn color="negative"
+                       flat
+                       round
+                       delete
+                       icon="delete"
+                       @click="deleteRow" /> -->
+            </template>
             <!-- <q-tr slot="top-row" slot-scope="props">
         <q-td colspan="100%">
             <strong>Extra top row</strong>
@@ -42,7 +62,8 @@
         <q-modal v-if="siteAddModalVis"
                  v-model="siteAddModalVis">
             <div class="column">
-                <admin-site-add v-on:submit="submitForm"></admin-site-add>
+                <admin-site-add :site="selected[0]"
+                                v-on:submit="submitForm"></admin-site-add>
             </div>
             <q-page-sticky position="bottom">
                 <div class="modal--close-button">
@@ -66,41 +87,19 @@
 
 <script>
 import lodash from 'lodash';
-import adminSiteAdd from '../../../components/adminSiteAdd'
+import adminSiteAdd from '../../../components/adminSiteAdd';
 
 const columns = /* array of Objects */ [
     // column Object definition
+    { name: 'title', label: 'Title', field: 'title', sortable: true, align: 'left' },
     {
-        // unique id (used by row-key, pagination.sortBy, ...)
-        name: 'id',
-
-        // label for header
-        // label: 'Users',
-
-        // row Object property to determine value for this column
-        field: 'name',
-        // OR field: row => row.some.nested.prop
-
-        // (optional) if we use visible-columns, this col will always be visible
-        // required: true,
-
-        // (optional) alignment
-        align: 'left',
-
-        // (optional) tell QTable you want this column sortable
-        sortable: true,
-
-        // (optional) compare function if you have
-        // some custom data or want a specific way to compare two rows
-        sort: (a, b) => parseInt(a, 10) - parseInt(b, 10),
-        // function return value:
-        //   * is less than 0 then sort a to an index lower than b, i.e. a comes first
-        //   * is 0 then leave a and b unchanged with respect to each other, but sorted with respect to all different elements
-        //   * is greater than 0 then sort b to an index lower than a, i.e. b comes first
+        name: 'active',
+        label: 'Active',
+        field: 'active',
+        format: val => {
+            return val ? 'Yes' : 'No';
+        },
     },
-    { name: 'title', label: 'Title', field: 'title', sortable: true },
-    { name: 'guest.max', label: 'Capacity', field: 'guest.max', sortable: true },
-    // { name: 'email', label: 'Email', field: 'email' },
     // { name: 'protein', label: 'Protein (g)', field: 'protein' },
     // { name: 'sodium', label: 'Sodium (mg)', field: 'sodium' },
     // { name: 'calcium', label: 'Calcium (%)', field: 'calcium', sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
@@ -110,7 +109,7 @@ const columns = /* array of Objects */ [
 export default {
     name: 'adminSite',
     components: {
-        adminSiteAdd
+        adminSiteAdd,
     },
     props: ['org'],
     data() {
@@ -118,7 +117,7 @@ export default {
             columns,
             loading: false,
             dark: true,
-            selection: 'multiple',
+            selection: 'single',
             selected: [],
             siteAddModalVis: false,
         };
@@ -164,13 +163,35 @@ export default {
         showSiteModal() {
             this.siteAddModalVis = true;
         },
-        submitForm(data){
-            console.log("SUBMITTING SITE admin data", data)
-            if(this.selected.length > 0){
-                // update function!
-            }else{
+        addSite(payload){
+            // WOLF addSite
+            // don't forget to add id field inside this object
+            console.log(payload)
+        },
+        updateSite(payload){
+            // WOLF updateSite
+            console.log(payload)
+        },
+        toggleActive(){
+            const payloadSite = this.selected[0]
+            payloadSite.active = !payloadSite.active
+            this.updateSite(payloadSite)
+        },
+        submitForm(data) {
+            // console.log('SUBMITTING SITE admin data', data);
+            if (this.selected.length > 0) {
+                const payloadSite = this.selected[0]
+                payloadSite.title = data.title
+                payloadSite.guest.max = data.maxGuests
+                payloadSite.pets.max = data.maxPets
+                payloadSite.supports.ADA = data.supportsADA
+                payloadSite.supports.pets = data.supportsPets
+                payloadSite.supports.ageGroup = data.ageGroup
+                payloadSite.streetAddress = data.streetAddress
+                this.updateSite(payloadSite)
+            } else {
                 // addFunction
-                const site =  {
+                const site = {
                     active: true,
                     guest: {
                         current: 0,
@@ -178,57 +199,59 @@ export default {
                         lastUpdated: 1523117016889,
                         max: data.maxGuests,
                         pickUpNeeded: 0,
-                        reserved: 0
+                        reserved: 0,
                     },
-                    id: "",
+                    id: '',
                     pets: {
                         current: 0,
                         inTransit: 0,
                         lastUpdated: 1523082682773,
-                        max: data.mexPets
+                        max: data.mexPets,
                     },
                     shiftLead: {
-                        dateCreated: "2018-04-08T03:17:45.890Z",
-                        displayName: "new",
-                        email: "new@test.com",
-                        firstName: "new",
-                        id: "new",
-                        lastName: "new",
-                        onSite: "id",
-                        phone: "1234567890",
+                        dateCreated: '2018-04-08T03:17:45.890Z',
+                        displayName: 'new',
+                        email: 'new@test.com',
+                        firstName: 'new',
+                        id: 'new',
+                        lastName: 'new',
+                        onSite: 'id',
+                        phone: '1234567890',
                     },
                     siteLead: {
-                        dateCreated: "2018-04-08T03:17:45.890Z",
-                        displayName: "new",
-                        email: "new@test.com",
-                        firstName: "new",
-                        id: "new",
-                        lastName: "new",
-                        onSite: "id",
-                        phone: "1234567890",
+                        dateCreated: '2018-04-08T03:17:45.890Z',
+                        displayName: 'new',
+                        email: 'new@test.com',
+                        firstName: 'new',
+                        id: 'new',
+                        lastName: 'new',
+                        onSite: 'id',
+                        phone: '1234567890',
                     },
                     streetAddress: data.streetAddress,
-                    suppliesNeeded: [{
-                        fulfilled: true,
-                        name: "Jelly",
-                        category: "kitchen",
-                        qty: 1
-                    }],
-                    supplyNote: ".",
+                    suppliesNeeded: [
+                        {
+                            fulfilled: true,
+                            name: 'Jelly',
+                            category: 'kitchen',
+                            qty: 1,
+                        },
+                    ],
+                    supplyNote: '.',
                     supports: {
                         ADA: data.supportsADA,
                         ageGroup: data.ageGroup,
-                        pets: data.supportsPets
+                        pets: data.supportsPets,
                     },
                     title: data.title,
                     volunteer: {
                         current: 0,
-                        lastUpdated: 1523082682773
-                    }
-                }
-                console.log("WOLFY submit this to the add site", site)
+                        lastUpdated: 1523082682773,
+                    },
+                };
+                this.addSite(site)
             }
-        }
+        },
     },
 };
 </script>
