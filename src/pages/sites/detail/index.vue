@@ -10,8 +10,8 @@
       </div>
       <div>
         <q-toggle v-if="site.active"
-                  :value="orgUserData.onSite"
-                  @input="() => toggleOnSite()"
+                  :value="orgUserData.onSite === siteId"
+                  @click="toggleOnSite"
                   label="I'm on site" />
       </div>
     </div>
@@ -130,26 +130,12 @@ export default {
                 return {};
             }
         },
-        checkIfCurrentUserIsOnSite() {
-            if (!this.site.active) {
-                return false;
-            }
-
-            if (this.currentUserIsOnSite) {
-                return true;
-            }
-
-            // TODO/FIXME: This will probably be checked differently once the data model of the database will be created
-
-            return false;
-        },
     },
     created() {},
     mounted() {},
     methods: {
         toggleOnSite() {
-            this.currentUserIsOnSite = !this.currentUserIsOnSite;
-            user.toggleUserOnSite()
+            user.toggleUserOnSite(this.siteId)
         },
         showIntakeModal() {
             this.intakeModalIsVisible = true;
