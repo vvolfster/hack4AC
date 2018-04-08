@@ -101,7 +101,7 @@ module.exports = (ctx) => {
                 'QFabAction',
                 'QModal',
                 'QUploader',
-                'QBtnToggle'
+                'QBtnToggle',
                 'QModalLayout'
             ],
             directives: [
