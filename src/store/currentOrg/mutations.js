@@ -6,6 +6,12 @@ const mutations = {
     },
     [M.SET_DATA](state, data) {
         state.data = data
+    },
+    [M.SET_MINI_STATE_FN](state, fn) {
+        state.miniState.fn = fn;
+    },
+    [M.SET_MINI_STATE_REF](state, ref) {
+        state.miniState.ref = ref;
     }
 }
 

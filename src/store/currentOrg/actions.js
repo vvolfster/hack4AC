@@ -1,23 +1,27 @@
 import { db, mutationTypes as M } from './common';
 
-const miniState = {
-    ref: null,
-    fn: null,
-};
-
 const actions = {
-    setId({ commit, dispatch }, id) {
+    setId({ state, commit, dispatch }, id) {
         return new Promise(resolve => {
             commit(M.SET_ID, id);
+
+            const { miniState } = state;
             if (miniState.ref && miniState.fn) {
                 miniState.ref.off('value', miniState.fn);
             }
 
-            if (!id) return resolve();
+            if (!id) {
+                console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@ OH GAWD BAD ERROR HAPPEN POTENTIAL @@@@@@@@@@@@@@@@");
+                return resolve();
+            }
 
-            miniState.fn = snap => dispatch('setData', snap.val());
-            miniState.ref = db.ref(`org/${id}`);
-            miniState.ref.on('value', miniState.fn);
+            const fn = snap => dispatch('setData', snap.val());
+            const ref = db.ref(`org/${id}`);
+            ref.on('value', fn);
+
+            commit(M.SET_MINI_STATE_FN, fn);
+            commit(M.SET_MINI_STATE_REF, ref);
+
             return resolve();
         });
     },
