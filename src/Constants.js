@@ -1,13 +1,13 @@
 /* use for static constants */
 /* eslint-disable no-useless-escape */
-import Vue from "vue"
+import Vue from 'vue';
 
 let database = null;
 function db() {
-    if(!database) {
-        database = Vue.fbApps.app.database()
+    if (!database) {
+        database = Vue.fbApps.app.database();
     }
-    return database
+    return database;
 }
 
 function validateEmail(email) {
@@ -17,13 +17,13 @@ function validateEmail(email) {
 
 const store = {
     getCurrentUserId(rootState, rootGetters) {
-        const currentUser = rootGetters['users/currentUser']
+        const currentUser = rootGetters['users/currentUser'];
         if (!currentUser) return null;
 
-        return currentUser.id
+        return currentUser.id;
     },
     getCurrentOrgId(rootState, rootGetters) {
-        return rootGetters['users/currentOrg']
+        return rootGetters['users/currentOrg'];
     },
 
     getUserOrgRef(rootState, rootGetters) {
@@ -46,7 +46,7 @@ const store = {
         });
     },
     getOrgRef(rootState, rootGetters) {
-        const authId = store.getCurrentUserId(rootState, rootGetters)
+        const authId = store.getCurrentUserId(rootState, rootGetters);
         const currentOrg = rootGetters['users/currentOrg'];
         if (!authId || !currentOrg) return null;
 
@@ -59,13 +59,15 @@ const store = {
         return new Promise((resolve, reject) => {
             orgRef
                 .once('value')
-                .then(snap => resolve(snap.val()))
+                .then((snap) => {
+                    resolve(snap.val());
+                })
                 .catch(reject);
         });
     },
-}
+};
 
 export default {
     validateEmail,
-    store
-}
+    store,
+};

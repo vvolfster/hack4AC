@@ -21,7 +21,7 @@ export default {
                 return reject(new Error(`No orgId`))
 
             const dateCreated = new Date().toISOString()
-            return db.ref(`org/${orgId}/site/${siteId}/incidents`).push(dateCreated).then(resolve).catch(reject)
+            return db.ref(`org/${orgId}/site/${siteId}/incidents`).push({ dateCreated }).then(resolve).catch(reject)
         })
     },
     clearAllIncidents({ rootState, rootGetters }, { siteId }){
@@ -31,9 +31,9 @@ export default {
                 return reject(new Error(`No orgId`))
 
             const dateResolved = new Date().toISOString()
-            return Constants.store.getOrgValue(orgId).then((org) => {
-                const incidents = lodash.get(org, `site/${siteId}/incidents`);
-                const historyIncidents = lodash.get(org, `site/${siteId}/history/incidents`);
+            return Constants.store.getOrgValue(rootState, rootGetters).then((org) => {
+                const incidents = lodash.get(org, `site.${siteId}.incidents`);
+                const historyIncidents = lodash.get(org, `site.${siteId}.history.incidents`, {});
                 if(!incidents)
                     return resolve("Nothing to resolve");
 
