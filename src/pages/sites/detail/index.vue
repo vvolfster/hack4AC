@@ -11,7 +11,6 @@
             <div>
                 <q-toggle v-if="site.active"
                           :value="orgUserData && orgUserData.onSite === siteId ? true : false"
-
                           @input="toggleOnSite"
                           label="I'm on site" />
             </div>
@@ -79,21 +78,21 @@
                         :suppliesNeeded=fulfilledSuppliesNeeded></supply>
             </div>
 
-                <q-collapsible icon="person"
-                               label="Change Lead">
-                    <div>
-                        <div class="flex flex-center column">
-                            <div class="flex flex-center">
-                                <changeLead role="site lead"
-                                            roleId="siteLead"
-                                            :siteId=siteId></changeLead>
-                                <changeLead role="shift lead"
-                                            roleId="shiftLead"
-                                            :siteId=siteId></changeLead>
-                            </div>
+            <q-collapsible icon="person"
+                           label="Change Lead">
+                <div>
+                    <div class="flex flex-center column">
+                        <div class="flex flex-center">
+                            <changeLead role="site lead"
+                                        roleId="siteLead"
+                                        :siteId=siteId></changeLead>
+                            <changeLead role="shift lead"
+                                        roleId="shiftLead"
+                                        :siteId=siteId></changeLead>
                         </div>
                     </div>
-                </q-collapsible>
+                </div>
+            </q-collapsible>
             <!-- show full extent of functionalities, but do not show details of supply requests -->
             <div v-if="orgUserData && orgUserData.onSite === siteId">
                 <div class="flex flex-center column">
@@ -112,7 +111,6 @@
                         </q-btn>
                     </div>
                 </div>
-
 
                 <div class="flex flex-center q-pa-md">
                     <q-btn @click="showIntakeModal"

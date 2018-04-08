@@ -49,11 +49,9 @@ export default {
     mounted() {},
     methods: {
         alertFrom911() {
-            console.log('911 alert called', this.site.title);
-            axios.post('https://us-central1-warmingn-5dbc7.cloudfunctions.net/sendEmergencySMS', { to: '5419541447', siteName: this.site.title });
+            axios.post('https://us-central1-warmingn-5dbc7.cloudfunctions.net/sendEmergencySMS', { to: '5415101550', siteName: `${this.site.title}` });
         },
         submitIncident() {
-            // TODO: Shweta - show notification
             site.reportIncident(this.site.id);
         },
         hideModal() {

@@ -2,6 +2,7 @@ const functions = require('firebase-functions');
 const Twilio = require('twilio');
 const serviceAccount = require('./secret/serviceAcct');
 const admin = require('firebase-admin');
+const cors = require('cors')({ origin: true });
 const mailgun = require('mailgun-js')({
     apiKey: 'key-9afa0b7ba4eb2002ba158df2d3bdde37',
     domain: 'warm.zabaat.com'
@@ -26,13 +27,16 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
 
 exports.sendEmergencySMS = functions.https.onRequest((request, response) => {
     // Send the text message.
-    console.log("request body", request.body)
-    client.messages.create({
-        to: request.body.to,
-        from: '+15412348087',
-        body: `an emergency call was made from ${request.body.siteName}`
-    });
-    response.status(200).send('sent SMS');
+    cors(request, response, () => {
+        console.log("request body", request.body)
+        client.messages.create({
+            to: request.body.to,
+            from: '+15412348087',
+            // body: `an emergency call was made from ${request.body.siteName}`
+            body: `TEST FAKE emergency call was made from ${request.body.siteName}`
+        });
+        response.status(200).send('sent SMS');
+    })
 });
 
 exports.fooBar = functions.database.ref('foo/{id}').onCreate(event => {
