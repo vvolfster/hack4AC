@@ -147,5 +147,30 @@ export default {
                 db.ref(`org/${orgId}/site/${siteId}`).set(siteData).then(resolve).catch(reject)
             }).catch(reject)
         })
+    },
+    resetCounts({ rootState, rootGetters }){
+        console.log('reset the ccounts')
+        const orgId = Constants.store.getCurrentOrgId(rootState, rootGetters);
+        return new Promise((resolve, reject) => {
+            if (!orgId) return reject(new Error(`No orgId`));
+
+            return Constants.store.getOrgValue(rootState, rootGetters).then((org) => {
+                if (!org) return reject(new Error(`No org`));
+                if (!org.site) {
+                    console.log('org has no sites', org.site)
+                    return resolve('org has no sites');
+                }
+
+                const promises = []
+                const siteParentRef = db.ref(`org/${orgId}/site`)
+                lodash.each(org.site, (v, siteId) => {
+                    promises.push(siteParentRef.child(`${siteId}/guest/count`).set(0))
+                    promises.push(siteParentRef.child(`${siteId}/pets/count`).set(0))
+                })
+                console.log('numPromises', promises.length)
+
+                return Promise.all(promises).then(resolve).catch(reject)
+            })
+        })
     }
 };

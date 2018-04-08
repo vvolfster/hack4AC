@@ -76,6 +76,9 @@ const writer = {
         },
         updateSite(siteId, siteData) {
             return writer.base.store.dispatch(`${this.name}/updateSite`, { siteId, siteData })
+        },
+        resetCounts(){
+            return writer.base.store.dispatch(`site/resetCounts`)
         }
     },
     org: {
