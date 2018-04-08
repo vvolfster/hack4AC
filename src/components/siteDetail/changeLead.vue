@@ -1,7 +1,7 @@
 <template>
     <div id="root" class="q-pa-md">
-        <q-toggle :value="checkIfCurrentUserIsOnSite"
-                @input="() => toggleLead()"
+        <q-btn :value="checkIfCurrentUserIsOnSite" color="primary"
+                @clicked="() => takeLead()"
                 :label="'Take ' + role" />
     </div>
 </template>
@@ -18,7 +18,7 @@ export default {
     created() {},
     mounted() {},
     methods: {
-        toggleLead() {
+        takeLead() {
             // TODO/FIXME: add server request to change lead
 
         }
