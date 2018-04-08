@@ -28,7 +28,7 @@ exports.inviteAdd = functions.database.ref("org/{orgId}/invites/{id}").onCreate(
     let textBody = "Welcome to "
     textBody += snapshot.val().orgId
     textBody += "Please click the following link to accept the invitation <br/>"
-    textBody += "http://localhost:8080/login?key="
+    textBody += "http://localhost:8080/?invite="
     textBody += context.params.id
     const data = {
         from: 'Admin <postmaster@warm.zabaat.com>',
