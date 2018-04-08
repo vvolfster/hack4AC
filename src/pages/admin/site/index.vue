@@ -96,6 +96,7 @@ const columns = /* array of Objects */ [
         name: 'active',
         label: 'Active',
         field: 'active',
+        align: 'left',
         format: val => {
             return val ? 'Yes' : 'No';
         },
@@ -163,32 +164,32 @@ export default {
         showSiteModal() {
             this.siteAddModalVis = true;
         },
-        addSite(payload){
+        addSite(payload) {
             // WOLF addSite
             // don't forget to add id field inside this object
-            console.log(payload)
+            console.log(payload);
         },
-        updateSite(payload){
+        updateSite(payload) {
             // WOLF updateSite
-            console.log(payload)
+            console.log(payload);
         },
-        toggleActive(){
-            const payloadSite = this.selected[0]
-            payloadSite.active = !payloadSite.active
-            this.updateSite(payloadSite)
+        toggleActive() {
+            const payloadSite = this.selected[0];
+            payloadSite.active = !payloadSite.active;
+            this.updateSite(payloadSite);
         },
         submitForm(data) {
             // console.log('SUBMITTING SITE admin data', data);
             if (this.selected.length > 0) {
-                const payloadSite = this.selected[0]
-                payloadSite.title = data.title
-                payloadSite.guest.max = data.maxGuests
-                payloadSite.pets.max = data.maxPets
-                payloadSite.supports.ADA = data.supportsADA
-                payloadSite.supports.pets = data.supportsPets
-                payloadSite.supports.ageGroup = data.ageGroup
-                payloadSite.streetAddress = data.streetAddress
-                this.updateSite(payloadSite)
+                const payloadSite = this.selected[0];
+                payloadSite.title = data.title;
+                payloadSite.guest.max = data.maxGuests;
+                payloadSite.pets.max = data.maxPets;
+                payloadSite.supports.ADA = data.supportsADA;
+                payloadSite.supports.pets = data.supportsPets;
+                payloadSite.supports.ageGroup = data.ageGroup;
+                payloadSite.streetAddress = data.streetAddress;
+                this.updateSite(payloadSite.id, payloadSite);
             } else {
                 // addFunction
                 const site = {
@@ -249,7 +250,7 @@ export default {
                         lastUpdated: 1523082682773,
                     },
                 };
-                this.addSite(site)
+                this.addSite(site);
             }
         },
     },

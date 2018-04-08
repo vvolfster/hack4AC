@@ -1,15 +1,28 @@
 <template>
-  <q-page class="flex">
-    <q-table :data="users"
-             :columns="columns"
-             :selection="selection"
-             :selected.sync="selected"
-             :loading="loading"
-             row-key="email"
-             color="secondary"
-             class="tableClass">
-    </q-table>
-  </q-page>
+    <q-page class="flex">
+        <q-table :data="users"
+                 :columns="columns"
+                 :selection="selection"
+                 :selected.sync="selected"
+                 :pagination.sync="pagination"
+                 :loading="loading"
+                 row-key="email"
+                 color="secondary"
+                 class="tableClass">
+            <template slot="top-selection"
+                      slot-scope="props">
+                <!-- <q-btn color="secondary"
+                       icon="fas fa-edit"
+                       label="edit"
+                       class="q-mr-sm" /> -->
+                <q-btn color="secondary"
+                       @click="toggleActiveState"
+                       icon="fas fa-power-off"
+                       label="Active/Inactive" />
+                <div class="col" />
+            </template>
+        </q-table>
+    </q-page>
 
 </template>
 
@@ -22,13 +35,13 @@
 
 <script>
 import lodash from 'lodash';
-import { userAdmin } from '../../../storeWriter'
+import { userAdmin } from '../../../storeWriter';
 
 const columns = /* array of Objects */ [
     // column Object definition
-    { name: 'firstName', label: 'First', field: 'firstName', sortable: true },
-    { name: 'lastName', label: 'Last', field: 'lastName', sortable: true },
-    { name: 'email', label: 'Email', field: 'email' },
+    { name: 'firstName', label: 'First', align: 'left', field: 'firstName', sortable: true },
+    { name: 'lastName', label: 'Last', align: 'left', field: 'lastName', sortable: true },
+    { name: 'email', label: 'Email', align: 'left', field: 'email' },
     // { name: 'protein', label: 'Protein (g)', field: 'protein' },
     // { name: 'sodium', label: 'Sodium (mg)', field: 'sodium' },
     // { name: 'calcium', label: 'Calcium (%)', field: 'calcium', sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
@@ -44,8 +57,14 @@ export default {
             columns,
             loading: false,
             dark: true,
-            selection: 'multiple',
+            selection: 'single',
             selected: [],
+            pagination: {
+                sortBy: null, // String, column "name" property value
+                descending: false,
+                page: 1,
+                rowsPerPage: 15 // current rows per page being displayed
+            }
         };
     },
     computed: {
@@ -78,11 +97,11 @@ export default {
         isChildFriendly(site) {
             return site.supports.ageGroup === 'child';
         },
-        toggleActive(){
+        toggleActive() {
             lodash.each(this.selected, ele => {
-                userAdmin.toggleActive(ele.id, !ele.active)
-            })
-        }
+                userAdmin.toggleActiveState(ele.id, !ele.active);
+            });
+        },
     },
 };
 </script>
