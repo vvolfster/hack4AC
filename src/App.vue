@@ -1,11 +1,13 @@
 <template>
     <div id="q-app">
-        <div v-if="!authUserId" class="fillh zpadded" style="position:relative">
-            <div class="column items-center justify-center">
+        <div v-if="!authUserId" class="fillh zpadded column items-center justify-betwen" style="position:relative">
+            <div style="flex: 1 1 100%;"></div>
+            <div class="">
                 <img src="statics/icons/icon-512x512.png" class="warmlogo">
-                <h3>Finding Warmth</h3>
+                <h3 class="text-red-8">Finding Warmth</h3>
             </div>
-            <q-btn size="lg" class="bg-red-8 text-white zbot" @click.stop="startLoginFlow">Log in</q-btn>
+            <div style="flex: 1 1 100%;"></div>
+            <q-btn size="lg" class="bg-red-8 text-white fillw" @click.stop="startLoginFlow">Log in</q-btn>
         </div>
         <div v-else-if="!matchesBasicRequirements" class="zpadded">
             <welcomeUser :user="currentUser" @submit="onAcceptWelcome"/>
@@ -122,13 +124,21 @@ export default {
     }
 
     .fillh {
-        height: 100%;
+        height: 100vh;
+    }
+
+    .fillw {
+        width: 100%
     }
 
     .zbot {
         position: absolute;
         bottom: 18px;
         width: 100%;
+    }
+
+    .zbtn {
+        height: 6vh;
     }
 
     .zpadded {
