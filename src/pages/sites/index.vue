@@ -1,8 +1,7 @@
 <template>
   <!-- main dashboard -->
     <q-page>
-        <q-list highlight>
-            <q-select v-model="selectField" :options="selectOptions" @change="field=selectField">
+        <!-- <q-select v-model="selectField" :options="selectOptions" @change="field=selectField">
             </q-select>
             <q-btn-toggle v-model="selectOrder" @input="order=selectOrder"
                 toggle-color="primary"
@@ -10,7 +9,8 @@
                     {label: 'Asc', value: 'asc'},
                     {label: 'Desc', value: 'desc'}
                 ]"
-            />
+            /> -->
+        <q-list highlight>
             <div v-for="(s, key) in sortedSites" :key="key" v-if="s.active">
                 <div @click="$router.push('/detail/' + s.id)">
                     <site-card :site="s" @siteClicked="clickSite" />
