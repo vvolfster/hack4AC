@@ -29,16 +29,46 @@ export default {
     data() {
         return {};
     },
-    computed: {},
+    computed: {
+        countNeedsUpdated() {
+            const now = +new Date();
+            const thirtyMinutes = 30 * 60 * 1000;
+            return this.site.guest.lastUpdated + thirtyMinutes < now;
+        },
+        isAccessible() {
+            return this.site.supports.ADA;
+        },
+        isPetFriendly() {
+            return this.site.supports.pets;
+        },
+        isAdultFriendly() {
+            return this.site.supports.ageGroup === 'adult';
+        },
+        isChildFriendly() {
+            return this.site.supports.ageGroup === 'child';
+        },
+    },
     created() {},
-    mounted() { console.log(this.site) },
+    mounted() {
+        console.log('site', this.site);
+        // const self = this;
+        // this.$nextTick(() => {
+        //     try {
+        //     } catch (e) {
+        //         //
+        //     }
+        // });
+    },
     methods: {
         clickEmit() {
-            this.$emit("siteClicked", this.site);
+            this.$emit('siteClicked', this.site);
         },
-    }
+    },
 };
 </script>
 
 <style scoped>
+.site--card {
+    width: 95%;
+}
 </style>

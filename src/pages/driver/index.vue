@@ -14,7 +14,23 @@
                  v-model="driverModalVis">
             <div class="column">
                 <h4>{{currentSite.title}}</h4>
-                {{currentSite.guest.current}}/{{currentSite.guest.max}}
+                <!-- PEOPLE BAR -->
+                <q-item-tile v-if="isChildFriendly"
+                             class="col-3"
+                             icon="fas fa-child"
+                             color="green" />
+                <q-item-tile class="col-3"
+                             v-if="isAdultFriendly"
+                             icon="fas fa-male"
+                             color="green" />
+                <q-progress class="col-6"
+                            :percentage="getPercentPeople(currentSite)"
+                            style="height: 15px" /> {{ moment(currentSite.guest.lastUpdated).fromNow() }}
+                <div class="col-3">{{ currentSite.guest.current }}/{{ currentSite.guest.max }}</div>
+                <q-item-tile v-if="countNeedsUpdated"
+                             icon="alarm"
+                             color="red" />
+                <quick-number :value="currentSite.guest.inTransit" v-on:input="changeInTransit"></quick-number>
                 <q-btn color="primary"
                        @click="closeModal"
                        label="Close" />
@@ -39,11 +55,13 @@
 // import lodash from "lodash";
 // import moment from "moment";
 import siteCard from '../../components/siteCard';
+import quickNumber from '../../components/quickNumber';
 
 export default {
     name: 'driver',
     components: {
         siteCard,
+        quickNumber
     },
     props: [''],
     data() {
@@ -75,8 +93,12 @@ export default {
         // });
     },
     methods: {
-        getPercent(site) {
+        getPercentPeople(site) {
             const x = site.guest.current / site.guest.max;
+            return x * 100;
+        },
+        getPercentPets(site) {
+            const x = site.pets.current / site.pets.max;
             return x * 100;
         },
         clickSite(site) {
@@ -88,6 +110,21 @@ export default {
             this.driverModalVis = false;
             this.currentSite = {};
         },
+        isAccessible() {
+            return this.site.supports.ADA;
+        },
+        isPetFriendly() {
+            return this.site.supports.pets;
+        },
+        isAdultFriendly() {
+            return this.site.supports.ageGroup === 'adult';
+        },
+        isChildFriendly() {
+            return this.site.supports.ageGroup === 'child';
+        },
+        changeInTransit(value){
+            console.log("intransit change", value)
+        }
     },
 };
 </script>
