@@ -122,8 +122,8 @@ module.exports = (ctx) => {
         pwa: {
             cacheExt: 'js,html,css,ttf,eot,otf,woff,woff2,json,svg,gif,jpg,jpeg,png,wav,ogg,webm,flac,aac,mp4,mp3',
             manifest: {
-                name: 'Warmth',
-                short_name: 'Warmth',
+                name: 'Finding Warmth',
+                short_name: 'Finding Warmth',
                 description: 'Hack for a cause',
                 display: 'standalone',
                 orientation: 'portrait',

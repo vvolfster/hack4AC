@@ -72,6 +72,10 @@ export default [
                 component: load('sites')
             },
             {
+                path: 'about',
+                component: load('about')
+            },
+            {
                 path: 'detail/:siteId',
                 component: load('sites/detail')
             },

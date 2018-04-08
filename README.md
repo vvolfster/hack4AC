@@ -1,5 +1,15 @@
 # hack4AC
 
+##TEAM SHRIMP  
+            
+with thanks to:
+####Anam, Shahan, Greyson, Yves, Bharath, Shweta, Jason, Annie, Brett  
+* Hack for a Cause 2018  
+* Twenty Ideas  
+* Egan Warming Center (Shelley was amazing)  
+
+This project is MIT licensed so that you may freely learn and help others as we have
+
 requires Node 8.9.0  
 
 It is recommended that you use nvm. If you don't have it already get it from here: https://github.com/coreybutler/nvm-windows/releases
