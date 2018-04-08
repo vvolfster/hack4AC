@@ -66,8 +66,10 @@
           </q-btn>
         </div>
 
-        <div class="flex flex-center">
-          <incident :siteId=siteId></incident>
+        <div class="flex flex-center q-pa-lg">
+            <q-btn @click="showIncidentModal">
+                Report Incident
+            </q-btn>
         </div>
 
         <div class="flex flex-center column">
@@ -79,14 +81,11 @@
         </div>
       </div>
     </div>
-
     <pre>
-            option contains: suppliesNeeded incidents userCard
-        </pre>
-    <pre>
-            {{ site }}
-        </pre>
-    <intake-modal :intakeModalIsVisible=intakeModalIsVisible :site=site></intake-modal>
+        {{ site }}
+    </pre>
+    <intake-modal :intakeModalIsVisible=intakeModalIsVisible :site=site :hideIntakeModal=hideIntakeModal></intake-modal>
+    <incident-modal :incidentModalIsVisible=incidentModalIsVisible :site=site :hideIncidentModal=hideIncidentModal></incident-modal>
   </q-page>
 </template>
 
@@ -96,6 +95,7 @@ import petBar from '../../../components/petBar';
 import phoneContact from '../../../components/phoneContact';
 import intakeModal from '../../../components/siteDetail/intakeModal';
 import supply from '../../../components/siteDetail/supply';
+import incidentModal from '../../../components/siteDetail/incidentModal';
 import changeLead from '../../../components/siteDetail/changeLead';
 
 export default {
@@ -106,6 +106,7 @@ export default {
         phoneContact,
         intakeModal,
         supply,
+        incidentModal,
         changeLead,
     },
     props: [''],
@@ -115,6 +116,7 @@ export default {
             siteId: this.$route.params.siteId,
             currentUserIsOnSite: true, // null, // starts with special value null, so that the data from the server takes precedence over the state of the UI or vice versa when necessary
             intakeModalIsVisible: false,
+            incidentModalIsVisible: false,
         };
     },
     computed: {
@@ -151,6 +153,14 @@ export default {
         },
         hideIntakeModal() {
             this.intakeModalIsVisible = false;
+            return false
+        },
+        showIncidentModal() {
+            this.incidentModalIsVisible = true;
+            return true
+        },
+        hideIncidentModal() {
+            this.incidentModalIsVisible = false;
             return false
         },
     },

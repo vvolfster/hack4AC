@@ -1,6 +1,6 @@
 <template>
   <!-- main dashboard -->
-    <q-page class="flex">
+    <q-page>
         <q-list highlight>
             <q-select v-model="selectField" :options="selectOptions" @change="field=selectField">
             </q-select>
@@ -12,7 +12,9 @@
                 ]"
             />
             <div v-for="(s, key) in sortedSites" :key="key" v-if="s.active">
-                <site-card :site="s" @siteClicked="clickSite" />
+                <div @click="$router.push('/detail/' + key)">
+                    <site-card :site="s" @siteClicked="clickSite" />
+                </div>
             </div>
         </q-list>
     </q-page>

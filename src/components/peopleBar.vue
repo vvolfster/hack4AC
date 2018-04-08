@@ -17,11 +17,12 @@
       <q-progress :percentage="getPercentPeople(site)"
                   style="height: 15px" />
     </q-item-tile>
-    <q-item-tile class="update col-3 q-ml-sm">
+    <q-item-tile
+                 class="update col-3 q-ml-sm">
       <span>{{ site.guest.current }}/{{ site.guest.max }}</span>
-      <span>({{ moment(site.guest.lastUpdated).fromNow() }})</span>
+      <span v-if="!hideExtraInfo">({{ moment(site.guest.lastUpdated).fromNow() }})</span>
     </q-item-tile>
-    <q-item-tile v-if="countNeedsUpdated"
+    <q-item-tile v-if="countNeedsUpdated && !hideExtraInfo"
                  icon="alarm"
                  color="red" />
   </div>
@@ -29,9 +30,9 @@
 
 <script>
 export default {
-    name: "peopleBar",
+    name: 'peopleBar',
     components: {},
-    props: ["site"],
+    props: ['site', 'hideExtraInfo'],
     data() {
         return {};
     },
@@ -45,20 +46,20 @@ export default {
             if (!this.site.supports) {
                 return false;
             }
-            return this.site.supports.ageGroup === "adult";
+            return this.site.supports.ageGroup === 'adult';
         },
         isChildFriendly() {
             if (!this.site.supports) {
                 return false;
             }
-            return this.site.supports.ageGroup === "child";
+            return this.site.supports.ageGroup === 'child';
         },
         isAccessible() {
             if (!this.site.supports) {
                 return false;
             }
             return this.site.supports.ADA;
-        }
+        },
     },
     created() {},
     mounted() {},
@@ -66,13 +67,13 @@ export default {
         getPercentPeople(site) {
             const x = site.guest.current / site.guest.max;
             return x * 100;
-        }
-    }
+        },
+    },
 };
 </script>
 
 <style scoped>
-    .update {
-        align-self: center;
-    }
+.update {
+    align-self: center;
+}
 </style>

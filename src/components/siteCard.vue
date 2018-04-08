@@ -1,5 +1,4 @@
 <template>
-  <q-page>
     <q-item @click.native="clickEmit(site)">
       <q-item-main :label="site.title">
         <div class="column">
@@ -14,7 +13,6 @@
       </q-item-side>
       <q-item-separator />
     </q-item>
-  </q-page>
 </template>
 
 <script>
