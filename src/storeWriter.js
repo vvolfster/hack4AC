@@ -36,6 +36,18 @@ const writer = {
                 return Promise.reject()
 
             return writer.base.store.dispatch(`${this.name}/updateTransitCount`, { siteId, type, number })
+        },
+        reportIncident(siteId) {
+            return writer.base.store.dispatch(`${this.name}/createIncident`, { siteId })
+        },
+        clearAllIncidents(siteId) {
+            return writer.base.store.dispatch(`${this.name}/clearAllIncidents`, { siteId })
+        },
+        updateCurrentQty(siteId, type, number) {
+            if(typeof number !== 'number')
+                return Promise.reject()
+
+            return writer.base.store.dispatch(`${this.name}/updateCurrentQty`, { siteId, type, number })
         }
     },
     org: {
