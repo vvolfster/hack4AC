@@ -59,7 +59,6 @@ export default {
     props: [''],
     data() {
         const siteId = this.$route.params.siteID;
-        console.log(siteId);
         return {
             siteId,
             zsubscriptions: [`org/egan/site/${siteId}`],
@@ -118,12 +117,11 @@ export default {
     },
     methods: {
         deleteRow() {
-            console.log('womp');
+
         },
         openModal() {
             if (!this.open) {
                 this.open = true
-                console.log(this.open)
             }
         }
     },
