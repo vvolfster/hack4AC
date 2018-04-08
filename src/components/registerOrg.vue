@@ -9,8 +9,8 @@
             <q-uploader :url="url" /> -->
             <q-input v-model="orgName"
                      type="tel"
-                     float-label="Organisation"
-                     placeholder="Organisation"
+                     float-label="Organization"
+                     placeholder="Organization"
                      v-on:input="$v.orgName.$touch"
                      :class="{error: $v.orgName.$error, valid: $v.orgName.$dirty && !$v.orgName.$invalid}"
             /> <br/> <br/>
@@ -29,8 +29,8 @@
             /> <br/> <br/>
             <q-input v-model="hqAddress"
                      type="tel"
-                     float-label="HeadQuater Address"
-                     placeholder="HeadQuater Address"
+                     float-label="Headquarter Address"
+                     placeholder="Headquarter Address"
                      v-on:input="$v.hqAddress.$touch"
                      :class="{error: $v.hqAddress.$error, valid: $v.hqAddress.$dirty && !$v.hqAddress.$invalid}"
             /> <br/> <br/>
@@ -69,14 +69,14 @@ export default {
             region: "",
             telephone: "",
             hqAddress: "",
-            pContact: "",
+            // pContact: "",
             aboutOrg: ""
         };
     },
     computed: {
         formIsInvalid() {
             const { $v } = this
-            return $v.orgName.$invalid || $v.region.$invalid || $v.telephone.$invalid || $v.hqAddress.$invalid || $v.pContact.$invalid || $v.aboutOrg.$invalid
+            return $v.orgName.$invalid || $v.region.$invalid || $v.telephone.$invalid || $v.hqAddress.$invalid || $v.aboutOrg.$invalid
         }
     },
     methods: {
@@ -86,7 +86,7 @@ export default {
                 region: this.region,
                 phone: this.telephone,
                 hqAddress: this.hqAddress,
-                pContact: this.pContact,
+                // pContact: this.pContact,
                 aboutOrg: this.aboutOrg
             })
         }
@@ -107,10 +107,6 @@ export default {
             maxLength: maxLength(10),
         },
         hqAddress: {
-            required,
-            minLength: minLength(2)
-        },
-        pContact: {
             required,
             minLength: minLength(2)
         },
