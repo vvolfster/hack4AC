@@ -3,14 +3,14 @@
 
         <div class="subcontrol flex justify-between q-pa-sm">
             <div>
-                <q-btn v-if="orgUserData && (orgUserData.onSite === siteId)"
+                <q-btn v-if="localUserIsOnSite"
                        @click="returnToSite">
                     Back to Site List
                 </q-btn>
             </div>
             <div>
                 <q-toggle v-if="site.active"
-                          :value="orgUserData && orgUserData.onSite === siteId ? true : false"
+                          :value="localUserIsOnSite"
 
                           @input="toggleOnSite"
                           label="I'm on site" />
@@ -108,9 +108,8 @@
             </q-collapsible>
 
             <!-- show full extent of functionalities, but do not show details of supply requests -->
-            <div v-if="orgUserData && orgUserData.onSite === siteId">
+            <div v-if="localUserIsOnSite">
                 <div class="flex flex-center column">
-                    <big>Incidents</big>
                     <div class="flex flex-center q-pa-sm">
                         <q-btn v-if="ongoingIncident"
                                @click="clearIncident"
@@ -123,22 +122,19 @@
                                class="q-ma-sm">
                             Report Incident
                         </q-btn>
+                        <q-btn @click="showIntakeModal"
+                            color="primary"
+                            size="md"
+                            class="q-ma-sm">
+                            Update Guest Count
+                        </q-btn>
+                        <q-btn @click="$router.push('/supplydetail/' + siteId)"
+                            color="primary"
+                            size="md"
+                            class="q-ma-sm">
+                            Request Supplies
+                        </q-btn>
                     </div>
-                </div>
-
-                <div class="flex flex-center q-pa-md">
-                    <q-btn @click="showIntakeModal"
-                           color="primary"
-                           size="md"
-                           class="q-ma-sm">
-                        Update Guest Count
-                    </q-btn>
-                    <q-btn @click="$router.push('/supplydetail/' + siteId)"
-                           color="primary"
-                           size="md"
-                           class="q-ma-sm">
-                        Request Supplies
-                    </q-btn>
                 </div>
             </div>
         </div>
@@ -187,6 +183,7 @@ export default {
             intakeModalIsVisible: false,
             incidentModalIsVisible: false,
             volunteerModalIsVisible: false,
+            localUserIsOnSite: false,
         };
     },
     computed: {
@@ -198,7 +195,7 @@ export default {
             }
         },
         showHeader() {
-            if (!this.orgUserData || this.orgUserData.onSite !== this.siteId) {
+            if (!this.localUserIsOnSite) {
                 // show Header
                 this.$root.$emit('showHeader');
                 return true;
@@ -227,6 +224,7 @@ export default {
             return this.site.supports.ADA;
         },
         toggleOnSite() {
+            this.localUserIsOnSite = !this.localUserIsOnSite;
             user.toggleUserOnSite(this.site.id);
         },
         returnToSite() {
