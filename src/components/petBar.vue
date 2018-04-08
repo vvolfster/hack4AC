@@ -8,16 +8,21 @@
                 <q-item-tile icon="fas fa-paw"
                              color="green" />
             </q-item-tile>
-            <q-progress class="col-5 q-mr-sm flex-center"
-                        :percentage="getPercentPets(site)"
-                        style="height: 15px" />
-            <q-item-tile class="update col-3 q-ml-sm">
-                <span>{{ site.pets.current }}/{{ site.pets.max }}</span>
-                <small>({{ moment(site.pets.lastUpdated).fromNow() }})</small>
+            <q-item-tile class="col-5 flex flex-center">
+                <q-progress :percentage="getPercentPets(site)"
+                            style="height: 15px" />
             </q-item-tile>
-            <q-item-tile v-if="countNeedsUpdated"
-                         icon="alarm"
-                         color="red" />
+            <q-item-tile class="update col-2 q-ml-sm">
+                <div col="row">
+                    <span>{{ site.pets.current }}/{{ site.pets.max }}</span>
+                </div>
+            </q-item-tile>
+            <q-item-tile class="col-3 q-ml-sm">
+                <small>({{ moment(site.pets.lastUpdated).fromNow() }})</small>
+                <q-item-tile v-if="countNeedsUpdated && !hideExtraInfo"
+                             icon="alarm"
+                             color="red" />
+            </q-item-tile>
         </div>
         <!-- NEW BAR -->
         <div v-if="renderType===''">

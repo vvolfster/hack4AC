@@ -15,7 +15,7 @@
                 <q-progress :percentage="getPercentPeople(site)"
                             style="height: 15px" />
             </q-item-tile>
-            <q-item-tile class="update col-3 q-ml-sm">
+            <q-item-tile class="update col-2 q-ml-sm">
                 <div col="row">
                     <span>{{ site.guest.current }}/{{ site.guest.max }}</span>
                 </div>
@@ -87,6 +87,7 @@ export default {
 </script>
 
 <style scoped>
+
 .update {
     align-self: center;
 }

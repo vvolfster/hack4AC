@@ -1,30 +1,34 @@
 <template>
     <q-page class="flex driver--page">
         <q-list class="driver--list">
-            <q-list-header>Sites</q-list-header>
+            <!-- <q-list-header>Sites</q-list-header> -->
             <div v-for="(s, key) in sites"
                  :key="key"
-                 v-if="s.active"
-                 >
+                 v-if="s.active">
                 <site-card :site="s"
                            @siteClicked="clickSite" />
             </div>
 
         </q-list>
         <q-modal v-if="driverModalVis"
-                 v-model="driverModalVis">
+                 v-model="driverModalVis"
+                 position="bottom">
             <div class="column">
-                <h4>{{currentSite.title}}</h4>
+                <big>{{currentSite.title}}</big>
+                <small>{{currentSite.streetAddress}}</small>
                 <people-bar :site="currentSite"></people-bar>
                 <pet-bar :site="currentSite"></pet-bar>
-                <q-item-tile v-if="countNeedsUpdated"
-                             icon="alarm"
-                             color="red" />
-                <quick-number label="In Transit"
+                <quick-number label="Guests In Transit"
                               class="quickNum"
                               :value="currentSite.guest.inTransit"
                               v-on:input="changeInTransit"></quick-number>
+                <quick-number label="Pets In Transit"
+                              class="quickNum"
+                              :value="currentSite.pets.inTransit"
+                              v-on:input="changeInTransit"></quick-number>
 
+            </div>
+            <div class="column modal--close-button">
                 <q-btn color="primary"
                        @click="closeModal"
                        label="Close" />
@@ -40,6 +44,13 @@
 }
 .driver--list {
     width: 100%;
+}
+.driver--modal {
+    height: 100%;
+}
+
+.modal--close-button{
+    margin-top:16px
 }
 .quickNum {
     width: 30hw;
