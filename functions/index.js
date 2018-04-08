@@ -99,7 +99,7 @@ exports.inviteAdd = functions.database.ref('org/{orgId}/invites/{id}').onCreate(
     const data = {
         from: 'Admin <postmaster@warm.zabaat.com>',
         to: snapshot.val().email,
-        subject: 'Message Received',
+        subject: 'Welcome! You are invited to join the Shrimps!',
         text: textBody
     };
     mailgun.messages().send(data, (error, body) => {

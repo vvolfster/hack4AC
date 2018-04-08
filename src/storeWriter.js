@@ -25,6 +25,9 @@ const writer = {
         inviteUser(email) {
             return writer.base.store.dispatch(`${this.name}/inviteUser`, email)
         },
+        updateUserProfile(userId, profileInfo){
+            return writer.base.store.dispatch(`${this.name}/updateUserProfile`, { userId, profileInfo })
+        },
         acceptInvite(userId, compositeInviteId, profileInfo) {
             return writer.base.store.dispatch(`${this.name}/acceptInvite`, { userId, compositeInviteId, profileInfo })
         },
@@ -76,9 +79,9 @@ const writer = {
         }
     },
     org: {
+        name: "org",
         createOrg(orgInfo) {
-            console.log("Need to create new Org", orgInfo)
-            // TO DO WOLF
+            return writer.base.store.dispatch('org/create', orgInfo)
         }
     }
 }

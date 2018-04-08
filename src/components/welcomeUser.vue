@@ -1,5 +1,5 @@
 <template>
-    <div style="padding:18px;">
+    <div>
         <div>
             Update profile
         </div>
