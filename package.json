@@ -1,8 +1,8 @@
 {
-  "name": "hack4ac",
+  "name": "Warmth",
   "version": "1.0.0",
   "description": "Eugene warming",
-  "productName": "hack4ac",
+  "productName": "Warmth",
   "cordovaId": "org.cordova.quasar.app",
   "author": "20i",
   "private": true,
