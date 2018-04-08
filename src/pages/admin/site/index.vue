@@ -42,7 +42,7 @@
         <q-modal v-if="siteAddModalVis"
                  v-model="siteAddModalVis">
             <div class="column">
-                <admin-site-add></admin-site-add>
+                <admin-site-add v-on:submit="submitForm"></admin-site-add>
             </div>
             <q-page-sticky position="bottom">
                 <div class="modal--close-button">
@@ -164,6 +164,9 @@ export default {
         showSiteModal() {
             this.siteAddModalVis = true;
         },
+        submitForm(data){
+            console.log("SUBMITTING SITE admin data", data)
+        }
     },
 };
 </script>

@@ -1,115 +1,140 @@
 <template>
     <div style="padding:18px;">
-        <div>
+        <big>
             Site Editor
-        </div>
-        <div class="column items-stretch" >
+        </big>
+        <div class="column items-stretch">
             <br/><br>
-            <q-input v-model="firstname"
-                     type="tel"
-                     float-label="First Name"
-                     placeholder="First Name"
-                     v-on:input="$v.firstname.$touch"
-                     :class="{error: $v.firstname.$error, valid: $v.firstname.$dirty && !$v.firstname.$invalid}"
+
+            <q-input v-model="title"
+                     type="text"
+                     float-label="Title"
+                     placeholder="Title"
+                     v-on:input="$v.title.$touch"
+                     :class="{error: $v.title.$error, valid: $v.title.$dirty && !$v.title.$invalid}"
             /> <br/> <br/>
-            <q-input v-model="lastname"
-                     type="tel"
-                     float-label="Last Name"
-                     placeholder="Last Name"
-                     v-on:input="$v.lastname.$touch"
-                     :class="{error: $v.lastname.$error, valid: $v.lastname.$dirty && !$v.lastname.$invalid}"
+            <q-input v-model="streetAddress"
+                     type="text"
+                     float-label="Street Address"
+                     placeholder="123 Main St"
+                     v-on:input="$v.streetAddress.$touch"
+                     :class="{error: $v.streetAddress.$error, valid: $v.streetAddress.$dirty && !$v.streetAddress.$invalid}"
             /> <br/> <br/>
-            <q-input v-model="mail"
-                     float-label="Email"
-                     placeholder="abc@gmail.com"
-                     v-on:input="$v.mail.$touch"
-                     :class="{error: $v.mail.$error, valid: $v.mail.$dirty && !$v.mail.$invalid}"
+            <q-input v-model="maxGuests"
+                     float-label="Maxium Guests"
+                     v-on:input="$v.maxGuests.$touch"
+                     :class="{error: $v.maxGuests.$error, valid: $v.maxGuests.$dirty && !$v.maxGuests.$invalid}"
             /> <br/> <br/>
-            <q-input v-model="telephone"
-                     float-label="Telephone"
-                     placeholder="541xxxxxxx"
-                     v-on:input="$v.telephone.$touch"
-                     :class="{error: $v.telephone.$error, valid: $v.telephone.$dirty && !$v.telephone.$invalid}"
+            <q-input v-model="maxPets"
+                     float-label="Maximum Pets"
+                     placeholder="0"
+                     v-on:input="$v.maxPets.$touch"
+                     :class="{error: $v.maxPets.$error, valid: $v.maxPets.$dirty && !$v.maxPets.$invalid}"
             /> <br/> <br/>
-            <q-btn
-                @click.stop="submit"
-                :disable="formIsInvalid"
-                :class="!formIsInvalid ? `bg-green text-white` : `bg-grey-5 text-grey-2`"
-                size="lg"
-            >
+            <span>Site is ADA</span>
+            <q-checkbox v-model="supportsADA"
+                        float-label="ADA Site"
+                        v-on:input="$v.supportsADA.$touch"
+                        :class="{error: $v.supportsADA.$error, valid: $v.supportsADA.$dirty && !$v.supportsADA.$invalid}"
+            /> <br/> <br/>
+            <span>Child Site</span>
+            <q-checkbox v-model="isChildSite"
+                        float-label="Child Site"
+                        v-on:input="$v.isChildSite.$touch"
+                        :class="{error: $v.isChildSite.$error, valid: $v.isChildSite.$dirty && !$v.isChildSite.$invalid}"
+            /> <br/> <br/>
+            <q-btn @click.stop="submit"
+                   :disable="formIsInvalid"
+                   :class="!formIsInvalid ? `bg-green text-white` : `bg-grey-5 text-grey-2`"
+
+                   size="lg">
                 Submit
             </q-btn>
         </div>
     </div>
 </template>
 <script>
-import { email, numeric, required, minLength, maxLength } from 'vuelidate/lib/validators';
+import { numeric, required, minLength } from 'vuelidate/lib/validators';
 
 export default {
-    props: ['user'],
+    props: ['site'],
     data() {
         return {
-            firstname: '',
-            lastname: '',
-            mail: '',
-            telephone: '',
+            title: '',
+            streetAddress: '',
+            maxGuests: '',
+            maxPets: '',
+            supportsADA: false,
+            isChildSite: false,
         };
     },
     mounted() {
-        const { user } = this;
-        if (!user) return;
+        const { site } = this;
+        if (!site) return;
 
-        if (user.firstName) this.firstname = user.firstName;
-        if (user.lastName) this.lastname = user.lastName;
-        if (user.email) this.mail = user.email;
-        if (user.phone) this.telephone = user.phone;
+        if (site.title) this.title = site.title;
+        if (site.streetAddress) this.streetAddress = site.streetAddress;
+        if (site.guest.max) this.maxGuests = site.guest.max;
+        if (site.pets.max) this.maxPets = site.pets.max;
+        if (site.supports.ADA) this.supportsADA = site.supports.ADA;
+        if (site.supports.ageGroup === 'child') this.isChildSite = true;
     },
     watch: {
-        user() {
-            const { user } = this;
-            if (!user) return;
+        site() {
+            const { site } = this;
+            if (!site) return;
 
-            if (user.firstName) this.firstname = user.firstName;
-            if (user.lastName) this.lastname = user.lastName;
-            if (user.email) this.mail = user.email;
-            if (user.phone) this.telephone = user.phone;
+            if (site.title) this.title = site.title;
+            if (site.streetAddress) this.streetAddress = site.streetAddress;
+            if (site.guest.max) this.maxGuests = site.guest.max;
+            if (site.pets.max) this.maxPets = site.pet.max;
+            if (site.supports.ADA) this.supportsADA = site.supports.ADA;
+            if (site.supports.ageGroup === 'child') this.isChildSite = true;
         },
     },
     methods: {
         submit() {
-            this.$emit("submit", {
-                firstName: this.firstname,
-                lastName: this.lastname,
-                email: this.mail,
-                phone: this.telephone
-            })
-        }
+            // eslint-disable-next-line
+            const petSupport = this.maxPets > 0 ? true : false;
+            const ageGroup = this.isChildSite ? "child" : "adult"
+            this.$emit('submit', {
+                title: this.title,
+                streetAddress: this.streetAddress,
+                maxGuests: this.maxGuests,
+                maxPets: this.maxPets,
+                supportsADA: this.supportsADA,
+                supportsPets: petSupport,
+                ageGroup
+            });
+        },
     },
     computed: {
         formIsInvalid() {
-            const { $v } = this
-            return $v.firstname.$invalid || $v.lastname.$invalid || $v.mail.$invalid || $v.telephone.$invalid
-        }
+            const { $v } = this;
+            return $v.title.$invalid || $v.streetAddress.$invalid || $v.maxGuests.$invalid || $v.maxPets.$invalid;
+        },
     },
     validations: {
-        firstname: {
+        title: {
             required,
-            minLength: minLength(2),
+            minLength: minLength(5),
         },
-        lastname: {
+        streetAddress: {
             required,
-            minLength: minLength(2),
+            minLength: minLength(5),
         },
-        mail: {
-            required,
-            email,
-        },
-        telephone: {
+        maxGuests: {
             required,
             numeric,
-            minLength: minLength(10),
-            maxLength: maxLength(10),
         },
+        maxPets: {
+            required,
+            numeric,
+        },
+        supportsADA: {},
+        supportsPets: {},
+        ageGroup: {},
+        isChildSite: {}
     },
 };
 </script>
