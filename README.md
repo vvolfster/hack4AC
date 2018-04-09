@@ -1,9 +1,9 @@
 # hack4AC
 
-##TEAM SHRIMP  
+## TEAM SHRIMP  
             
 with thanks to:
-####Anam, Shahan, Greyson, Yves, Bharath, Shweta, Jason, Annie, Brett  
+#### Anam, Shahan, Greyson, Yves, Bharath, Shweta, Jason, Annie, Brett  
 * Hack for a Cause 2018  
 * Twenty Ideas  
 * Egan Warming Center (Shelley was amazing)  
