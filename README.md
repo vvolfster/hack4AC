@@ -5,7 +5,8 @@
 with thanks to:
 #### Anam, Shahan, Greyson, Yves, Bharath, Shweta, Jason, Annie, Brett  
 * Hack for a Cause 2018  
-* Twenty Ideas  
+* Twenty Ideas
+* Emberex
 * Egan Warming Center (Shelley was amazing)  
 
 This project is MIT licensed so that you may freely learn and help others as we have
