@@ -1,4 +1,6 @@
-# hack4AC
+# Finding Warmth
+
+This project is MIT licensed so that you may freely learn and help others as we have.
 
 ## TEAM SHRIMP  
             
@@ -9,7 +11,7 @@ with thanks to:
 * Emberex
 * Egan Warming Center (Shelley was amazing)  
 
-This project is MIT licensed so that you may freely learn and help others as we have
+## setup
 
 requires Node 8.9.0  
 
