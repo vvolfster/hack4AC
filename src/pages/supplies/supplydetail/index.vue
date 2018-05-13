@@ -12,7 +12,7 @@
              :selection="computedData.selection"
              :selected.sync="selected"
              :pagination:sync="pagination"
-             :visible-columns="visible">
+             :visible-columns="visibleColumns">
       <template slot="top-selection"
                 slot-scope="props">
       <q-btn color="secondary"
@@ -63,7 +63,7 @@ export default {
             siteId,
             zsubscriptions: [`org/egan/site/${siteId}`],
             selected: [],
-            visible: ["name", "qty", "fulfilled"],
+            visibleColumns: ['name', 'qty', 'fulfilled'],
             open: false,
             pagination: {
                 sortBy: null, // String, column "name" property value
@@ -76,7 +76,6 @@ export default {
     computed: {
         computedData() {
             if (!this.currentSite) return null;
-
 
             return {
                 siteId: this.siteId,
@@ -104,28 +103,22 @@ export default {
                         align: "left",
                         field: "fulfilled",
                         sortable: true
-                    },
-                    {
-                        name: "uuid",
-                        required: true,
-                        field: "uuid",
                     }
                 ],
-                tableData: this.currentSite.suppliesNeeded,
+                tableData: lodash.forEach(this.currentSite.suppliesNeeded, (value, key) => {
+                    value.uuid = key
+                }),
                 selection: 'multiple',
                 dashboardTitle: `Supply Dashboard for ${this.currentSite.title}`
             };
         },
         currentSite() {
             try {
+                console.log(this.zsubData[`org/egan/site/${this.siteId}`].suppliesNeeded)
                 return this.zsubData[`org/egan/site/${this.siteId}`];
             } catch (e) {
                 return {};
             }
-        },
-        supplyList() {
-            // TODO transfrom list to match the data your table expects'
-            return {};
         }
     },
     methods: {
