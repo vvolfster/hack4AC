@@ -39,7 +39,6 @@ export default {
     computed: {
         sites() {
             try {
-                // console.log('sub data', this.zsubData['org/egan']);
                 return this.zsubData['org/egan'].site;
             } catch (e) {
                 return {};
@@ -52,10 +51,7 @@ export default {
         getPercent(site) {
             const x = site.guest.current / site.guest.max;
             return x * 100;
-        },
-        clickSite(site) {
-            console.log('clicked site', site);
-        },
+        }
     },
 };
 </script>

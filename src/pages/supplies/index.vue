@@ -5,8 +5,7 @@
             <site-card-supply v-for="(s, key) in sites"
                               :site="s"
                               :key="key"
-                              v-if="s.active"
-                              @siteClicked="clickSite" />
+                              v-if="s.active"/>
         </q-list>
     </q-page>
 </template>
@@ -34,7 +33,6 @@ export default {
     computed: {
         sites() {
             try {
-                console.log(this.zsubData['org/egan'].site);
                 return this.zsubData['org/egan'].site;
             } catch (e) {
                 return {};
@@ -43,10 +41,6 @@ export default {
     },
     created() {},
     mounted() {},
-    methods: {
-        clickSite(site) {
-            console.log('clicked site', site);
-        },
-    },
+    methods: {},
 };
 </script>

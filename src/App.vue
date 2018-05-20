@@ -110,7 +110,6 @@ export default {
         if(compositeInviteId) {
             Vue.fbAuthenticationMethods.signOut()
         }
-        // console.log("APP MOUNT", compositeInviteId)
     },
     watch: {
         compositeInviteId(current, prev){
