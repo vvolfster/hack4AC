@@ -1,8 +1,8 @@
 {
-  "name": "findingwarmth",
+  "name": "sharingwarmth",
   "version": "1.0.0",
   "description": "Eugene warming",
-  "productName": "Finding Warmth",
+  "productName": "Sharing Warmth",
   "cordovaId": "org.cordova.quasar.app",
   "author": "20i",
   "private": true,

@@ -1,4 +1,4 @@
-# Finding Warmth
+# Sharing Warmth
 
 This project is MIT licensed so that you may freely learn and help others as we have.
 

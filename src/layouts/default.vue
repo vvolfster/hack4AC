@@ -11,7 +11,7 @@
                 </q-btn>
 
                 <q-toolbar-title>
-                    Finding Warmth
+                    Sharing Warmth
                 </q-toolbar-title>
             </q-toolbar>
             <q-tabs>

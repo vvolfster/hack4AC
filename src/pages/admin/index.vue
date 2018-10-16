@@ -10,7 +10,7 @@
                     <q-icon name="menu" />
                 </q-btn>
                 <q-toolbar-title>
-                    Finding Warmth
+                    Sharing Warmth
                     <div slot="subtitle"></div>
                 </q-toolbar-title>
             </q-toolbar>

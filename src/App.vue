@@ -4,7 +4,7 @@
             <div style="flex: 1 1 100%;"></div>
             <div class="column items-center" style="flex: 0 0 20vh; ">
                 <img src="statics/icons/icon-512x512.png" class="warmlogo">
-                <h3 class="text-red-8">Finding Warmth</h3>
+                <h3 class="text-red-8">Sharing Warmth</h3>
             </div>
             <div style="flex: 1 1 100%;"></div>
             <q-btn size="lg" class="bg-red-8 text-white fillw" @click.stop="startLoginFlow">Log in</q-btn>
