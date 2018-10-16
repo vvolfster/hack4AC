@@ -1,7 +1,7 @@
 import moment from "moment";
 import lodash from "lodash";
 import Vuelidate from "vuelidate";
-import { AddressbarColor } from "quasar";
+// import { AddressbarColor } from "quasar";
 import genericListenerPlugin from './genericListenerPlugin';
 import orgConnectorPlugin from "./orgConnectorPlugin"
 import { base } from "../storeWriter"
@@ -10,7 +10,7 @@ import { base } from "../storeWriter"
 // export default ({ app, router, Vue }) => {
 export default ({ Vue, store }) => {
     // const { data, beforeCreate, created, methods } = init;
-    AddressbarColor.set("#a2e3fa");
+    // AddressbarColor.set("#a2e3fa");
     Vue.prototype.moment = moment;
     Vue.prototype.lodash = lodash;
     Vue.config.productionTip = false;

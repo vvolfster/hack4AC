@@ -96,8 +96,6 @@ module.exports = (ctx) => {
                 'QItemSeparator',
                 'QToggle',
                 'QSelect',
-                'QFab',
-                'QFabAction',
                 'QModal',
                 'QUploader',
                 'QBtnToggle',
