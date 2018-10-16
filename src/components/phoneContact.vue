@@ -4,11 +4,11 @@
          id="root">
         <q-btn @click="emitClick"
                style="width:90%"
-               :label="contact.firstName ? contact.firstName : role"
+               :label="role + ': ' + contact.firstName"
                icon="phone"
                :size="small ? 'md' : 'lg'"
                flat
-               :color="contact.phone === '911' || contact.phone === '911111' ? 'red' : 'secondary'"
+               :color="contact.phone === '911' ? 'red' : 'secondary'"
 
                class="q-ma-md">
             <!-- <div v-if="role"

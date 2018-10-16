@@ -129,7 +129,7 @@ const actions = {
     toggleLead({ rootState, rootGetters }, { siteId, role }) {
         // console.log(siteId, role)
         const orgRef = Constants.store.getOrgRef(rootState, rootGetters);
-        if (!orgRef || (role !== 'shiftLead' && role !== 'siteLead'))
+        if (!orgRef || (role !== 'shiftLead' && role !== 'siteLead' && role !== 'kitchenLead'))
             return Promise.reject(new Error('User not logged in or no site selected or incorrect role'));
 
         const promises = [Constants.store.getUserOrgValue(rootState, rootGetters), Constants.store.getOrgValue(rootState, rootGetters)];

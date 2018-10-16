@@ -58,6 +58,9 @@
                     <phone-contact role="Shift Lead"
                                    :contact=site.shiftLead
                                    small='true'></phone-contact>
+                    <phone-contact role="Kitchen Lead"
+                                   :contact=site.kitchenLead
+                                   small='true'></phone-contact>
                 </q-card-actions>
             </q-card>
 
@@ -89,6 +92,9 @@
                                         :siteId=siteId></changeLead>
                             <changeLead role="shift lead"
                                         roleId="shiftLead"
+                                        :siteId=siteId></changeLead>
+                            <changeLead role="kitchen lead"
+                                        roleId="kitchenLead"
                                         :siteId=siteId></changeLead>
                         </div>
                     </div>
